@@ -1,0 +1,13 @@
+# Starting-quarterback availability. Reliable automated sourcing was not possible, so this file is
+# edited by hand. The committee model has NO learned weight for these flags (there is no historical
+# availability data to learn from); `assumed_effect` below is an assumption applied to the team's score,
+# in log-odds units of the pairwise model (1.0 is roughly one to two ranking places near the top).
+assumed_effect:
+  qb_out: -0.6        # starter out for the foreseeable future
+  qb_returning: 0.3   # starter back after missing games the team lost
+teams: {}
+# to activate, replace the line above with `teams:` and add indented entries like the example
+  # Example:
+  # "Ohio State": {qb_out: 1, note: "Julian Sayin injured before the Oct 31 USC game; status undisclosed (chair, Nov 3)"}
+  # No active entries. A flag should only be set for news the committee has NOT yet ranked with:
+  # last week's ranking already reflects anything known before it (e.g. Ohio State's QB on Nov 3).

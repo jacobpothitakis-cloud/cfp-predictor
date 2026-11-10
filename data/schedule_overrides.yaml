@@ -1,0 +1,25 @@
+# Games the ESPN feed lists with a placeholder opponent. Edit when pairings are confirmed.
+# Pac-12 week-13 "flex" games: non-conference games between Pac-12 members. The conference may change
+# these pairings up to six days before kickoff (to avoid a title-game rematch or help CFP positioning).
+# Source: Texas State / Pac-12 2026 schedule release, https://txst.com/news/2026/2/11/pac-12-bobcats-announce-2026-football-conference-slate.aspx
+# Status: TENTATIVE pairings as published in February 2026.
+flex_games:
+  - {season: 2026, home: "Colorado State", away: "Texas State", conference_game: false}
+  - {season: 2026, home: "Utah State", away: "Boise State", conference_game: false}
+  - {season: 2026, home: "Fresno State", away: "San Diego State", conference_game: false}
+  - {season: 2026, home: "Washington State", away: "Oregon State", conference_game: false}
+
+# Conference championship games. Source: https://fbschedules.com/college-football-conference-championship-games/
+# site: "neutral" or "campus" (No. 1 seed hosts).
+title_games:
+  2026:
+    sec:      {date: "2026-12-05", site: neutral, venue: "Mercedes-Benz Stadium, Atlanta"}
+    big10:    {date: "2026-12-05", site: neutral, venue: "Lucas Oil Stadium, Indianapolis"}
+    big12:    {date: "2026-12-04", site: neutral, venue: "AT&T Stadium, Arlington"}
+    acc:      {date: "2026-12-05", site: neutral, venue: "Bank of America Stadium, Charlotte"}
+    midam:    {date: "2026-12-05", site: neutral, venue: "Ford Field, Detroit"}
+    american: {date: "2026-12-05", site: campus}
+    mwest:    {date: "2026-12-04", site: campus}
+    pac12:    {date: "2026-12-04", site: campus}
+    usa:      {date: "2026-12-04", site: campus}
+    belt:     {date: "2026-12-04", site: campus}

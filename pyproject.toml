@@ -1,0 +1,23 @@
+[project]
+name = "cfp-predictor"
+version = "0.1.0"
+description = "Predicts the College Football Playoff selection committee's rankings, field and bracket"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas", "numpy", "scipy", "scikit-learn", "lightgbm", "duckdb", "pyarrow",
+  "requests", "python-dotenv", "pyyaml", "typer", "rich", "streamlit",
+  "beautifulsoup4", "lxml",
+]
+[project.optional-dependencies]
+dev = ["pytest"]
+[project.scripts]
+cfp = "cfp.cli:app"
+cfp-dashboard = "cfp.app.run:main"
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+include = ["cfp*"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["data: needs the ingested database", "slow: long-running"]

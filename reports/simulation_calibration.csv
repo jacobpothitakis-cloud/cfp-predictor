@@ -1,0 +1,1441 @@
+season,release,team,p_field,made_field
+2014,1,Ole Miss,0.613,0
+2014,1,Mississippi State,0.537,0
+2014,1,Alabama,0.446,1
+2014,1,Oregon,0.363,1
+2014,1,Auburn,0.328,0
+2014,1,Georgia,0.275,0
+2014,1,Florida State,0.232,1
+2014,1,TCU,0.217,0
+2014,1,Michigan State,0.209,0
+2014,1,Ohio State,0.173,1
+2014,1,Baylor,0.142,0
+2014,1,Nebraska,0.124,0
+2014,1,Kansas State,0.09,0
+2014,1,Utah,0.063,0
+2014,1,Notre Dame,0.061,0
+2014,1,Arizona,0.044,0
+2014,1,Arizona State,0.026,0
+2014,1,LSU,0.022,0
+2014,1,Oklahoma,0.01,0
+2014,1,Duke,0.009,0
+2014,1,UCLA,0.005,0
+2014,1,Clemson,0.004,0
+2014,1,West Virginia,0.003,0
+2014,1,Marshall,0.002,0
+2014,1,Louisville,0.001,0
+2014,1,Wisconsin,0.001,0
+2014,1,USC,0.0,0
+2014,1,East Carolina,0.0,0
+2014,1,Colorado State,0.0,0
+2014,1,Texas A&M,0.0,0
+2014,1,Missouri,0.0,0
+2014,1,Miami,0.0,0
+2014,1,Georgia Tech,0.0,0
+2014,1,Stanford,0.0,0
+2014,1,Boise State,0.0,0
+2014,1,Georgia Southern,0.0,0
+2014,1,Minnesota,0.0,0
+2014,1,Memphis,0.0,0
+2014,1,Arkansas,0.0,0
+2014,1,Boston College,0.0,0
+2014,1,Virginia Tech,0.0,0
+2014,1,UCF,0.0,0
+2014,1,Maryland,0.0,0
+2014,1,Houston,0.0,0
+2014,1,Florida,0.0,0
+2014,1,South Carolina,0.0,0
+2014,1,Iowa,0.0,0
+2014,1,Washington,0.0,0
+2014,1,Utah State,0.0,0
+2014,1,Nevada,0.0,0
+2014,1,Penn State,0.0,0
+2014,1,Virginia,0.0,0
+2014,1,Kentucky,0.0,0
+2014,1,Rutgers,0.0,0
+2014,1,Middle Tennessee,0.0,0
+2014,1,Air Force,0.0,0
+2014,1,Oklahoma State,0.0,0
+2014,1,Oregon State,0.0,0
+2014,1,South Alabama,0.0,0
+2014,1,North Carolina,0.0,0
+2014,3,Oregon,0.643,1
+2014,3,TCU,0.589,0
+2014,3,Mississippi State,0.525,0
+2014,3,Alabama,0.461,1
+2014,3,Baylor,0.423,0
+2014,3,Florida State,0.307,1
+2014,3,Ohio State,0.293,1
+2014,3,Ole Miss,0.272,0
+2014,3,Auburn,0.219,0
+2014,3,Arizona State,0.069,0
+2014,3,Nebraska,0.069,0
+2014,3,Georgia,0.049,0
+2014,3,UCLA,0.033,0
+2014,3,Kansas State,0.027,0
+2014,3,Duke,0.007,0
+2014,3,Wisconsin,0.007,0
+2014,3,Arizona,0.004,0
+2014,3,Michigan State,0.002,0
+2014,3,LSU,0.001,0
+2014,3,Marshall,0.0,0
+2014,3,Oklahoma,0.0,0
+2014,3,Clemson,0.0,0
+2014,3,Notre Dame,0.0,0
+2014,3,Georgia Tech,0.0,0
+2014,3,Texas A&M,0.0,0
+2014,3,USC,0.0,0
+2014,3,Colorado State,0.0,0
+2014,3,Utah,0.0,0
+2014,3,Miami,0.0,0
+2014,3,Louisville,0.0,0
+2014,3,West Virginia,0.0,0
+2014,3,Missouri,0.0,0
+2014,3,Florida,0.0,0
+2014,3,Georgia Southern,0.0,0
+2014,3,Boise State,0.0,0
+2014,3,Memphis,0.0,0
+2014,3,Louisiana Tech,0.0,0
+2014,3,East Carolina,0.0,0
+2014,3,Minnesota,0.0,0
+2014,3,Boston College,0.0,0
+2014,3,Arkansas,0.0,0
+2014,3,Stanford,0.0,0
+2014,3,Maryland,0.0,0
+2014,3,Nevada,0.0,0
+2014,3,Utah State,0.0,0
+2014,3,Tennessee,0.0,0
+2014,3,Iowa,0.0,0
+2014,3,Air Force,0.0,0
+2014,3,UCF,0.0,0
+2014,3,Western Michigan,0.0,0
+2014,3,Washington,0.0,0
+2014,3,Texas,0.0,0
+2014,3,Arkansas State,0.0,0
+2014,3,South Carolina,0.0,0
+2014,3,Louisiana,0.0,0
+2014,3,Northern Illinois,0.0,0
+2014,3,California,0.0,0
+2014,3,Cincinnati,0.0,0
+2014,3,Rice,0.0,0
+2014,3,Rutgers,0.0,0
+2015,1,Clemson,0.767,1
+2015,1,Ohio State,0.513,0
+2015,1,Alabama,0.505,1
+2015,1,Baylor,0.373,0
+2015,1,LSU,0.244,0
+2015,1,Notre Dame,0.237,0
+2015,1,Stanford,0.231,0
+2015,1,TCU,0.227,0
+2015,1,Oklahoma,0.219,1
+2015,1,Florida,0.18,0
+2015,1,Michigan State,0.164,1
+2015,1,Iowa,0.085,0
+2015,1,Utah,0.066,0
+2015,1,Florida State,0.059,0
+2015,1,Oklahoma State,0.056,0
+2015,1,Ole Miss,0.025,0
+2015,1,Michigan,0.021,0
+2015,1,Memphis,0.01,0
+2015,1,Mississippi State,0.01,0
+2015,1,UCLA,0.005,0
+2015,1,North Carolina,0.002,0
+2015,1,USC,0.001,0
+2015,1,Texas A&M,0.0,0
+2015,1,Houston,0.0,0
+2015,1,Wisconsin,0.0,0
+2015,1,Temple,0.0,0
+2015,1,Toledo,0.0,0
+2015,1,Northwestern,0.0,0
+2015,1,Duke,0.0,0
+2015,1,Appalachian State,0.0,0
+2015,1,BYU,0.0,0
+2015,1,Tennessee,0.0,0
+2015,1,Boise State,0.0,0
+2015,1,Georgia,0.0,0
+2015,1,Western Kentucky,0.0,0
+2015,1,Penn State,0.0,0
+2015,1,Navy,0.0,0
+2015,1,California,0.0,0
+2015,1,Pittsburgh,0.0,0
+2015,1,Bowling Green,0.0,0
+2015,1,Oregon,0.0,0
+2015,1,West Virginia,0.0,0
+2015,1,Washington,0.0,0
+2015,1,Miami,0.0,0
+2015,1,Marshall,0.0,0
+2015,1,Louisville,0.0,0
+2015,1,Louisiana Tech,0.0,0
+2015,1,Arkansas,0.0,0
+2015,1,NC State,0.0,0
+2015,1,Georgia Southern,0.0,0
+2015,1,San Diego State,0.0,0
+2015,1,Utah State,0.0,0
+2015,1,Texas Tech,0.0,0
+2015,1,Arizona State,0.0,0
+2015,1,Auburn,0.0,0
+2015,1,Cincinnati,0.0,0
+2015,1,Northern Illinois,0.0,0
+2015,1,Washington State,0.0,0
+2015,1,Central Michigan,0.0,0
+2015,1,Western Michigan,0.0,0
+2015,3,Clemson,0.899,1
+2015,3,Alabama,0.806,1
+2015,3,Ohio State,0.526,0
+2015,3,Oklahoma,0.516,1
+2015,3,Notre Dame,0.272,0
+2015,3,Oklahoma State,0.202,0
+2015,3,Florida,0.181,0
+2015,3,Baylor,0.151,0
+2015,3,Iowa,0.127,0
+2015,3,Michigan State,0.124,1
+2015,3,Stanford,0.092,0
+2015,3,Michigan,0.037,0
+2015,3,North Carolina,0.031,0
+2015,3,TCU,0.025,0
+2015,3,Utah,0.007,0
+2015,3,LSU,0.003,0
+2015,3,Florida State,0.001,0
+2015,3,Houston,0.0,0
+2015,3,USC,0.0,0
+2015,3,Wisconsin,0.0,0
+2015,3,Northwestern,0.0,0
+2015,3,Navy,0.0,0
+2015,3,Oregon,0.0,0
+2015,3,Ole Miss,0.0,0
+2015,3,Memphis,0.0,0
+2015,3,Mississippi State,0.0,0
+2015,3,Arkansas,0.0,0
+2015,3,Tennessee,0.0,0
+2015,3,UCLA,0.0,0
+2015,3,Texas A&M,0.0,0
+2015,3,Georgia,0.0,0
+2015,3,Toledo,0.0,0
+2015,3,Temple,0.0,0
+2015,3,Bowling Green,0.0,0
+2015,3,Pittsburgh,0.0,0
+2015,3,Western Kentucky,0.0,0
+2015,3,Washington State,0.0,0
+2015,3,BYU,0.0,0
+2015,3,Louisville,0.0,0
+2015,3,West Virginia,0.0,0
+2015,3,Boise State,0.0,0
+2015,3,Penn State,0.0,0
+2015,3,Appalachian State,0.0,0
+2015,3,Miami,0.0,0
+2015,3,Northern Illinois,0.0,0
+2015,3,California,0.0,0
+2015,3,Marshall,0.0,0
+2015,3,Louisiana Tech,0.0,0
+2015,3,NC State,0.0,0
+2015,3,Arkansas State,0.0,0
+2015,3,San Diego State,0.0,0
+2015,3,Georgia Southern,0.0,0
+2015,3,Duke,0.0,0
+2015,3,Texas Tech,0.0,0
+2015,3,Auburn,0.0,0
+2015,3,Virginia Tech,0.0,0
+2015,3,Arizona,0.0,0
+2015,3,Air Force,0.0,0
+2015,3,Cincinnati,0.0,0
+2015,3,South Florida,0.0,0
+2016,1,Alabama,0.944,1
+2016,1,Clemson,0.875,1
+2016,1,Michigan,0.65,0
+2016,1,Washington,0.595,1
+2016,1,Ohio State,0.438,1
+2016,1,Louisville,0.187,0
+2016,1,Wisconsin,0.107,0
+2016,1,Texas A&M,0.101,0
+2016,1,Auburn,0.025,0
+2016,1,Florida,0.022,0
+2016,1,Colorado,0.016,0
+2016,1,LSU,0.014,0
+2016,1,Nebraska,0.009,0
+2016,1,Baylor,0.005,0
+2016,1,Oklahoma,0.004,0
+2016,1,West Virginia,0.003,0
+2016,1,Penn State,0.003,0
+2016,1,Virginia Tech,0.001,0
+2016,1,Washington State,0.001,0
+2016,1,Western Michigan,0.0,0
+2016,1,North Carolina,0.0,0
+2016,1,Boise State,0.0,0
+2016,1,Tennessee,0.0,0
+2016,1,Florida State,0.0,0
+2016,1,Utah,0.0,0
+2016,1,Oklahoma State,0.0,0
+2016,1,USC,0.0,0
+2016,1,Stanford,0.0,0
+2016,1,Houston,0.0,0
+2016,1,Troy,0.0,0
+2016,1,San Diego State,0.0,0
+2016,1,Arkansas,0.0,0
+2016,1,Navy,0.0,0
+2016,1,South Florida,0.0,0
+2016,1,Western Kentucky,0.0,0
+2016,1,Toledo,0.0,0
+2016,1,Appalachian State,0.0,0
+2016,1,Minnesota,0.0,0
+2016,1,Middle Tennessee,0.0,0
+2016,1,Kansas State,0.0,0
+2016,1,Ole Miss,0.0,0
+2016,1,Iowa,0.0,0
+2016,1,Northwestern,0.0,0
+2016,1,Texas,0.0,0
+2016,1,Temple,0.0,0
+2016,1,Pittsburgh,0.0,0
+2016,1,BYU,0.0,0
+2016,1,Georgia Tech,0.0,0
+2016,1,Louisiana Tech,0.0,0
+2016,1,Tulsa,0.0,0
+2016,1,California,0.0,0
+2016,1,Georgia,0.0,0
+2016,1,Wake Forest,0.0,0
+2016,1,Kentucky,0.0,0
+2016,1,Wyoming,0.0,0
+2016,1,Maryland,0.0,0
+2016,1,Ohio,0.0,0
+2016,1,New Mexico,0.0,0
+2016,1,Vanderbilt,0.0,0
+2016,1,Syracuse,0.0,0
+2016,3,Alabama,0.992,1
+2016,3,Clemson,0.775,1
+2016,3,Ohio State,0.628,1
+2016,3,Michigan,0.512,0
+2016,3,Washington,0.477,1
+2016,3,Louisville,0.324,0
+2016,3,Wisconsin,0.17,0
+2016,3,Colorado,0.05,0
+2016,3,Penn State,0.03,0
+2016,3,Oklahoma,0.018,0
+2016,3,USC,0.009,0
+2016,3,Washington State,0.007,0
+2016,3,West Virginia,0.003,0
+2016,3,Utah,0.002,0
+2016,3,Oklahoma State,0.001,0
+2016,3,Nebraska,0.001,0
+2016,3,Florida,0.001,0
+2016,3,Western Michigan,0.0,0
+2016,3,Florida State,0.0,0
+2016,3,LSU,0.0,0
+2016,3,Auburn,0.0,0
+2016,3,Texas A&M,0.0,0
+2016,3,Tennessee,0.0,0
+2016,3,Stanford,0.0,0
+2016,3,Boise State,0.0,0
+2016,3,North Carolina,0.0,0
+2016,3,Virginia Tech,0.0,0
+2016,3,Troy,0.0,0
+2016,3,Houston,0.0,0
+2016,3,Arkansas,0.0,0
+2016,3,San Diego State,0.0,0
+2016,3,Iowa,0.0,0
+2016,3,South Florida,0.0,0
+2016,3,Pittsburgh,0.0,0
+2016,3,Navy,0.0,0
+2016,3,Georgia,0.0,0
+2016,3,Ole Miss,0.0,0
+2016,3,Western Kentucky,0.0,0
+2016,3,Toledo,0.0,0
+2016,3,Miami,0.0,0
+2016,3,Minnesota,0.0,0
+2016,3,Northwestern,0.0,0
+2016,3,Baylor,0.0,0
+2016,3,Georgia Tech,0.0,0
+2016,3,Temple,0.0,0
+2016,3,Louisiana Tech,0.0,0
+2016,3,Texas,0.0,0
+2016,3,TCU,0.0,0
+2016,3,BYU,0.0,0
+2016,3,Appalachian State,0.0,0
+2016,3,Tulsa,0.0,0
+2016,3,Kansas State,0.0,0
+2016,3,Air Force,0.0,0
+2016,3,Wake Forest,0.0,0
+2016,3,Wyoming,0.0,0
+2016,3,NC State,0.0,0
+2016,3,Ohio,0.0,0
+2016,3,New Mexico,0.0,0
+2016,3,Old Dominion,0.0,0
+2016,3,Mississippi State,0.0,0
+2017,1,Alabama,0.736,1
+2017,1,Ohio State,0.504,0
+2017,1,Penn State,0.502,0
+2017,1,Clemson,0.489,1
+2017,1,Georgia,0.348,1
+2017,1,Notre Dame,0.287,0
+2017,1,Wisconsin,0.262,0
+2017,1,Oklahoma,0.183,1
+2017,1,Oklahoma State,0.169,0
+2017,1,TCU,0.145,0
+2017,1,Washington,0.14,0
+2017,1,Miami,0.106,0
+2017,1,Auburn,0.069,0
+2017,1,Virginia Tech,0.041,0
+2017,1,USC,0.006,0
+2017,1,Iowa State,0.005,0
+2017,1,Stanford,0.004,0
+2017,1,NC State,0.003,0
+2017,1,Michigan,0.001,0
+2017,1,UCF,0.0,0
+2017,1,Mississippi State,0.0,0
+2017,1,LSU,0.0,0
+2017,1,Michigan State,0.0,0
+2017,1,Memphis,0.0,0
+2017,1,Washington State,0.0,0
+2017,1,San Diego State,0.0,0
+2017,1,Arizona,0.0,0
+2017,1,South Florida,0.0,0
+2017,1,West Virginia,0.0,0
+2017,1,South Carolina,0.0,0
+2017,1,Toledo,0.0,0
+2017,1,Northwestern,0.0,0
+2017,1,Georgia Tech,0.0,0
+2017,1,Wake Forest,0.0,0
+2017,1,Louisville,0.0,0
+2017,1,Troy,0.0,0
+2017,1,Iowa,0.0,0
+2017,1,Arizona State,0.0,0
+2017,1,Boise State,0.0,0
+2017,1,Texas,0.0,0
+2017,1,Texas A&M,0.0,0
+2017,1,Boston College,0.0,0
+2017,1,Houston,0.0,0
+2017,1,Navy,0.0,0
+2017,1,Arkansas State,0.0,0
+2017,1,Kentucky,0.0,0
+2017,1,Florida,0.0,0
+2017,1,Northern Illinois,0.0,0
+2017,1,Texas Tech,0.0,0
+2017,1,Syracuse,0.0,0
+2017,1,SMU,0.0,0
+2017,1,Florida Atlantic,0.0,0
+2017,1,Oregon,0.0,0
+2017,1,Army,0.0,0
+2017,1,UCLA,0.0,0
+2017,1,Maryland,0.0,0
+2017,1,Western Michigan,0.0,0
+2017,1,Ohio,0.0,0
+2017,1,UT San Antonio,0.0,0
+2017,1,Nebraska,0.0,0
+2017,3,Alabama,0.804,1
+2017,3,Clemson,0.736,1
+2017,3,Oklahoma,0.643,1
+2017,3,Wisconsin,0.522,0
+2017,3,Miami,0.424,0
+2017,3,Georgia,0.32,1
+2017,3,Ohio State,0.199,0
+2017,3,Auburn,0.174,0
+2017,3,Penn State,0.06,0
+2017,3,TCU,0.051,0
+2017,3,Notre Dame,0.027,0
+2017,3,USC,0.022,0
+2017,3,Oklahoma State,0.015,0
+2017,3,Washington,0.001,0
+2017,3,Washington State,0.001,0
+2017,3,Michigan,0.001,0
+2017,3,UCF,0.0,0
+2017,3,Michigan State,0.0,0
+2017,3,Stanford,0.0,0
+2017,3,Mississippi State,0.0,0
+2017,3,LSU,0.0,0
+2017,3,NC State,0.0,0
+2017,3,Virginia Tech,0.0,0
+2017,3,Memphis,0.0,0
+2017,3,Northwestern,0.0,0
+2017,3,Iowa,0.0,0
+2017,3,West Virginia,0.0,0
+2017,3,Iowa State,0.0,0
+2017,3,San Diego State,0.0,0
+2017,3,Boise State,0.0,0
+2017,3,South Carolina,0.0,0
+2017,3,South Florida,0.0,0
+2017,3,Wake Forest,0.0,0
+2017,3,Arizona,0.0,0
+2017,3,Georgia Tech,0.0,0
+2017,3,Toledo,0.0,0
+2017,3,Troy,0.0,0
+2017,3,Louisville,0.0,0
+2017,3,Army,0.0,0
+2017,3,Texas,0.0,0
+2017,3,Ohio,0.0,0
+2017,3,Houston,0.0,0
+2017,3,Florida Atlantic,0.0,0
+2017,3,Arizona State,0.0,0
+2017,3,Boston College,0.0,0
+2017,3,Kentucky,0.0,0
+2017,3,Navy,0.0,0
+2017,3,Texas A&M,0.0,0
+2017,3,Fresno State,0.0,0
+2017,3,Northern Illinois,0.0,0
+2017,3,Florida State,0.0,0
+2017,3,Oregon,0.0,0
+2017,3,Wyoming,0.0,0
+2017,3,UCLA,0.0,0
+2017,3,Texas Tech,0.0,0
+2017,3,California,0.0,0
+2017,3,UAB,0.0,0
+2017,3,Kansas State,0.0,0
+2017,3,North Texas,0.0,0
+2017,3,Virginia,0.0,0
+2018,1,Alabama,0.91,1
+2018,1,Clemson,0.808,1
+2018,1,Notre Dame,0.468,1
+2018,1,Georgia,0.407,0
+2018,1,Oklahoma,0.381,1
+2018,1,Michigan,0.356,0
+2018,1,LSU,0.279,0
+2018,1,Ohio State,0.239,0
+2018,1,Kentucky,0.061,0
+2018,1,Penn State,0.038,0
+2018,1,Washington State,0.016,0
+2018,1,West Virginia,0.013,0
+2018,1,Iowa,0.011,0
+2018,1,Texas,0.01,0
+2018,1,Utah,0.002,0
+2018,1,Florida,0.001,0
+2018,1,UCF,0.0,0
+2018,1,Washington,0.0,0
+2018,1,Fresno State,0.0,0
+2018,1,Iowa State,0.0,0
+2018,1,Mississippi State,0.0,0
+2018,1,NC State,0.0,0
+2018,1,Texas A&M,0.0,0
+2018,1,Northwestern,0.0,0
+2018,1,Syracuse,0.0,0
+2018,1,Michigan State,0.0,0
+2018,1,Wisconsin,0.0,0
+2018,1,Purdue,0.0,0
+2018,1,Utah State,0.0,0
+2018,1,Appalachian State,0.0,0
+2018,1,Auburn,0.0,0
+2018,1,Virginia,0.0,0
+2018,1,Boston College,0.0,0
+2018,1,Texas Tech,0.0,0
+2018,1,Army,0.0,0
+2018,1,Stanford,0.0,0
+2018,1,Buffalo,0.0,0
+2018,1,Miami,0.0,0
+2018,1,Cincinnati,0.0,0
+2018,1,Houston,0.0,0
+2018,1,Virginia Tech,0.0,0
+2018,1,Missouri,0.0,0
+2018,1,Georgia Southern,0.0,0
+2018,1,Oregon,0.0,0
+2018,1,Boise State,0.0,0
+2018,1,UAB,0.0,0
+2018,1,Oklahoma State,0.0,0
+2018,1,South Carolina,0.0,0
+2018,1,Duke,0.0,0
+2018,1,North Texas,0.0,0
+2018,1,USC,0.0,0
+2018,1,Maryland,0.0,0
+2018,1,San Diego State,0.0,0
+2018,1,Ole Miss,0.0,0
+2018,1,Louisiana Tech,0.0,0
+2018,1,South Florida,0.0,0
+2018,1,Florida International,0.0,0
+2018,1,Troy,0.0,0
+2018,1,California,0.0,0
+2018,1,Pittsburgh,0.0,0
+2018,3,Alabama,0.954,1
+2018,3,Clemson,0.902,1
+2018,3,Michigan,0.544,0
+2018,3,Notre Dame,0.491,1
+2018,3,Oklahoma,0.42,1
+2018,3,Georgia,0.41,0
+2018,3,Ohio State,0.163,0
+2018,3,LSU,0.062,0
+2018,3,West Virginia,0.044,0
+2018,3,Washington State,0.009,0
+2018,3,Syracuse,0.001,0
+2018,3,Penn State,0.0,0
+2018,3,UCF,0.0,0
+2018,3,Florida,0.0,0
+2018,3,Texas,0.0,0
+2018,3,Kentucky,0.0,0
+2018,3,Iowa State,0.0,0
+2018,3,Washington,0.0,0
+2018,3,Northwestern,0.0,0
+2018,3,Mississippi State,0.0,0
+2018,3,Utah State,0.0,0
+2018,3,Utah,0.0,0
+2018,3,Michigan State,0.0,0
+2018,3,Fresno State,0.0,0
+2018,3,Cincinnati,0.0,0
+2018,3,Missouri,0.0,0
+2018,3,Boston College,0.0,0
+2018,3,Auburn,0.0,0
+2018,3,Boise State,0.0,0
+2018,3,Texas A&M,0.0,0
+2018,3,Buffalo,0.0,0
+2018,3,Army,0.0,0
+2018,3,Purdue,0.0,0
+2018,3,NC State,0.0,0
+2018,3,Duke,0.0,0
+2018,3,Iowa,0.0,0
+2018,3,Appalachian State,0.0,0
+2018,3,Arizona State,0.0,0
+2018,3,UAB,0.0,0
+2018,3,Stanford,0.0,0
+2018,3,Wisconsin,0.0,0
+2018,3,South Carolina,0.0,0
+2018,3,Pittsburgh,0.0,0
+2018,3,Virginia,0.0,0
+2018,3,Oregon,0.0,0
+2018,3,Troy,0.0,0
+2018,3,Texas Tech,0.0,0
+2018,3,Georgia Tech,0.0,0
+2018,3,Oklahoma State,0.0,0
+2018,3,California,0.0,0
+2018,3,Temple,0.0,0
+2018,3,Louisiana Tech,0.0,0
+2018,3,San Diego State,0.0,0
+2018,3,North Texas,0.0,0
+2018,3,Tennessee,0.0,0
+2018,3,Northern Illinois,0.0,0
+2018,3,Houston,0.0,0
+2018,3,Memphis,0.0,0
+2018,3,Middle Tennessee,0.0,0
+2018,3,Minnesota,0.0,0
+2019,1,Ohio State,0.912,1
+2019,1,Clemson,0.666,1
+2019,1,Alabama,0.664,0
+2019,1,LSU,0.65,1
+2019,1,Penn State,0.278,0
+2019,1,Oklahoma,0.256,1
+2019,1,Georgia,0.223,0
+2019,1,Utah,0.104,0
+2019,1,Auburn,0.088,0
+2019,1,Oregon,0.085,0
+2019,1,Wisconsin,0.024,0
+2019,1,Baylor,0.018,0
+2019,1,Florida,0.012,0
+2019,1,Minnesota,0.011,0
+2019,1,Michigan,0.006,0
+2019,1,Iowa,0.003,0
+2019,1,Notre Dame,0.0,0
+2019,1,Cincinnati,0.0,0
+2019,1,UCF,0.0,0
+2019,1,Memphis,0.0,0
+2019,1,Kansas State,0.0,0
+2019,1,SMU,0.0,0
+2019,1,Appalachian State,0.0,0
+2019,1,Boise State,0.0,0
+2019,1,Oklahoma State,0.0,0
+2019,1,Wake Forest,0.0,0
+2019,1,Navy,0.0,0
+2019,1,Virginia,0.0,0
+2019,1,Texas,0.0,0
+2019,1,Texas A&M,0.0,0
+2019,1,USC,0.0,0
+2019,1,Air Force,0.0,0
+2019,1,Indiana,0.0,0
+2019,1,Washington,0.0,0
+2019,1,Louisiana,0.0,0
+2019,1,Iowa State,0.0,0
+2019,1,Pittsburgh,0.0,0
+2019,1,Michigan State,0.0,0
+2019,1,Arizona State,0.0,0
+2019,1,Missouri,0.0,0
+2019,1,San Diego State,0.0,0
+2019,1,TCU,0.0,0
+2019,1,Kentucky,0.0,0
+2019,1,Miami,0.0,0
+2019,1,BYU,0.0,0
+2019,1,Louisiana Tech,0.0,0
+2019,1,South Carolina,0.0,0
+2019,1,Louisville,0.0,0
+2019,1,Tulane,0.0,0
+2019,1,Illinois,0.0,0
+2019,1,Marshall,0.0,0
+2019,1,Temple,0.0,0
+2019,1,Wyoming,0.0,0
+2019,1,Georgia Southern,0.0,0
+2019,1,Stanford,0.0,0
+2019,1,UCLA,0.0,0
+2019,1,UAB,0.0,0
+2019,1,Georgia State,0.0,0
+2019,1,Boston College,0.0,0
+2019,1,Virginia Tech,0.0,0
+2019,3,Ohio State,0.89,1
+2019,3,LSU,0.876,1
+2019,3,Clemson,0.572,1
+2019,3,Alabama,0.528,0
+2019,3,Georgia,0.506,0
+2019,3,Oklahoma,0.305,1
+2019,3,Oregon,0.097,0
+2019,3,Penn State,0.091,0
+2019,3,Utah,0.08,0
+2019,3,Wisconsin,0.032,0
+2019,3,Florida,0.008,0
+2019,3,Michigan,0.006,0
+2019,3,Minnesota,0.005,0
+2019,3,Baylor,0.004,0
+2019,3,Auburn,0.0,0
+2019,3,Notre Dame,0.0,0
+2019,3,Iowa,0.0,0
+2019,3,Memphis,0.0,0
+2019,3,Cincinnati,0.0,0
+2019,3,Appalachian State,0.0,0
+2019,3,Oklahoma State,0.0,0
+2019,3,Boise State,0.0,0
+2019,3,USC,0.0,0
+2019,3,SMU,0.0,0
+2019,3,Iowa State,0.0,0
+2019,3,Texas A&M,0.0,0
+2019,3,Virginia,0.0,0
+2019,3,Navy,0.0,0
+2019,3,Louisiana,0.0,0
+2019,3,UCF,0.0,0
+2019,3,Texas,0.0,0
+2019,3,Air Force,0.0,0
+2019,3,Washington,0.0,0
+2019,3,Pittsburgh,0.0,0
+2019,3,Indiana,0.0,0
+2019,3,Kansas State,0.0,0
+2019,3,Miami,0.0,0
+2019,3,Wake Forest,0.0,0
+2019,3,Illinois,0.0,0
+2019,3,Temple,0.0,0
+2019,3,BYU,0.0,0
+2019,3,Virginia Tech,0.0,0
+2019,3,Louisiana Tech,0.0,0
+2019,3,Florida Atlantic,0.0,0
+2019,3,TCU,0.0,0
+2019,3,Marshall,0.0,0
+2019,3,Kentucky,0.0,0
+2019,3,Missouri,0.0,0
+2019,3,Tennessee,0.0,0
+2019,3,Louisville,0.0,0
+2019,3,San Diego State,0.0,0
+2019,3,Arizona State,0.0,0
+2019,3,Western Michigan,0.0,0
+2019,3,Washington State,0.0,0
+2019,3,California,0.0,0
+2019,3,Florida State,0.0,0
+2019,3,Wyoming,0.0,0
+2019,3,Southern Mississippi,0.0,0
+2019,3,Georgia Southern,0.0,0
+2019,3,Tulane,0.0,0
+2020,1,Alabama,0.896,1
+2020,1,Ohio State,0.804,1
+2020,1,Notre Dame,0.526,1
+2020,1,Clemson,0.514,1
+2020,1,Cincinnati,0.405,0
+2020,1,Florida,0.293,0
+2020,1,Northwestern,0.259,0
+2020,1,BYU,0.073,0
+2020,1,Wisconsin,0.06,0
+2020,1,Oregon,0.057,0
+2020,1,Texas A&M,0.044,0
+2020,1,Miami,0.021,0
+2020,1,Indiana,0.021,0
+2020,1,Georgia,0.01,0
+2020,1,Oklahoma,0.005,0
+2020,1,USC,0.005,0
+2020,1,North Carolina,0.004,0
+2020,1,Iowa State,0.002,0
+2020,1,Auburn,0.001,0
+2020,1,Marshall,0.0,0
+2020,1,Tulsa,0.0,0
+2020,1,Texas,0.0,0
+2020,1,Washington,0.0,0
+2020,1,Coastal Carolina,0.0,0
+2020,1,Oklahoma State,0.0,0
+2020,1,Buffalo,0.0,0
+2020,1,Iowa,0.0,0
+2020,1,Liberty,0.0,0
+2020,1,New Mexico State,0.0,0
+2020,1,Louisiana,0.0,0
+2020,1,Boise State,0.0,0
+2020,1,San José State,0.0,0
+2020,1,Western Michigan,0.0,0
+2020,1,Utah,0.0,0
+2020,1,NC State,0.0,0
+2020,1,Kent State,0.0,0
+2020,1,SMU,0.0,0
+2020,1,UCF,0.0,0
+2020,1,Ohio,0.0,0
+2020,1,Maryland,0.0,0
+2020,1,Washington State,0.0,0
+2020,1,Florida Atlantic,0.0,0
+2020,1,West Virginia,0.0,0
+2020,1,Colorado,0.0,0
+2020,1,Purdue,0.0,0
+2020,1,Arizona State,0.0,0
+2020,1,Miami (OH),0.0,0
+2020,1,Nevada,0.0,0
+2020,1,Wake Forest,0.0,0
+2020,1,Michigan,0.0,0
+2020,1,Fresno State,0.0,0
+2020,1,Central Michigan,0.0,0
+2020,1,Appalachian State,0.0,0
+2020,1,LSU,0.0,0
+2020,1,Missouri,0.0,0
+2020,1,Toledo,0.0,0
+2020,1,UCLA,0.0,0
+2020,1,Memphis,0.0,0
+2020,1,Ball State,0.0,0
+2020,1,Oregon State,0.0,0
+2020,3,Alabama,0.987,1
+2020,3,Ohio State,0.799,1
+2020,3,Notre Dame,0.692,1
+2020,3,Clemson,0.65,1
+2020,3,Florida,0.292,0
+2020,3,Cincinnati,0.274,0
+2020,3,Texas A&M,0.127,0
+2020,3,Indiana,0.08,0
+2020,3,Northwestern,0.037,0
+2020,3,Coastal Carolina,0.024,0
+2020,3,Iowa State,0.013,0
+2020,3,Oklahoma,0.013,0
+2020,3,USC,0.007,0
+2020,3,Miami,0.005,0
+2020,3,Georgia,0.0,0
+2020,3,BYU,0.0,0
+2020,3,Louisiana,0.0,0
+2020,3,Tulsa,0.0,0
+2020,3,Colorado,0.0,0
+2020,3,Iowa,0.0,0
+2020,3,Buffalo,0.0,0
+2020,3,North Carolina,0.0,0
+2020,3,NC State,0.0,0
+2020,3,Wisconsin,0.0,0
+2020,3,Texas,0.0,0
+2020,3,San José State,0.0,0
+2020,3,Washington,0.0,0
+2020,3,Liberty,0.0,0
+2020,3,New Mexico State,0.0,0
+2020,3,Boise State,0.0,0
+2020,3,Oklahoma State,0.0,0
+2020,3,Marshall,0.0,0
+2020,3,Oregon,0.0,0
+2020,3,Ohio,0.0,0
+2020,3,Auburn,0.0,0
+2020,3,UCF,0.0,0
+2020,3,UCLA,0.0,0
+2020,3,TCU,0.0,0
+2020,3,Miami (OH),0.0,0
+2020,3,Kent State,0.0,0
+2020,3,Missouri,0.0,0
+2020,3,Maryland,0.0,0
+2020,3,Western Michigan,0.0,0
+2020,3,Ball State,0.0,0
+2020,3,Nevada,0.0,0
+2020,3,Utah,0.0,0
+2020,3,Wake Forest,0.0,0
+2020,3,Washington State,0.0,0
+2020,3,SMU,0.0,0
+2020,3,Air Force,0.0,0
+2020,3,Arizona State,0.0,0
+2020,3,Army,0.0,0
+2020,3,Stanford,0.0,0
+2020,3,Virginia,0.0,0
+2020,3,Houston,0.0,0
+2020,3,Memphis,0.0,0
+2020,3,Oregon State,0.0,0
+2020,3,Rice,0.0,0
+2020,3,Toledo,0.0,0
+2020,3,Minnesota,0.0,0
+2021,1,Georgia,0.974,1
+2021,1,Alabama,0.865,1
+2021,1,Ohio State,0.655,0
+2021,1,Oklahoma,0.3,0
+2021,1,Michigan,0.227,1
+2021,1,Cincinnati,0.202,1
+2021,1,Michigan State,0.177,0
+2021,1,Oregon,0.132,0
+2021,1,Wake Forest,0.127,0
+2021,1,Baylor,0.089,0
+2021,1,Oklahoma State,0.086,0
+2021,1,Notre Dame,0.061,0
+2021,1,Texas A&M,0.041,0
+2021,1,Auburn,0.02,0
+2021,1,Iowa,0.018,0
+2021,1,Ole Miss,0.017,0
+2021,1,Pittsburgh,0.004,0
+2021,1,Minnesota,0.002,0
+2021,1,NC State,0.002,0
+2021,1,Wisconsin,0.001,0
+2021,1,BYU,0.0,0
+2021,1,Kentucky,0.0,0
+2021,1,UTSA,0.0,0
+2021,1,Penn State,0.0,0
+2021,1,Coastal Carolina,0.0,0
+2021,1,Clemson,0.0,0
+2021,1,Utah,0.0,0
+2021,1,Houston,0.0,0
+2021,1,Mississippi State,0.0,0
+2021,1,Florida,0.0,0
+2021,1,Arkansas,0.0,0
+2021,1,Fresno State,0.0,0
+2021,1,Iowa State,0.0,0
+2021,1,Appalachian State,0.0,0
+2021,1,San Diego State,0.0,0
+2021,1,Virginia,0.0,0
+2021,1,Texas,0.0,0
+2021,1,Purdue,0.0,0
+2021,1,SMU,0.0,0
+2021,1,Louisiana,0.0,0
+2021,1,Arizona State,0.0,0
+2021,1,Miami,0.0,0
+2021,1,Air Force,0.0,0
+2021,1,Oregon State,0.0,0
+2021,1,Liberty,0.0,0
+2021,1,West Virginia,0.0,0
+2021,1,Boise State,0.0,0
+2021,1,LSU,0.0,0
+2021,1,Nevada,0.0,0
+2021,1,North Carolina,0.0,0
+2021,1,UCLA,0.0,0
+2021,1,Kansas State,0.0,0
+2021,1,Tennessee,0.0,0
+2021,1,UCF,0.0,0
+2021,1,Marshall,0.0,0
+2021,1,Washington State,0.0,0
+2021,1,Utah State,0.0,0
+2021,1,Syracuse,0.0,0
+2021,1,Maryland,0.0,0
+2021,1,Northern Illinois,0.0,0
+2021,3,Georgia,0.994,1
+2021,3,Alabama,0.79,1
+2021,3,Ohio State,0.655,0
+2021,3,Michigan,0.334,1
+2021,3,Oklahoma State,0.285,0
+2021,3,Oregon,0.197,0
+2021,3,Oklahoma,0.156,0
+2021,3,Cincinnati,0.145,1
+2021,3,Notre Dame,0.14,0
+2021,3,Wake Forest,0.123,0
+2021,3,Baylor,0.072,0
+2021,3,Michigan State,0.058,0
+2021,3,Ole Miss,0.032,0
+2021,3,Iowa,0.01,0
+2021,3,Pittsburgh,0.005,0
+2021,3,Wisconsin,0.003,0
+2021,3,Arkansas,0.001,0
+2021,3,Texas A&M,0.0,0
+2021,3,BYU,0.0,0
+2021,3,UTSA,0.0,0
+2021,3,Utah,0.0,0
+2021,3,Clemson,0.0,0
+2021,3,San Diego State,0.0,0
+2021,3,Penn State,0.0,0
+2021,3,Houston,0.0,0
+2021,3,NC State,0.0,0
+2021,3,Purdue,0.0,0
+2021,3,Mississippi State,0.0,0
+2021,3,Appalachian State,0.0,0
+2021,3,Louisiana,0.0,0
+2021,3,Auburn,0.0,0
+2021,3,Kentucky,0.0,0
+2021,3,Arizona State,0.0,0
+2021,3,Iowa State,0.0,0
+2021,3,Boise State,0.0,0
+2021,3,Fresno State,0.0,0
+2021,3,Kansas State,0.0,0
+2021,3,North Carolina,0.0,0
+2021,3,SMU,0.0,0
+2021,3,Minnesota,0.0,0
+2021,3,Miami,0.0,0
+2021,3,Coastal Carolina,0.0,0
+2021,3,Virginia,0.0,0
+2021,3,Tennessee,0.0,0
+2021,3,Utah State,0.0,0
+2021,3,Air Force,0.0,0
+2021,3,UCLA,0.0,0
+2021,3,Florida,0.0,0
+2021,3,UCF,0.0,0
+2021,3,Liberty,0.0,0
+2021,3,Nevada,0.0,0
+2021,3,UAB,0.0,0
+2021,3,Oregon State,0.0,0
+2021,3,Army,0.0,0
+2021,3,Louisville,0.0,0
+2021,3,Texas Tech,0.0,0
+2021,3,East Carolina,0.0,0
+2021,3,Northern Illinois,0.0,0
+2021,3,Western Kentucky,0.0,0
+2021,3,Rutgers,0.0,0
+2022,1,Ohio State,0.905,1
+2022,1,Georgia,0.792,1
+2022,1,Alabama,0.534,0
+2022,1,Tennessee,0.479,0
+2022,1,Clemson,0.423,0
+2022,1,Michigan,0.34,1
+2022,1,USC,0.174,0
+2022,1,TCU,0.171,1
+2022,1,Utah,0.046,0
+2022,1,Oregon,0.042,0
+2022,1,Ole Miss,0.021,0
+2022,1,UCLA,0.019,0
+2022,1,Illinois,0.019,0
+2022,1,Oklahoma State,0.011,0
+2022,1,Kansas State,0.011,0
+2022,1,LSU,0.01,0
+2022,1,North Carolina,0.002,0
+2022,1,Texas,0.001,0
+2022,1,Penn State,0.0,0
+2022,1,Wake Forest,0.0,0
+2022,1,Syracuse,0.0,0
+2022,1,NC State,0.0,0
+2022,1,Tulane,0.0,0
+2022,1,Oregon State,0.0,0
+2022,1,Liberty,0.0,0
+2022,1,Notre Dame,0.0,0
+2022,1,Mississippi State,0.0,0
+2022,1,Cincinnati,0.0,0
+2022,1,Baylor,0.0,0
+2022,1,Washington,0.0,0
+2022,1,Purdue,0.0,0
+2022,1,UCF,0.0,0
+2022,1,Kentucky,0.0,0
+2022,1,Florida State,0.0,0
+2022,1,Minnesota,0.0,0
+2022,1,Louisville,0.0,0
+2022,1,Oklahoma,0.0,0
+2022,1,Maryland,0.0,0
+2022,1,Arkansas,0.0,0
+2022,1,Texas Tech,0.0,0
+2022,1,Troy,0.0,0
+2022,1,Boise State,0.0,0
+2022,1,UTSA,0.0,0
+2022,1,East Carolina,0.0,0
+2022,1,Kansas,0.0,0
+2022,1,South Carolina,0.0,0
+2022,1,Wisconsin,0.0,0
+2022,1,Florida,0.0,0
+2022,1,Coastal Carolina,0.0,0
+2022,1,South Alabama,0.0,0
+2022,1,San José State,0.0,0
+2022,1,Washington State,0.0,0
+2022,1,James Madison,0.0,0
+2022,1,Appalachian State,0.0,0
+2022,1,Houston,0.0,0
+2022,1,Duke,0.0,0
+2022,1,Missouri,0.0,0
+2022,1,Iowa,0.0,0
+2022,1,Georgia Southern,0.0,0
+2022,1,Southern Miss,0.0,0
+2022,3,Georgia,0.978,1
+2022,3,Ohio State,0.897,1
+2022,3,Tennessee,0.638,0
+2022,3,Michigan,0.463,1
+2022,3,TCU,0.366,1
+2022,3,Alabama,0.364,0
+2022,3,USC,0.101,0
+2022,3,Clemson,0.094,0
+2022,3,LSU,0.043,0
+2022,3,Utah,0.032,0
+2022,3,Oregon,0.019,0
+2022,3,Penn State,0.002,0
+2022,3,North Carolina,0.002,0
+2022,3,Kansas State,0.001,0
+2022,3,Washington,0.0,0
+2022,3,UCLA,0.0,0
+2022,3,Ole Miss,0.0,0
+2022,3,Notre Dame,0.0,0
+2022,3,Florida State,0.0,0
+2022,3,UCF,0.0,0
+2022,3,Oklahoma State,0.0,0
+2022,3,Texas,0.0,0
+2022,3,Cincinnati,0.0,0
+2022,3,Tulane,0.0,0
+2022,3,Baylor,0.0,0
+2022,3,Illinois,0.0,0
+2022,3,Purdue,0.0,0
+2022,3,Oregon State,0.0,0
+2022,3,Minnesota,0.0,0
+2022,3,NC State,0.0,0
+2022,3,Louisville,0.0,0
+2022,3,Mississippi State,0.0,0
+2022,3,Coastal Carolina,0.0,0
+2022,3,Troy,0.0,0
+2022,3,Florida,0.0,0
+2022,3,Liberty,0.0,0
+2022,3,UTSA,0.0,0
+2022,3,South Alabama,0.0,0
+2022,3,Syracuse,0.0,0
+2022,3,Iowa,0.0,0
+2022,3,Washington State,0.0,0
+2022,3,Wake Forest,0.0,0
+2022,3,Texas Tech,0.0,0
+2022,3,Oklahoma,0.0,0
+2022,3,Kansas,0.0,0
+2022,3,Pittsburgh,0.0,0
+2022,3,Maryland,0.0,0
+2022,3,Arkansas,0.0,0
+2022,3,Boise State,0.0,0
+2022,3,Kentucky,0.0,0
+2022,3,Duke,0.0,0
+2022,3,Michigan State,0.0,0
+2022,3,Air Force,0.0,0
+2022,3,Wisconsin,0.0,0
+2022,3,SMU,0.0,0
+2022,3,East Carolina,0.0,0
+2022,3,South Carolina,0.0,0
+2022,3,Marshall,0.0,0
+2022,3,James Madison,0.0,0
+2022,3,Ohio,0.0,0
+2023,1,Florida State,0.704,0
+2023,1,Michigan,0.625,1
+2023,1,Ohio State,0.622,0
+2023,1,Georgia,0.478,0
+2023,1,Washington,0.312,1
+2023,1,Texas,0.28,1
+2023,1,Oregon,0.239,0
+2023,1,Oklahoma,0.238,0
+2023,1,Alabama,0.232,1
+2023,1,Penn State,0.149,0
+2023,1,Ole Miss,0.038,0
+2023,1,LSU,0.032,0
+2023,1,Kansas State,0.016,0
+2023,1,Louisville,0.011,0
+2023,1,Tennessee,0.008,0
+2023,1,Oregon State,0.008,0
+2023,1,Missouri,0.004,0
+2023,1,Utah,0.002,0
+2023,1,Notre Dame,0.001,0
+2023,1,USC,0.001,0
+2023,1,James Madison,0.0,0
+2023,1,Liberty,0.0,0
+2023,1,Air Force,0.0,0
+2023,1,North Carolina,0.0,0
+2023,1,UCLA,0.0,0
+2023,1,Miami,0.0,0
+2023,1,Iowa,0.0,0
+2023,1,Tulane,0.0,0
+2023,1,Duke,0.0,0
+2023,1,Kansas,0.0,0
+2023,1,Oklahoma State,0.0,0
+2023,1,Texas A&M,0.0,0
+2023,1,Wisconsin,0.0,0
+2023,1,Fresno State,0.0,0
+2023,1,Arizona,0.0,0
+2023,1,Toledo,0.0,0
+2023,1,Troy,0.0,0
+2023,1,Miami (OH),0.0,0
+2023,1,SMU,0.0,0
+2023,1,Clemson,0.0,0
+2023,1,West Virginia,0.0,0
+2023,1,Memphis,0.0,0
+2023,1,Florida,0.0,0
+2023,1,Rutgers,0.0,0
+2023,1,Iowa State,0.0,0
+2023,1,Maryland,0.0,0
+2023,1,Minnesota,0.0,0
+2023,1,TCU,0.0,0
+2023,1,Kentucky,0.0,0
+2023,1,BYU,0.0,0
+2023,1,NC State,0.0,0
+2023,1,Georgia Southern,0.0,0
+2023,1,Georgia State,0.0,0
+2023,1,Nebraska,0.0,0
+2023,1,Louisiana,0.0,0
+2023,1,Jacksonville State,0.0,0
+2023,1,Georgia Tech,0.0,0
+2023,1,Virginia Tech,0.0,0
+2023,1,Coastal Carolina,0.0,0
+2023,1,Boston College,0.0,0
+2023,3,Michigan,0.714,1
+2023,3,Florida State,0.675,0
+2023,3,Georgia,0.539,0
+2023,3,Ohio State,0.504,0
+2023,3,Texas,0.489,1
+2023,3,Oregon,0.401,0
+2023,3,Washington,0.356,1
+2023,3,Alabama,0.279,1
+2023,3,Louisville,0.022,0
+2023,3,Oregon State,0.011,0
+2023,3,Oklahoma,0.01,0
+2023,3,Penn State,0.0,0
+2023,3,Ole Miss,0.0,0
+2023,3,Missouri,0.0,0
+2023,3,Notre Dame,0.0,0
+2023,3,LSU,0.0,0
+2023,3,Kansas State,0.0,0
+2023,3,James Madison,0.0,0
+2023,3,Liberty,0.0,0
+2023,3,Tennessee,0.0,0
+2023,3,Utah,0.0,0
+2023,3,Iowa,0.0,0
+2023,3,North Carolina,0.0,0
+2023,3,Oklahoma State,0.0,0
+2023,3,Arizona,0.0,0
+2023,3,Tulane,0.0,0
+2023,3,Kansas,0.0,0
+2023,3,Troy,0.0,0
+2023,3,Toledo,0.0,0
+2023,3,Duke,0.0,0
+2023,3,Clemson,0.0,0
+2023,3,USC,0.0,0
+2023,3,West Virginia,0.0,0
+2023,3,Texas A&M,0.0,0
+2023,3,SMU,0.0,0
+2023,3,NC State,0.0,0
+2023,3,Fresno State,0.0,0
+2023,3,Miami,0.0,0
+2023,3,Miami (OH),0.0,0
+2023,3,Air Force,0.0,0
+2023,3,Memphis,0.0,0
+2023,3,Auburn,0.0,0
+2023,3,Iowa State,0.0,0
+2023,3,Kentucky,0.0,0
+2023,3,Texas Tech,0.0,0
+2023,3,UNLV,0.0,0
+2023,3,UCLA,0.0,0
+2023,3,Rutgers,0.0,0
+2023,3,Ohio,0.0,0
+2023,3,Florida,0.0,0
+2023,3,Georgia Tech,0.0,0
+2023,3,UTSA,0.0,0
+2023,3,Maryland,0.0,0
+2023,3,Coastal Carolina,0.0,0
+2023,3,UCF,0.0,0
+2023,3,Illinois,0.0,0
+2023,3,Virginia Tech,0.0,0
+2023,3,Boston College,0.0,0
+2023,3,New Mexico State,0.0,0
+2023,3,Northwestern,0.0,0
+2024,1,Oregon,0.954,1
+2024,1,Ohio State,0.938,1
+2024,1,Miami,0.885,0
+2024,1,Notre Dame,0.854,1
+2024,1,Georgia,0.843,1
+2024,1,Texas,0.781,1
+2024,1,Penn State,0.746,1
+2024,1,Tennessee,0.732,1
+2024,1,Alabama,0.632,0
+2024,1,Boise State,0.618,1
+2024,1,SMU,0.606,1
+2024,1,BYU,0.601,0
+2024,1,Indiana,0.595,1
+2024,1,Ole Miss,0.412,0
+2024,1,Iowa State,0.308,0
+2024,1,Texas A&M,0.275,0
+2024,1,Kansas State,0.238,0
+2024,1,LSU,0.234,0
+2024,1,UNLV,0.139,0
+2024,1,Army,0.129,0
+2024,1,Clemson,0.101,1
+2024,1,Colorado,0.087,0
+2024,1,Tulane,0.074,0
+2024,1,Pittsburgh,0.062,0
+2024,1,Louisiana,0.023,0
+2024,1,South Carolina,0.021,0
+2024,1,Louisville,0.021,0
+2024,1,Texas Tech,0.019,0
+2024,1,Cincinnati,0.017,0
+2024,1,Western Kentucky,0.013,0
+2024,1,Navy,0.012,0
+2024,1,Arizona State,0.009,1
+2024,1,Missouri,0.006,0
+2024,1,Vanderbilt,0.005,0
+2024,1,James Madison,0.003,0
+2024,1,Virginia Tech,0.002,0
+2024,1,West Virginia,0.002,0
+2024,1,Syracuse,0.001,0
+2024,1,Memphis,0.001,0
+2024,1,Sam Houston,0.001,0
+2024,1,Washington State,0.0,0
+2024,1,Iowa,0.0,0
+2024,1,Illinois,0.0,0
+2024,1,Minnesota,0.0,0
+2024,1,Arkansas,0.0,0
+2024,1,USC,0.0,0
+2024,1,Michigan,0.0,0
+2024,1,Duke,0.0,0
+2024,1,Florida,0.0,0
+2024,1,Oklahoma,0.0,0
+2024,1,Washington,0.0,0
+2024,1,Georgia Tech,0.0,0
+2024,1,Wisconsin,0.0,0
+2024,1,TCU,0.0,0
+2024,1,North Carolina,0.0,0
+2024,1,Toledo,0.0,0
+2024,1,Baylor,0.0,0
+2024,1,Georgia Southern,0.0,0
+2024,1,Nebraska,0.0,0
+2024,1,Jacksonville State,0.0,0
+2024,3,Oregon,0.988,1
+2024,3,Ohio State,0.949,1
+2024,3,Georgia,0.916,1
+2024,3,Texas,0.883,1
+2024,3,Notre Dame,0.859,1
+2024,3,Penn State,0.817,1
+2024,3,Alabama,0.815,0
+2024,3,Ole Miss,0.796,0
+2024,3,Indiana,0.655,1
+2024,3,Tennessee,0.637,1
+2024,3,Boise State,0.627,1
+2024,3,Miami,0.614,0
+2024,3,SMU,0.604,1
+2024,3,BYU,0.486,0
+2024,3,Colorado,0.243,0
+2024,3,Clemson,0.199,1
+2024,3,Tulane,0.177,0
+2024,3,Army,0.149,0
+2024,3,Arizona State,0.146,1
+2024,3,Texas A&M,0.129,0
+2024,3,Iowa State,0.112,0
+2024,3,South Carolina,0.095,0
+2024,3,UNLV,0.063,0
+2024,3,Kansas State,0.024,0
+2024,3,James Madison,0.008,0
+2024,3,Louisiana,0.004,0
+2024,3,Marshall,0.002,0
+2024,3,TCU,0.001,0
+2024,3,Baylor,0.001,0
+2024,3,Western Kentucky,0.001,0
+2024,3,LSU,0.0,0
+2024,3,Missouri,0.0,0
+2024,3,Illinois,0.0,0
+2024,3,Louisville,0.0,0
+2024,3,Georgia Tech,0.0,0
+2024,3,Washington State,0.0,0
+2024,3,Vanderbilt,0.0,0
+2024,3,Syracuse,0.0,0
+2024,3,Pittsburgh,0.0,0
+2024,3,Duke,0.0,0
+2024,3,Iowa,0.0,0
+2024,3,Florida,0.0,0
+2024,3,USC,0.0,0
+2024,3,Memphis,0.0,0
+2024,3,Arkansas,0.0,0
+2024,3,Minnesota,0.0,0
+2024,3,Washington,0.0,0
+2024,3,North Carolina,0.0,0
+2024,3,Michigan,0.0,0
+2024,3,Navy,0.0,0
+2024,3,Oklahoma,0.0,0
+2024,3,Rutgers,0.0,0
+2024,3,Texas Tech,0.0,0
+2024,3,Toledo,0.0,0
+2024,3,Wisconsin,0.0,0
+2024,3,Sam Houston,0.0,0
+2024,3,Liberty,0.0,0
+2024,3,Jacksonville State,0.0,0
+2024,3,Ohio,0.0,0
+2024,3,Colorado State,0.0,0
+2025,1,Indiana,0.996,1
+2025,1,Ohio State,0.992,1
+2025,1,Texas A&M,0.867,1
+2025,1,Alabama,0.726,1
+2025,1,Ole Miss,0.717,1
+2025,1,Georgia,0.706,1
+2025,1,Notre Dame,0.687,0
+2025,1,Texas Tech,0.677,1
+2025,1,Oregon,0.662,1
+2025,1,BYU,0.581,0
+2025,1,Miami,0.451,1
+2025,1,Louisville,0.356,0
+2025,1,Texas,0.317,0
+2025,1,Georgia Tech,0.286,0
+2025,1,Utah,0.283,0
+2025,1,South Florida,0.282,0
+2025,1,Vanderbilt,0.281,0
+2025,1,Virginia,0.249,0
+2025,1,North Texas,0.243,0
+2025,1,Oklahoma,0.21,1
+2025,1,USC,0.209,0
+2025,1,James Madison,0.187,1
+2025,1,Memphis,0.14,0
+2025,1,Cincinnati,0.106,0
+2025,1,Iowa,0.103,0
+2025,1,Missouri,0.091,0
+2025,1,Duke,0.091,0
+2025,1,Washington,0.082,0
+2025,1,SMU,0.082,0
+2025,1,Pittsburgh,0.066,0
+2025,1,Michigan,0.062,0
+2025,1,San Diego State,0.055,0
+2025,1,Tulane,0.049,1
+2025,1,Navy,0.025,0
+2025,1,Arizona State,0.021,0
+2025,1,East Carolina,0.019,0
+2025,1,Boise State,0.016,0
+2025,1,LSU,0.007,0
+2025,1,TCU,0.007,0
+2025,1,Kennesaw State,0.005,0
+2025,1,Houston,0.004,0
+2025,1,Tennessee,0.001,0
+2025,1,Baylor,0.001,0
+2025,1,UNLV,0.001,0
+2025,1,New Mexico,0.001,0
+2025,1,Illinois,0.0,0
+2025,1,Nebraska,0.0,0
+2025,1,Iowa State,0.0,0
+2025,1,Minnesota,0.0,0
+2025,1,NC State,0.0,0
+2025,1,Arizona,0.0,0
+2025,1,Florida,0.0,0
+2025,1,Mississippi State,0.0,0
+2025,1,Old Dominion,0.0,0
+2025,1,Kansas State,0.0,0
+2025,1,Florida State,0.0,0
+2025,1,Kansas,0.0,0
+2025,1,Wake Forest,0.0,0
+2025,1,Northwestern,0.0,0
+2025,1,Southern Miss,0.0,0
+2025,3,Indiana,1.0,1
+2025,3,Texas A&M,0.998,1
+2025,3,Ohio State,0.993,1
+2025,3,Texas Tech,0.906,1
+2025,3,Georgia,0.905,1
+2025,3,Oregon,0.822,1
+2025,3,Notre Dame,0.806,0
+2025,3,Ole Miss,0.763,1
+2025,3,Alabama,0.527,1
+2025,3,BYU,0.519,0
+2025,3,James Madison,0.497,1
+2025,3,Miami,0.477,1
+2025,3,Oklahoma,0.448,1
+2025,3,North Texas,0.316,0
+2025,3,Virginia,0.312,0
+2025,3,Georgia Tech,0.301,0
+2025,3,USC,0.3,0
+2025,3,Utah,0.245,0
+2025,3,Vanderbilt,0.229,0
+2025,3,SMU,0.198,0
+2025,3,Tulane,0.11,1
+2025,3,Pittsburgh,0.073,0
+2025,3,Michigan,0.054,0
+2025,3,East Carolina,0.046,0
+2025,3,Texas,0.041,0
+2025,3,Navy,0.035,0
+2025,3,Arizona State,0.021,0
+2025,3,South Florida,0.017,0
+2025,3,San Diego State,0.017,0
+2025,3,Cincinnati,0.006,0
+2025,3,UNLV,0.004,0
+2025,3,Kennesaw State,0.004,0
+2025,3,Hawai'i,0.002,0
+2025,3,Western Kentucky,0.002,0
+2025,3,Illinois,0.001,0
+2025,3,Houston,0.001,0
+2025,3,New Mexico,0.001,0
+2025,3,Fresno State,0.001,0
+2025,3,Tennessee,0.0,0
+2025,3,Iowa,0.0,0
+2025,3,Missouri,0.0,0
+2025,3,Louisville,0.0,0
+2025,3,Washington,0.0,0
+2025,3,LSU,0.0,0
+2025,3,Arizona,0.0,0
+2025,3,Iowa State,0.0,0
+2025,3,Nebraska,0.0,0
+2025,3,Wake Forest,0.0,0
+2025,3,Memphis,0.0,0
+2025,3,TCU,0.0,0
+2025,3,Old Dominion,0.0,0
+2025,3,Clemson,0.0,0
+2025,3,Minnesota,0.0,0
+2025,3,Penn State,0.0,0
+2025,3,UConn,0.0,0
+2025,3,NC State,0.0,0
+2025,3,Florida State,0.0,0
+2025,3,Baylor,0.0,0
+2025,3,Kentucky,0.0,0
+2025,3,Kansas State,0.0,0

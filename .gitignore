@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+data/cache/
+data/*.duckdb.wal
+.pytest_cache/
+*.egg-info/
+.DS_Store
+
+# hosted dashboard needs: data/cfp.duckdb, data/models/, data/outputs/ (all committed)
+docs/sources/
