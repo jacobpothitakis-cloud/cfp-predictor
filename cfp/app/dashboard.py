@@ -15,7 +15,18 @@ from cfp.pipeline import load_outputs  # noqa: E402
 from cfp.predict import bowl_paths, bracket_text, team_sheet  # noqa: E402
 
 st.set_page_config(page_title="CFP committee predictor", layout="wide")
-out = load_outputs()
+
+
+@st.cache_resource(show_spinner=False)
+def _outputs(stamp: float):
+    """Loaded once per data refresh and shared by every visitor (keeps CPU use low on a shared host)."""
+    return load_outputs()
+
+
+from cfp.pipeline import OUT  # noqa: E402
+
+_f = OUT / "latest.pkl"
+out = _outputs(_f.stat().st_mtime) if _f.exists() else None
 if out is None:
     st.error("No outputs yet. Run `cfp update` first.")
     st.stop()
@@ -94,7 +105,12 @@ with tabs[2]:
 
 with tabs[3]:
     nm = st.selectbox("Team", sorted(S.names), index=sorted(S.names).index(pred.table.team.iloc[0]))
-    st.markdown(team_sheet(nm, pred=pred, sim=sim))
+
+    @st.cache_data(show_spinner=False)
+    def _sheet(name: str, stamp: str) -> str:
+        return team_sheet(name, pred=pred, sim=sim)
+
+    st.markdown(_sheet(nm, out["made"]))
 
 with tabs[4]:
     st.subheader("What-if builder")
@@ -122,7 +138,8 @@ with tabs[4]:
     tl = st.multiselect("Loses its conference title game (if it gets there)", contenders)
     tw = st.multiselect("Wins its conference title game (if it gets there)", [c for c in contenders if c not in tl])
     forced += [Forced(winner=t, title_game=True, wins=False) for t in tl] + [Forced(winner=t, title_game=True, wins=True) for t in tw]
-    ns = st.select_slider("Simulations", [1000, 2000, 5000, 10000], 2000)
+    ns = st.select_slider("Simulations (more = steadier numbers, slower)", [500, 1000, 2000], 1000)
+    st.caption("Capped at 2,000 here to stay within the free host's CPU limit. Use `cfp whatif` on your own machine for 10,000.")
     if st.button("Simulate", type="primary"):
         with st.spinner("Simulating..."):
             w = simulate(n_sims=ns, seed=sim.seed, forced=forced)
