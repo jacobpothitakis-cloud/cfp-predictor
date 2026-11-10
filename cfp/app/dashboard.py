@@ -71,6 +71,15 @@ st.markdown(f"""
   .th img {{ height: 72px; }}
   .th h2 {{ margin: 0; color: {NAVY}; font-size: 1.6rem; }}
   .th p {{ margin: 2px 0 0 0; color: {GREY}; }}
+  .fan {{ display: flex; align-items: center; gap: 18px; background: linear-gradient(120deg, #111 0%, #2a2a2a 100%); border-radius: 14px;
+          padding: 18px 24px; border-bottom: 5px solid #ffcd00; }}
+  .fan img {{ height: 84px; }}
+  .fan h2 {{ margin: 0; color: #ffcd00; font-size: 1.7rem; }}
+  .fan p {{ margin: 3px 0 0 0; color: #e6e6e6; font-size: .95rem; }}
+  .step {{ background: #fff; border: 1px solid #e3e7ee; border-left: 5px solid #ffcd00; border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
+           color: {NAVY}; font-size: .95rem; line-height: 1.4; }}
+  .step b.n {{ display: inline-block; background: #111; color: #ffcd00; border-radius: 50%; width: 22px; height: 22px; text-align: center;
+               font-size: .8rem; line-height: 22px; margin-right: 8px; }}
   table.seedgrid {{ border-collapse: collapse; width: 100%; font-size: .85rem; }}
   table.seedgrid th {{ color: {GREY}; font-weight: 600; padding: 4px 6px; text-align: center; }}
   table.seedgrid td {{ padding: 5px 6px; text-align: center; border-bottom: 1px solid #eef0f4; color: {NAVY}; }}
@@ -181,7 +190,8 @@ kpi(k[3], "Title favourite", fav.team, f"{fav.p_champion:.0%} to win it all", fa
 kpi(k[4], "Simulated seasons", f"{sim.n_sims:,}", "rest of season played out")
 st.write("")
 
-tabs = st.tabs(["Rankings", "Bracket", "Playoff odds", "Teams", "What-if", "Track record"])
+FAN = next(iter(out.get("fan") or {}), None)
+tabs = st.tabs(["Rankings", "Bracket", "Playoff odds", "Teams", "What-if", "Track record"] + ([FAN] if FAN else []))
 
 # ----------------------------------------------------------------------------- rankings
 with tabs[0]:
@@ -506,3 +516,200 @@ The committee is thirteen people, so no model can be exact. Every number here co
 - Injuries, unless entered by hand.
 - Which bowl each of the top three seeds will choose.""")
     st.caption("Data: ESPN public feeds. Team logos are loaded from ESPN and belong to their respective schools. Not affiliated with the College Football Playoff.")
+
+
+# ----------------------------------------------------------------------------- fan page
+if FAN:
+    with tabs[6]:
+        F = out["fan"][FAN]
+        ti = IDX[FAN]
+        raw = pred.rel.raw.iloc[ti]
+        now, wo, G = F["now"], F["win_out"], F["games"]
+        prow = tbl[tbl.team == FAN]
+        prk = int(prow["rank"].iloc[0]) if len(prow) else None
+        k = len(G)
+        nword = {1: "its last game", 2: "both remaining games", 3: "all three remaining games", 4: "all four remaining games"}.get(k, "out")
+        rel_day = pd.Timestamp(pred.release_date).normalize()
+        wk_end = rel_day + pd.Timedelta(days=6)
+        when = lambda d: pd.Timestamp(d).strftime("%a %b %-d")   # noqa: E731
+        vs = lambda g: ("vs " if g["home"] else "at ") + g["opp"]   # noqa: E731
+        st.markdown(f"""<div class="fan"><img src="{logo(FAN)}"><div><h2>{FAN}: the road to the playoff</h2>
+<p>{int(raw.wins)}–{int(raw.losses)} overall · {int(raw.conf_wins)}–{int(raw.conf_losses)} {CONF.get(S.conf[ti], S.conf[ti])} ·
+committee had them {"No. " + str(last_rank[FAN]) if FAN in last_rank else "unranked"} last week ·
+predicted {"No. " + str(prk) if prk else "unranked"} on {label}</p></div></div>""", unsafe_allow_html=True)
+        st.write("")
+        c = st.columns(5)
+        kpi(c[0], "Make the playoff", pct(now["p_field"]), "as things stand today")
+        kpi(c[1], "Home playoff game", pct(now["p_host"]), "finish as a 5–8 seed")
+        kpi(c[2], f"Win {nword}", pct(F["p_win_out"]), "chance it happens")
+        kpi(c[3], "Playoff if they do", pct(wo.get("p_field")), "the whole season comes down to this")
+        kpi(c[4], "Home game if they do", pct(wo.get("p_host")), f"bye {pct(wo.get('p_bye'))} · road game {pct(wo.get('p_road'))}")
+
+        # ---- the plan
+        root_all = [r for r in (F["rooting_win_out"] or F["rooting"]) if abs(r["z"]) >= 3]
+        section("What we want to happen", "In order of importance. Every number comes from the 10,000 simulated seasons.")
+        steps = []
+        if G:
+            g0 = G[0]
+            steps.append(f"<b>Beat {g0['opp']}</b> ({when(g0['date'])}, {'home' if g0['home'] else 'away'}). {FAN} wins {pct(g0['p_win'])} of the time. "
+                         f"A win keeps the playoff chance at {pct(g0['if_win'].get('p_field'))}; a loss drops it to {pct(g0['if_lose'].get('p_field'))}.")
+            if k > 1:
+                rest = " and ".join(f"{'beat' if g['home'] else 'win at'} {g['opp']} ({pct(g['p_win'])})" for g in G[1:])
+                one = max((s.get("p_field", 0) for s in F["scenarios"] if s["n_losses"] == 1), default=0)
+                steps.append(f"<b>Then {rest}.</b> " + ("There is no room for a slip: with" if one < 0.1 else "With")
+                             + f" one more loss {FAN} makes the field {pct(one)} of the time at best.")
+            steps.append(f"<b>Win {nword} and the odds flip.</b> {FAN} would finish around No. {wo['median_rank']:.0f} "
+                         f"(usually between {wo['rank_p10']:.0f} and {wo['rank_p90']:.0f}) and make the playoff {pct(wo['p_field'])} of the time, "
+                         f"with a {pct(wo['p_host'])} chance of a home game.")
+        if root_all:
+            names_ = []
+            for r in root_all:
+                loser = r["away"] if r["root_for"] == r["home"] else r["home"]
+                if loser not in names_:
+                    names_.append(loser)
+            steps.append(f"<b>Get help.</b> Even winning out leaves about a {pct(1 - wo['p_field'])} chance of missing. The teams whose losses help most: "
+                         f"{', '.join(names_[:6])}. Details in the rooting guide below.")
+        st.markdown("".join(f'<div class="step"><b class="n">{i}</b>{t}</div>' for i, t in enumerate(steps, 1)), unsafe_allow_html=True)
+
+        a, b = st.columns([1, 1])
+        with a:
+            if G:
+                g0 = G[0]
+                section(f"This week: {g0['opp']} {'at ' + FAN if g0['home'] else 'hosts ' + FAN}", f"{when(g0['date'])} · the week of the committee's ranking on {label}.")
+                oi = g0["opp_idx"]
+                orow = pred.rel.raw.iloc[oi] if oi < S.n else None
+                wi, lo_ = g0["if_win"], g0["if_lose"]
+                tw = pd.DataFrame({"": ["Playoff chance", "Home playoff game", "Typical final ranking"],
+                                   f"If {FAN} wins ({pct(g0['p_win'])})": [pct(wi.get("p_field")), pct(wi.get("p_host")), f"No. {wi['median_rank']:.0f}"],
+                                   f"If {FAN} loses ({pct(1 - g0['p_win'])})": [pct(lo_.get("p_field")), pct(lo_.get("p_host")), f"No. {lo_['median_rank']:.0f}"]})
+                st.dataframe(tw, hide_index=True, use_container_width=True)
+                bits = []
+                if orow is not None:
+                    bits.append(f"{g0['opp']} comes in {int(orow.wins)}–{int(orow.losses)} with a power rating of {orow.rating:+.1f} points against an average team; "
+                                f"{FAN}'s is {raw.rating:+.1f}.")
+                if prk:
+                    bits.append(f"On {label} the model expects the committee to put {FAN} at No. {prk} (likely range {int(prow.low.iloc[0])}–{int(prow.high.iloc[0])})"
+                                + (f", up from No. {last_rank[FAN]}" if FAN in last_rank and last_rank[FAN] > prk else "") + ".")
+                if wi.get("p_field", 0) - now["p_field"] < 0.1 and lo_.get("p_field", 1) < now["p_field"] / 2:
+                    bits.append("Winning this game does not raise the odds much on its own. It is the game the rest of the plan depends on.")
+                st.markdown(" ".join(bits))
+            section("The games left", "Playoff chance after each result, averaged over everything else that could happen.")
+            st.dataframe(pd.DataFrame({"Date": [when(g["date"]) for g in G], "Game": [vs(g) for g in G],
+                                       "Win chance": [g["p_win"] * 100 for g in G],
+                                       "Playoff if win": [g["if_win"].get("p_field", 0) * 100 for g in G],
+                                       "Playoff if lose": [g["if_lose"].get("p_field", 0) * 100 for g in G]}),
+                         hide_index=True, use_container_width=True,
+                         column_config={c_: st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100)
+                                        for c_ in ("Win chance", "Playoff if win", "Playoff if lose")})
+        with b:
+            section("Every way the rest of the season can go", f"All {2 ** k} combinations of {FAN}'s results.")
+            sc = [s for s in F["scenarios"] if s["n"] > 0]
+            st.dataframe(pd.DataFrame({"Finish": [s["label"] for s in sc], "How likely": [s["share"] * 100 for s in sc],
+                                       "Make playoff": [s["p_field"] * 100 for s in sc], "Home game": [s["p_host"] * 100 for s in sc],
+                                       "Typical final rank": [f"No. {s['median_rank']:.0f}" for s in sc]}),
+                         hide_index=True, use_container_width=True, height=38 * len(sc) + 40,
+                         column_config={c_: st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100)
+                                        for c_ in ("How likely", "Make playoff", "Home game")})
+            st.caption(f"Record before any Big Ten title game. {FAN} reaches that game in {pct(now['p_title_game'])} of seasons "
+                       f"({pct(wo.get('p_title_game'))} if it wins out).")
+
+        # ---- home game
+        section("A playoff game at home",
+                "Seeds 5 to 8 host the first round on campus on Dec 18–19. Seeding follows the committee's final ranking, so hosting means finishing about 5th to 8th. "
+                "Seeds 9 to 11 play that round on the road; seed 12 goes to the lowest-ranked conference champion.")
+        a, b = st.columns([3, 2])
+        with a:
+            sd = pd.DataFrame([{"Seed": s_, "Chance": v * 100, "Case": lab_,
+                                "Kind": "Bye" if s_ <= 4 else "Home game" if s_ <= 8 else "Road game"}
+                               for lab_, d in (("As things stand", now["seeds"]), (f"If {FAN} wins {nword}", wo.get("seeds", {})))
+                               for s_, v in d.items()])
+            ch = alt.Chart(sd).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
+                x=alt.X("Seed:O", axis=alt.Axis(labelAngle=0, title="Playoff seed")),
+                y=alt.Y("Chance:Q", title="Chance (%)"),
+                color=alt.Color("Kind:N", scale=alt.Scale(domain=["Bye", "Home game", "Road game"], range=[NAVY, "#e0a800", GREY]),
+                                legend=alt.Legend(orient="top", title=None)),
+                tooltip=["Case", "Seed", alt.Tooltip("Chance:Q", format=".1f"), "Kind"],
+            ).properties(height=210).facet(column=alt.Column("Case:N", title=None, sort=["As things stand"]))
+            st.altair_chart(ch.resolve_scale(y="shared").configure_view(strokeWidth=0), use_container_width=True)
+        with b:
+            m = st.columns(2)
+            m[0].metric("Home game today", pct(now["p_host"]))
+            m[1].metric(f"If {FAN} wins out", pct(wo.get("p_host")))
+            ho = F["host_opponents"]
+            if ho:
+                st.markdown("**Most likely visitors** (share of the seasons where " + FAN + " hosts): "
+                            + ", ".join(f"{o['team']} {pct(o['share'])}" for o in ho[:5]) + "." + (" No opponent stands out: the 9–12 seeds are wide open." if ho[0]["share"] < 0.15 else ""))
+            ro = F["road_opponents"]
+            if ro:
+                st.markdown("**If it is a road game instead**, the most likely trips: " + ", ".join(f"{o['team']} {pct(o['share'])}" for o in ro[:5]) + ".")
+            short = int(wo["median_rank"]) - 8
+            if short > 0:
+                st.markdown(f"Winning out puts {FAN} at No. {wo['median_rank']:.0f} on a typical run, {short} spot{'s' if short > 1 else ''} short of "
+                            f"hosting, so the home game also needs teams above to lose.")
+
+        # ---- who is in the way
+        if prk and field_names:
+            lastin_rank = int(tbl[tbl.team == at_large[-1]]["rank"].iloc[0]) if at_large else 12
+            lo_r, hi_r = min(lastin_rank, prk) - 3, prk + 3
+            near = tbl[(tbl["rank"] >= lo_r) & (tbl["rank"] <= hi_r)]
+            gl = sim.games.set_index("game")
+            fut = S.future
+            def nxt(i: int) -> tuple[str, float]:
+                rows = [g for g in np.argsort(fut.day) if i in (fut.gh[g], fut.ga[g]) and not fut.ccg[g]]
+                if not rows:
+                    return "season complete", np.nan
+                g = rows[0]
+                h, a_ = int(fut.gh[g]), int(fut.ga[g])
+                hn, an = (S.names[h] if h < S.n else "FCS opponent"), (S.names[a_] if a_ < S.n else "FCS opponent")
+                ph = gl.p_home_win.get(f"{an} at {hn}", np.nan)
+                day = pd.Timestamp(f"{S.season}-08-01") + pd.Timedelta(days=float(fut.day[g]) - 0.34)
+                return f"{day.strftime('%b %-d')} {'vs ' + an if h == i else 'at ' + hn}", (ph if h == i else 1 - ph) * 100
+            sb = sim.teams.set_index("team")
+            section("Who is in the way", f"The teams around {FAN} in the predicted ranking. The last at-large place today belongs to {at_large[-1]} "
+                                         f"(No. {lastin_rank}); {FAN} has to pass {max(prk - lastin_rank, 0)} teams or see them fall.")
+            nx = [nxt(IDX[t_]) for t_ in near.team]
+            st.dataframe(pd.DataFrame({" ": [logo(t_) for t_ in near.team], "Predicted": near["rank"].to_numpy(), "Team": near.team.to_numpy(),
+                                       "Record": near.record.to_numpy(),
+                                       "Status today": ["In the field" if t_ in field_names else "◀ " + FAN if t_ == FAN else "Out" for t_ in near.team],
+                                       "Playoff chance": [float(sb.p_field.get(t_, 0)) * 100 for t_ in near.team],
+                                       "Next game": [x[0] for x in nx], "Chance they win it": [x[1] for x in nx]}),
+                         hide_index=True, use_container_width=True, height=38 * len(near) + 40,
+                         column_config={" ": st.column_config.ImageColumn(width="small"),
+                                        "Playoff chance": st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100),
+                                        "Chance they win it": st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100)})
+
+        # ---- rooting guide
+        def guide(rows: list[dict], what: str) -> None:
+            if not rows:
+                st.info("Nothing clears the noise threshold.")
+                return
+            st.dataframe(pd.DataFrame({"Date": [when(r["date"]) for r in rows], "Game": [r["game"] for r in rows],
+                                       "Root for": [r["root_for"] for r in rows], "Chance it happens": [r["p_root"] * 100 for r in rows],
+                                       f"{what} if it does": [max(r["if_home"], r["if_away"]) * 100 for r in rows],
+                                       "If it does not": [min(r["if_home"], r["if_away"]) * 100 for r in rows],
+                                       "Worth": [abs(r["swing"]) * 100 for r in rows]}),
+                         hide_index=True, use_container_width=True, height=38 * len(rows) + 40,
+                         column_config={"Chance it happens": st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100),
+                                        f"{what} if it does": st.column_config.NumberColumn(format="%.0f%%"),
+                                        "If it does not": st.column_config.NumberColumn(format="%.0f%%"),
+                                        "Worth": st.column_config.NumberColumn(format="+%.0f pts")})
+
+        cond = bool(F["rooting_win_out"])
+        base_txt = f"Assumes {FAN} wins {nword}, since little else matters otherwise. " if cond else ""
+        this_wk = sorted([r for r in root_all if r["date"] <= wk_end], key=lambda r: (r["date"], -abs(r["swing"])))
+        later = sorted([r for r in root_all if r["date"] > wk_end], key=lambda r: (r["date"], -abs(r["swing"])))
+        a, b = st.columns(2)
+        with a:
+            section("Rooting guide: this week", base_txt + f"How much each result moves {FAN}'s playoff chance.")
+            guide(this_wk, "Playoff")
+        with b:
+            section("Rooting guide: the weeks after", "Same reading. These will firm up as results come in.")
+            guide(later, "Playoff")
+        hr = sorted([r for r in F["rooting_host_win_out"] if abs(r["z"]) >= 3.5], key=lambda r: (r["date"], -abs(r["swing"])))
+        if hr:
+            section("Results that help bring a home game", base_txt + f"Same idea, measured on {FAN}'s chance of hosting.")
+            guide(hr, "Home game")
+        st.caption(f"How to read this page: each figure is a share of the {F['n_sims']:,} simulated seasons that match the condition. "
+                   "The rooting tables only list games whose effect is at least three times its sampling error, so small or doubtful effects are left out; "
+                   "with about 200 games tested, one listed game could still be chance. The simulation's playoff odds were well calibrated on 2014–2025 "
+                   "but there are only two seasons of the 12-team format to learn from.")

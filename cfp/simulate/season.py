@@ -289,6 +289,7 @@ def simulate(season: int = 2026, now: pd.Timestamp | None = None, n_sims: int = 
                      out_newloss, out_homewin, ccg_pairs, proxy_log, n_sims, seed, notes, tg)
     res.raw["losses"] = out_losses
     res.raw["auto"] = out_auto
+    res.raw |= {"homewin": out_homewin, "ccg": out_ccg, "counted": counted}
     # how many losses the field carries: context for reading individual teams' odds
     inf = out_seed > 0
     three = (inf & (out_losses >= 3) & ~out_auto).sum(1)

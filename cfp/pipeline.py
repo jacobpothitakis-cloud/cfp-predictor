@@ -107,7 +107,9 @@ def save_outputs(pred, sim) -> None:
     sim_small = {"teams": sim.teams, "seeds": sim.seeds, "games": sim.games, "swing": sim.swing,
                  "title_games": sim.title_games, "proxy_log": sim.proxy_log, "n_sims": sim.n_sims, "seed": sim.seed,
                  "notes": sim.notes}
-    (OUT / "latest.pkl").write_bytes(pickle.dumps({"pred": pred, "sim": sim_small,
+    from cfp.fan import FAN_TEAMS, breakdown
+    fan = {t: b for t in FAN_TEAMS if getattr(sim, "raw", None) and (b := breakdown(sim, t))}
+    (OUT / "latest.pkl").write_bytes(pickle.dumps({"pred": pred, "sim": sim_small, "fan": fan,
                                                    "made": str(pd.Timestamp.now(tz='UTC'))[:19]}))
 
 
