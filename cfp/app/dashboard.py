@@ -39,7 +39,7 @@ FACTOR = {
 
 st.markdown(f"""
 <style>
-  .block-container {{ padding-top: 1.2rem; max-width: 1280px; }}
+  .block-container, [data-testid="stMainBlockContainer"] {{ padding: 3.6rem 2.2rem 3rem 2.2rem !important; max-width: 1560px !important; }}
   #MainMenu, footer {{ visibility: hidden; }}
   .hero {{ background: linear-gradient(120deg, {NAVY} 0%, #24365f 70%, #2f4a80 100%); color: #fff;
           border-radius: 14px; padding: 22px 28px; margin-bottom: 14px; }}
@@ -178,14 +178,14 @@ kpi(k[0], "Projected No. 1", tbl.team.iloc[0], f"{tbl.record.iloc[0]} · {pct(tb
 kpi(k[1], "Last team in", at_large[-1] if at_large else "n/a", "lowest at-large seed today", at_large[-1] if at_large else None)
 kpi(k[2], "First team out", first_out or "n/a", "next in the predicted ranking", first_out or None)
 kpi(k[3], "Title favourite", fav.team, f"{fav.p_champion:.0%} to win it all", fav.team)
-kpi(k[4], "Simulated seasons", f"{sim.n_sims:,}", "every remaining game played out")
+kpi(k[4], "Simulated seasons", f"{sim.n_sims:,}", "rest of season played out")
 st.write("")
 
 tabs = st.tabs(["Rankings", "Bracket", "Playoff odds", "Teams", "What-if", "Track record"])
 
 # ----------------------------------------------------------------------------- rankings
 with tabs[0]:
-    c1, c2 = st.columns([5, 2])
+    c1, c2 = st.columns([11, 4])
     with c1:
         section("Predicted committee Top 25", "The range is where the team lands in 8 of 10 cases.")
         t = tbl.head(25)
@@ -193,11 +193,14 @@ with tabs[0]:
             "#": t["rank"], " ": [logo(x) for x in t.team], "Team": t.team, "Record": t.record,
             "Conf": [CONF.get(c, c) for c in t.conf], "Move": [move(a, b) for a, b in zip(t.team, t["rank"])],
             "AP": t["ap"].map(lambda x: "NR" if pd.isna(x) else str(int(x))),
-            "This exact spot": t.p_exact * 100, "Likely range": t.low.astype(str) + "–" + t.high.astype(str),
+            "This exact spot": t.p_exact * 100, "Range": t.low.astype(str) + "–" + t.high.astype(str),
             "Top 4": t.p_top4 * 100, "Top 12": t.p_top12 * 100})
         prog = lambda: st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100)   # noqa: E731
         st.dataframe(show, hide_index=True, use_container_width=True, height=915,
-                     column_config={" ": st.column_config.ImageColumn(width="small"), "#": st.column_config.NumberColumn(width="small"),
+                     column_config={"#": st.column_config.NumberColumn(width=38), " ": st.column_config.ImageColumn(width=44),
+                                    "Team": st.column_config.TextColumn(width=150), "Record": st.column_config.TextColumn(width=62),
+                                    "Conf": st.column_config.TextColumn(width=104), "Move": st.column_config.TextColumn(width=58),
+                                    "AP": st.column_config.TextColumn(width=44), "Range": st.column_config.TextColumn(width=66),
                                     "This exact spot": prog(), "Top 4": prog(), "Top 12": prog()})
         nxt = tbl.iloc[25:30]
         st.markdown('<div class="note">Just outside: ' + ", ".join(f"{r.team} ({pct(r.p_top25)} to be ranked)" for r in nxt.itertuples()) + "</div>",
@@ -208,7 +211,8 @@ with tabs[0]:
             st.dataframe(pd.DataFrame({"#": last_df["rank"], " ": [logo(x) for x in last_df.team], "Team": last_df.team,
                                        "Record": last_df.record}),
                          hide_index=True, use_container_width=True, height=915,
-                         column_config={" ": st.column_config.ImageColumn(width="small")})
+                         column_config={"#": st.column_config.NumberColumn(width=38), " ": st.column_config.ImageColumn(width=44),
+                                        "Team": st.column_config.TextColumn(width=150), "Record": st.column_config.TextColumn(width=62)})
     section("Why each team is where it is", "Green helps the team, red holds it back. Based on how past committees have weighed the same things.")
     cols = st.columns(2)
     for i, (nm, e) in enumerate(pred.explanations.items()):
