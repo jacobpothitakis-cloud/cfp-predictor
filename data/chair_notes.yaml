@@ -52,9 +52,13 @@
       both, but this committee is weighting them more heavily than past committees did. It was the same
       direction of miss as the first ranking: two-loss SEC teams too low, one-loss teams with thin schedules too high.
     - >-
-      Change made: rankings already released this season now count six times as much as an older ranking when the
-      model is retrained. Tested on 2014-2025, that cut the average miss from 1.11 to 1.06 places and helped in
-      10 of 12 seasons. On this ranking it would have missed by 1.72 instead of 1.88, with all 12 of the top 12.
+      Changes made after a full review, each tested on 2014-2025 first: this season's earlier rankings now count
+      six times as much in training; the two models in the ensemble are mixed 70/30; the polls' "others receiving
+      votes" are now an input; and posted betting lines feed the season simulation. Together they cut the average
+      miss in production-style testing from 1.21 to 1.10 places and helped in 11 of 12 seasons.
+    - >-
+      Checked and found not to matter: who chairs the committee. Over twelve seasons a conference did no better
+      in the years its own athletic director was chair.
     - >-
       Not fixable from data: the committee's private record-strength figure, how a team looks on film, and
       injuries. The chair cited all three this month.

@@ -79,6 +79,9 @@ def metrics(order: np.ndarray, rel: Release) -> dict[str, float]:
 
 # ------------------------------------------------------------------ LOSO
 PRIMARY = "Ensemble (+polls, last week)"
+# Share of the pairwise logistic model in the weekly ensemble. Walk-forward 2014-2025: 1.172 at 0.5, 1.122 at 0.7
+# and at 0.85, 1.158 at 1.0; 0.7 beat 0.5 in 10 of 12 seasons.
+PRIMARY_W_PAIR = 0.7
 SIM_MODEL = "Ensemble (carry-over from first ranking)"
 
 
@@ -92,7 +95,7 @@ def fit_models(train: list[Release], target_season: int, C: float = 0.3) -> dict
     la = LambdaCommittee("anchor", target_season=target_season).fit(atrain)
     return {"Pairwise logistic (résumé only)": pl, "Pairwise logistic (+polls, last week)": pf,
             "LambdaRank (résumé only)": ll, "LambdaRank (+polls, last week)": lf,
-            "Ensemble (résumé only)": Ensemble(pl, ll), PRIMARY: Ensemble(pf, lf),
+            "Ensemble (résumé only)": Ensemble(pl, ll), PRIMARY: Ensemble(pf, lf, w_pair=PRIMARY_W_PAIR),
             "_anchor": Ensemble(pa, la), "_anchor_pair": pa}
 
 

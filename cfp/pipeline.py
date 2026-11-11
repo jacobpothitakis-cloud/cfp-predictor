@@ -24,6 +24,8 @@ def clear_caches() -> None:
     data.games.cache_clear()
     ratings.load.cache_clear()
     dataset.all_releases.cache_clear()
+    from cfp.features import external
+    external.clear()
 
 
 def refresh(force: bool = True) -> dict[str, int]:

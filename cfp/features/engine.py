@@ -171,7 +171,10 @@ def compute(st: SeasonState, ga: GameArrays, margin: np.ndarray, rating: np.ndar
     out["margin_loss_cap"] = (np.clip(m, -MARGIN_CAP, 0) * loss).sum(2) / np.maximum(L, 1)
     gc = np.where(np.isnan(gc_static), game_control_from_margin(m), gc_static)
     out["game_control"] = (gc * V).sum(2) / GP
-    pg = np.where(np.isnan(pg_static), ndtr(m / 12.0), pg_static)
+    # Margin-based stand-in for postgame win expectancy. CFBD's play-by-play version was tested in its place
+    # (walk-forward 2014-2025) and made the committee model worse in 9 of 12 seasons (1.172 -> 1.187), and
+    # simulated games can only have the margin-based one, so it is used throughout.
+    pg = ndtr(m / 12.0)
     out["postgame_wp"] = (pg * V).sum(2) / GP
 
     # --- recency (games are in chronological order along the last axis)

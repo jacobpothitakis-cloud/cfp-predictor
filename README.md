@@ -67,11 +67,16 @@ Leave-one-season-out, 2014–2025, 72 weekly rankings (full detail in `reports/b
 
 | | Mean abs. rank error | Within 1 | Top-12 overlap | Final field exactly right |
 |---|---|---|---|---|
-| Model (polls + last week) | 1.30 | 69% | 95% | 8 of 12 seasons |
+| Model (polls + last week) | 1.21 | 72% | 95% | 7 of 12 seasons |
 | AP poll | 1.78 | 60% | 95% | 4 of 12 |
 | Last week's ranking adjusted for losses | 1.85 | 61% | 94% | 4 of 12 |
-| Simulation model (carry-over from first ranking) | 1.85 | 57% | 93% | 9 of 12 |
+| Simulation model (carry-over from first ranking) | 1.84 | 57% | 94% | 9 of 12 |
 | Pure strength of record | 4.39 | 30% | 84% | 6 of 12 |
+
+This test never shows the model a season's own earlier rankings. Run the way it is actually used, with those
+included (`reports/walkforward_metrics.csv`), the weekly model misses by 1.10 places and names the exact final
+field in 8 of 12 seasons. (The table reflects the November 2026 model review; before it the first row read
+1.30, 69%, 95%, 8 of 12.)
 
 Simulated playoff odds, checked against 2014–2025 from each season's first and third rankings: Brier skill
 0.58 over the base rate (`reports/simulation_calibration.md`). Team strength: 74.9% of winners walk-forward,
@@ -80,7 +85,7 @@ well calibrated (`reports/ratings_validation.md`).
 Live 2026 results are scored automatically by each `cfp update` (`reports/2026_prediction_log.md`, and the
 dashboard's Report card tab). First scored ranking, Nov 10, 2026: mean miss 1.84 places, 4 of 25 exact, 48% within
 one spot, top four 2 of 4, top twelve 11 of 12; the stated 80% range held the actual rank for 76% of teams.
-That is weaker than the 1.30 backtest average. Biggest misses: Indiana (predicted 4, actual 9 after an idle week),
+That is weaker than the backtest average. Biggest misses: Indiana (predicted 4, actual 9 after an idle week),
 Oklahoma State (outside the model's top 30, actual 25), Ole Miss (15 v 19), Alabama (6 v 3).
 
 After that ranking the weekly model was changed to weight the current season's earlier rankings six times as
@@ -98,13 +103,31 @@ write-up, with the chair's stated reasons and what was tried and rejected, is `r
 - Simulated ratings are updated with a one-step approximation of the full rating refit.
 - A what-if "X loses its title game" applies only in simulations where X reaches the game.
 
-## What is missing without the CFBD key
+## CollegeFootballData (connected Nov 2026)
 
-No closing lines (so no validation against the market), no SP+, SRS or Elo, no advanced stats (success rate,
-EPA/PPA, postgame win expectancy), and no second source to reconcile final scores against. The loader picks
-all of these up automatically once `CFBD_API_KEY` is set and `cfp update` is run; CFBD then becomes the
-primary source for scores and ESPN the cross-check, with disagreements written to the `score_conflicts`
-table. Until then the only reconciliation is W-L records against the record ESPN prints beside each ranked team.
+With `CFBD_API_KEY` in `.env`, `cfp update` also pulls CFBD games, betting lines, Elo, SP+, SRS and play-by-play
+stats (about 14 calls a week against a 1,000-a-month allowance; every response is cached). What it is used for:
+
+- **Score check.** CFBD is the primary score source and ESPN the cross-check. CFBD lists some neutral-site games
+  with home and away reversed, so games are aligned by team id first. After alignment 2 of 11,057 games differ,
+  each by one point; they are in the `score_conflicts` table.
+- **Betting lines in the simulation.** Where a line is posted for a remaining game, its expected margin is 70% line
+  and 30% rating.
+- **Not used as committee-model inputs.** Market rating, Elo, points per play, success rate, record against the
+  spread and CFBD's postgame win probability were each tested and none improved the ranking model
+  (`reports/model_review_2026-11.md`). SP+, SRS and FPI are end-of-season values and cannot be used for past weeks.
+
+Without the key everything still runs on ESPN data alone, minus the two uses above.
+
+## Model review, November 2026
+
+After the first live week every idea for improving the model was tested on a production-style walk-forward
+(`cfp/committee/walkforward.py`, results in `reports/walkforward_metrics.csv`). Average miss went from 1.21 to
+1.10 places, better in 11 of 12 seasons; the simulation's carry-over model from 1.64 to 1.43. Kept: heavier weight
+on the current season's earlier rankings, a 70/30 ensemble mix, the polls' "others receiving votes", and betting
+lines in the simulation. Rejected, with numbers: committee-membership effects (chair's conference, members'
+conferences, a team's own AD), all the CFBD strength and efficiency inputs, and several tuning changes.
+Full write-up: `reports/model_review_2026-11.md`. The committee roster by season is `data/committee_roster.csv`.
 
 ## Every assumption and proxy
 

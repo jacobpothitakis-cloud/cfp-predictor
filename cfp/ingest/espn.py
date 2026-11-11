@@ -157,6 +157,39 @@ def week_rankings(season: int, season_type: int, week: int, *, max_age_s: float 
     return rows
 
 
+def week_poll_others(season: int, season_type: int, week: int, *, max_age_s: float | None = 3600) -> list[dict]:
+    """Teams outside a poll's top 25 that received votes (the "others receiving votes" list), with points.
+    Reads the same responses as week_rankings, so it costs no extra requests once those are cached."""
+    base = f"{CORE}/seasons/{season}/types/{season_type}/weeks/{week}/rankings"
+    try:
+        idx = _core(base, f"rkidx_{season}_{season_type}_{week:02d}", season, max_age_s)
+    except http.FetchError:
+        return []
+    rows = []
+    for item in idx.get("items", []):
+        m = re.search(r"/rankings/(\d+)", item["$ref"])
+        if not m or m.group(1) not in POLL_IDS or POLL_IDS[m.group(1)] == "cfp":
+            continue
+        pid = m.group(1)
+        d = _core(f"{base}/{pid}", f"rk_{season}_{season_type}_{week:02d}_{pid}", season, max_age_s)
+        p25 = min((r.get("points") or 0 for r in d.get("ranks", []) if int(r["current"]) == 25), default=0)
+        for r in d.get("others", []):
+            tm = re.search(r"/teams/(\d+)", r["team"]["$ref"])
+            if tm and r.get("points"):
+                rows.append({"season": season, "season_type": "regular" if season_type == 2 else "postseason",
+                             "week": week, "poll": POLL_IDS[pid], "team_id": int(tm.group(1)),
+                             "points": float(r["points"]), "points_25th": float(p25)})
+    return rows
+
+
+def season_poll_others(season: int, *, max_age_s: float | None = 3600) -> pd.DataFrame:
+    rows: list[dict] = []
+    for wk in range(1, 17):
+        rows += week_poll_others(season, 2, wk, max_age_s=max_age_s)
+    rows += week_poll_others(season, 3, 1, max_age_s=max_age_s)
+    return pd.DataFrame(rows, columns=["season", "season_type", "week", "poll", "team_id", "points", "points_25th"])
+
+
 def season_rankings(season: int, *, max_age_s: float | None = 3600) -> pd.DataFrame:
     rows: list[dict] = []
     for wk in range(1, 17):

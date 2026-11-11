@@ -54,11 +54,24 @@ def unify_games(eg: pd.DataFrame, mem: pd.DataFrame, cg: pd.DataFrame | None,
     if cg is not None and len(cg):
         c = cg.rename(columns={"id": "game_id"}).copy()
         c = c[c["game_id"].isin(g["game_id"])]
-        keep = ["game_id", "homePoints", "awayPoints", "homePregameElo", "awayPregameElo",
+        keep = ["game_id", "homeId", "awayId", "homePoints", "awayPoints", "homePregameElo", "awayPregameElo",
                 "homePostgameWinProbability", "awayPostgameWinProbability", "excitementIndex",
                 "neutralSite", "conferenceGame", "completed"]
         c = c[[k for k in keep if k in c.columns]]
         g = g.merge(c, on="game_id", how="left", suffixes=("", "_cfbd"))
+        # CFBD sometimes lists the two teams of a neutral-site game the other way round from ESPN.
+        # ESPN's home/away is canonical here, so flip CFBD's home/away fields for those games.
+        sw = (g["homeId"] == g["away_id"]) & (g["awayId"] == g["home_id"])
+        for a_, b_ in (("homePoints", "awayPoints"), ("homePregameElo", "awayPregameElo"),
+                       ("homePostgameWinProbability", "awayPostgameWinProbability")):
+            if a_ in g.columns and b_ in g.columns:
+                g.loc[sw, [a_, b_]] = g.loc[sw, [b_, a_]].to_numpy()
+        mismatch = g["homeId"].notna() & ~sw & ((g["homeId"] != g["home_id"]) | (g["awayId"] != g["away_id"]))
+        for col in ("homePoints", "awayPoints", "homePregameElo", "awayPregameElo", "homePostgameWinProbability",
+                    "awayPostgameWinProbability"):
+            if col in g.columns:
+                g.loc[mismatch, col] = np.nan      # different teams under one id: do not use
+        g["cfbd_swapped"] = sw
         both = g["home_pts"].notna() & g["homePoints"].notna()
         bad = both & ((g["home_pts"] != g["homePoints"]) | (g["away_pts"] != g["awayPoints"]))
         conflicts = g.loc[bad, ["game_id", "season", "home_team", "away_team", "home_pts", "away_pts",
@@ -84,6 +97,8 @@ def unify_games(eg: pd.DataFrame, mem: pd.DataFrame, cg: pd.DataFrame | None,
         ln["spread"] = pd.to_numeric(ln["spread"], errors="coerce")
         med = ln.groupby("game_id")["spread"].median().rename("cfbd_spread")
         g = g.merge(med, on="game_id", how="left")
+        if "cfbd_swapped" in g.columns:           # CFBD spreads are from its own home team's side
+            g.loc[g["cfbd_swapped"].fillna(False), "cfbd_spread"] *= -1
         has = g["cfbd_spread"].notna()
         g.loc[has, "spread_home"] = g.loc[has, "cfbd_spread"]
         g.loc[has, "spread_source"] = "cfbd"
@@ -194,6 +209,9 @@ def build(use_cfbd: bool | None = None, seasons: list[int] | None = None) -> dic
     tables["score_conflicts"] = conflicts
     tables["rankings"] = rk
     tables["releases"] = build_releases(rk)
+    oth = pd.concat([espn.season_poll_others(s) for s in seasons], ignore_index=True)
+    pd_ = rk.drop_duplicates(["season", "season_type", "week", "poll"])[["season", "season_type", "week", "poll", "poll_date"]]
+    tables["poll_others"] = oth.merge(pd_, on=["season", "season_type", "week", "poll"], how="left")
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect(str(DB_PATH))
     counts = {}

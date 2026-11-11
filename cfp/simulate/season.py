@@ -30,6 +30,10 @@ from cfp.features.state import GameArrays, SeasonState, build_state
 ND = "Notre Dame"
 RATING_SD = 4.0       # sd of a team's true strength around its rating, shared across its remaining games
 FINAL_RELEASES = {2026: 6}
+LINE_WEIGHT = 0.7     # weight on a posted betting line against the rating-based expectation for that game
+# Tested on 3,112 games in the week after each committee ranking, 2014-2026: log loss 0.5218 from ratings alone,
+# 0.5059 at 0.7 and 0.5052 at 0.85, better than ratings alone in all 13 seasons. 0.7 rather than 0.85 because the
+# test used closing lines and the lines available when this runs are posted days earlier.
 
 
 @dataclass
@@ -122,6 +126,7 @@ def _round_margin(x: np.ndarray, rng: np.random.Generator) -> np.ndarray:
 
 def simulate(season: int = 2026, now: pd.Timestamp | None = None, n_sims: int = 10000, seed: int = 2026,
              forced: list[Forced] | None = None, bundle: dict | None = None, chunk: int = 2000,
+             use_lines: bool = True,
              fpi_weight: float = 0.5, n_cand: int = 60, st: SeasonState | None = None,
              anchor_rel=None, title_confs: dict | None = None, playoff: bool = True,
              noise: bool = True, legacy_rules: bool = False, final_no: int | None = None) -> SimResult:
@@ -208,11 +213,24 @@ def simulate(season: int = 2026, now: pd.Timestamp | None = None, n_sims: int = 
     ccg_pairs: dict[str, dict[tuple[int, int], int]] = {c: {} for c in tg}
     proxy_log: dict[str, int] = {}
 
+    # posted betting lines for upcoming games (CFBD consensus), blended into those games' expected margins
+    line_off = np.zeros(F)
+    if use_lines and F and season == data.games()["season"].max():   # past seasons: future lines were not known then
+        gm = data.games()
+        sp = dict(zip(gm["game_id"], gm["spread_home"]))
+        line = np.array([sp.get(g, np.nan) for g in fut.game_id], float)
+        base = r0[fut.gh] - r0[fut.ga] + hfa * (~fut.neutral)
+        ok = ~np.isnan(line) & (np.abs(-line - base) < 28)
+        line_off[ok] = LINE_WEIGHT * (-line[ok] - base[ok])
+        if ok.any():
+            notes.append(f"Betting lines used for {int(ok.sum())} of {F} remaining games ({LINE_WEIGHT:.0%} line, "
+                         f"{1 - LINE_WEIGHT:.0%} rating); the rest use ratings only.")
+
     for lo in range(0, n_sims, chunk):
         S = min(chunk, n_sims - lo)
         sl = slice(lo, lo + S)
         r_true = r0[None, :] + RATING_SD * rng.standard_normal((S, n + 1))
-        mu = r_true[:, fut.gh] - r_true[:, fut.ga] + hfa * (~fut.neutral)[None, :]
+        mu = r_true[:, fut.gh] - r_true[:, fut.ga] + hfa * (~fut.neutral)[None, :] + line_off[None, :]
         mf = _round_margin(mu + sig_g * rng.standard_normal((S, F)), rng)
         want = f_sign[None, :] != 0
         flip = want & (np.sign(mf) != f_sign[None, :])

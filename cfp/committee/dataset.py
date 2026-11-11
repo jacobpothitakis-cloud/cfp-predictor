@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 from cfp import data, ratings
-from cfp.features import engine
+from cfp.features import engine, external
 from cfp.features.state import SeasonState, build_state
 
 # continuous features are z-scored across all FBS teams within a release (the committee compares
@@ -26,7 +26,9 @@ SCALE = {"days_since_loss": 1 / 30.0, "week_margin": 1 / 10.0, "margin_loss_cap"
 LEVEL_FEATURES = Z_FEATURES + RAW_FEATURES + ["preseason", "qb_out", "qb_back", "losses_sq", "g6_wae"]
 # prev = last week's committee position (0 for everyone at a season's first release, when the AP/Coaches
 # polls have to carry the "prior opinion": ap_first / coaches_first let them carry more weight then).
-POLL_FEATURES = ["ap", "coaches", "prev", "prev_lost", "ap_first", "coaches_first", "ap_lost_first"]
+POLL_FEATURES = ["ap", "coaches", "prev", "prev_lost", "ap_first", "coaches_first", "ap_lost_first", "rv"]
+# rv: poll points of teams just outside the AP / Coaches top 25 ("others receiving votes"), see features/external.py.
+# Walk-forward 2014-2025: 1.120 -> 1.098 overall, 1.775 -> 1.715 for ranks 17-25, better in 8 of 12 seasons.
 # "anchor": an earlier committee ranking from the same season, `lag` releases back. This is what the
 # simulation uses, because future AP polls and future committee rankings do not exist yet.
 ANCHOR_FEATURES = ["anc1", "anc2", "anc3", "anc_lost", "new_losses", "anc_missing"]
@@ -166,6 +168,7 @@ def build_release(season: int, cutoff: pd.Timestamp, release_no: int, is_final: 
     f = engine.compute(st, st.played, st.margin[None], st.rating[None], hfa=R.p.hfa, sigma=R.p.sigma,
                        final_week=is_final)
     X, raw = frame_from_features(st, f, is_final=is_final, availability=availability)
+    X = pd.concat([X, external.features(st)], axis=1)
     rank = np.full(st.n, np.nan)
     if with_labels:
         act = data.cfp_ranking(season, cutoff)

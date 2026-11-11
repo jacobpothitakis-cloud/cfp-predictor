@@ -22,14 +22,16 @@ from cfp.committee.dataset import ANCHOR_FEATURES, ERA_FEATURES, LEVEL_FEATURES,
 
 ERA_SCALE = 0.5      # era-deviation columns are shrunk, i.e. penalised harder than the base weights
 RECENCY = 0.90       # per-season sample-weight decay
-SEASON_BOOST = 6.0   # extra sample weight on rankings already released in the season being predicted ("full" model only)
+SEASON_BOOST = 6.0   # extra sample weight on rankings already released in the season being predicted
 # Walk-forward test, 2014-2025, predicting each ranking from the second on with the season's earlier rankings in
 # the training set: mean error 1.111 at weight 1, 1.075 at 3, 1.059 at 6, 1.060 at 10, 1.057 at 20; better than
 # weight 1 in 10 of 12 seasons at 6. Each committee has its own leanings and its first rankings reveal them.
+# The simulation's carry-over ("anchor") model gains more: 1.638 -> 1.434, better in all 12 seasons.
+# Not applied to the résumé-only model, where it was not tested.
 
 
 def _weight(target_season: int, season: int, variant: str = "") -> float:
-    boost = SEASON_BOOST if (season == target_season and variant == "full") else 1.0
+    boost = SEASON_BOOST if (season == target_season and variant in ("full", "anchor")) else 1.0
     return RECENCY ** abs(target_season - season) * boost
 
 
@@ -82,6 +84,7 @@ class PairwiseCommittee:
     target_season: int = 2026
     exclude: tuple[str, ...] = ()    # features left out (ablation tests)
     use_pairwise: bool = True        # stage B on/off (ablation tests)
+    extra: tuple[str, ...] = ()      # additional feature columns
     coef_: np.ndarray | None = None
     names_: list[str] = field(default_factory=list)
     b_h2h_: float = 0.0
@@ -91,7 +94,7 @@ class PairwiseCommittee:
     @property
     def features(self) -> list[str]:
         extra = {"full": POLL_FEATURES, "anchor": ANCHOR_FEATURES}.get(self.variant, [])
-        return [f for f in LEVEL_FEATURES + extra if f not in self.exclude]
+        return [f for f in LEVEL_FEATURES + extra + list(self.extra) if f not in self.exclude]
 
     # ------------------------------------------------------------------ fit
     def fit(self, releases: list[Release]) -> "PairwiseCommittee":
@@ -178,12 +181,14 @@ class LambdaCommittee:
     variant: str = "full"
     target_season: int = 2026
     params: dict | None = None
+    exclude: tuple[str, ...] = ()
+    extra: tuple[str, ...] = ()
     model_: lgb.Booster | None = None
 
     @property
     def features(self) -> list[str]:
         extra = {"full": POLL_FEATURES, "anchor": ANCHOR_FEATURES}.get(self.variant, [])
-        return LEVEL_FEATURES + extra + ["era12", "era25"]
+        return [f for f in LEVEL_FEATURES + extra + list(self.extra) if f not in self.exclude] + ["era12", "era25"]
 
     def _M(self, rel: Release) -> np.ndarray:
         e12, e25 = era_flags(rel.season)

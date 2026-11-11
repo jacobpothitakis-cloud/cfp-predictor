@@ -116,3 +116,35 @@ def test_game_control_proxy():
     assert game_control_home("[14, 14, 7, 0]", "[0, 0, 0, 7]", 28) > 0.9
     assert game_control_home("[0, 0, 0, 21]", "[7, 7, 3, 0]", 4) < 0.5     # trailed all game, won late
     assert np.isnan(game_control_home(None, None, 3))
+
+
+# ----------------------------------------------------------------------------- inputs added in the Nov 2026 model review
+def test_receiving_votes_only_for_teams_outside_the_top_25():
+    import numpy as np
+    from cfp.committee import dataset
+    from cfp.features import external
+    rel = dataset.all_releases()[-1]
+    rv = external.receiving_votes(rel.st)
+    assert rv.min() >= 0 and rv.max() <= 1
+    ranked_both = ~np.isnan(rel.st.ap) & ~np.isnan(rel.st.coaches)
+    assert (rv[ranked_both] == 0).all()          # a team ranked in both polls is not an "other receiving votes"
+    assert (rv > 0).sum() >= 3
+
+
+def test_cfbd_home_away_is_aligned_to_espn():
+    """CFBD lists some neutral-site games with the teams the other way round; after alignment the two sources
+    may differ by a point here and there but never on who won."""
+    from cfp import data
+    if not data.has_table("cfbd_games"):
+        return
+    c = data.table("score_conflicts")
+    assert len(c) < 10
+    assert (((c.espn_home > c.espn_away) == (c.cfbd_home > c.cfbd_away))).all()
+
+
+def test_same_season_rankings_are_weighted_up():
+    from cfp.committee import model
+    assert model._weight(2026, 2026, "full") == model.SEASON_BOOST
+    assert model._weight(2026, 2026, "anchor") == model.SEASON_BOOST
+    assert model._weight(2026, 2026, "level") == 1.0
+    assert model._weight(2026, 2025, "full") == model.RECENCY

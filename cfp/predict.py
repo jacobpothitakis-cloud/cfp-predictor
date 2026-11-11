@@ -22,7 +22,7 @@ RELEASE_DATES = {2026: ["2026-11-03", "2026-11-10", "2026-11-17", "2026-11-24", 
 
 GROUPS = {
     "last week's committee position": ["prev", "prev_lost"],
-    "AP and Coaches polls": ["ap", "coaches", "ap_first", "coaches_first", "ap_lost_first"],
+    "AP and Coaches polls": ["ap", "coaches", "ap_first", "coaches_first", "ap_lost_first", "rv"],
     "losses and record": ["losses", "losses_sq", "wins", "win_pct", "no_loss"],
     "team strength and dominance": ["rating", "margin_cap", "margin_loss_cap", "game_control", "postgame_wp"],
     "quality of wins": ["win_credit", "best_win", "best_win2", "best_win3", "w_ranked", "w_top10", "w_ranked_g",
