@@ -97,7 +97,11 @@ st.markdown(f"""
 
 @st.cache_resource(show_spinner=False)
 def _outputs(stamp: float):
-    """Loaded once per data refresh and shared by every visitor (keeps CPU use low on a shared host)."""
+    """Loaded once per data refresh and shared by every visitor (keeps CPU use low on a shared host).
+    A hosted app keeps running when new data is pushed, so the in-memory copies of the database tables
+    are dropped here; otherwise the site would keep showing the previous week's committee ranking."""
+    from cfp.pipeline import clear_caches
+    clear_caches()
     return load_outputs()
 
 
@@ -120,14 +124,16 @@ def _scored(season: int, stamp: float) -> list[dict]:
 
 
 _f = OUT / "latest.pkl"
-out = _outputs(_f.stat().st_mtime) if _f.exists() else None
+from cfp.config import DB_PATH  # noqa: E402
+STAMP = max(_f.stat().st_mtime if _f.exists() else 0.0, DB_PATH.stat().st_mtime if DB_PATH.exists() else 0.0)
+out = _outputs(STAMP) if _f.exists() else None
 if out is None:
     st.error("No results yet. Run `cfp update` first.")
     st.stop()
 pred, sim = out["pred"], SimpleNamespace(**out["sim"])
 S = pred.rel.st
 IDX = {n: i for i, n in enumerate(S.names)}
-last_df, last_date = _last_ranking(S.season, _f.stat().st_mtime)
+last_df, last_date = _last_ranking(S.season, STAMP)
 last_rank = dict(zip(last_df.get("team", []), last_df.get("rank", [])))
 
 
@@ -478,7 +484,7 @@ with tabs[4]:
 
 # ----------------------------------------------------------------------------- report card
 with tabs[5]:
-    scored = _scored(S.season, _f.stat().st_mtime)
+    scored = _scored(S.season, STAMP)
     if not scored:
         st.info("No prediction has been scored yet. The first one is checked after the committee's next ranking.")
     else:
