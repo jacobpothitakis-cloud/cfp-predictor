@@ -62,3 +62,10 @@ def test_2025_five_highest_ranked_champions_straight_seeding():
     f = select_field(order, conf, champs, 2025)
     assert f.seeds[:4] == [0, 1, 2, 3]
     assert {1, 6, 12, 23, 29} <= f.teams and 30 not in f.teams   # the ACC champion ranked 31st misses out
+
+
+def test_bracket_poster_draws_all_twelve_seeds():
+    from cfp.app.poster import bracket_poster
+    seeds = {k: {"name": f"Team {k}", "team_id": 1000 + k} for k in range(1, 13)}
+    html = bracket_poster(seeds, {1: "Peach", 2: "Rose", 3: "Cotton", 4: "Fiesta"}, subtitle="test")
+    assert html.count("<image") == 12 and "FIESTA BOWL" in html and "PROJECTED BRACKET" in html

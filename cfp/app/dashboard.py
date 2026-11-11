@@ -139,6 +139,12 @@ last_df, last_date = _last_ranking(S.season, STAMP)
 last_rank = dict(zip(last_df.get("team", []), last_df.get("rank", [])))
 
 
+def poster(seed_map: dict, bowls: dict, subtitle: str = "", footer: str = "") -> None:
+    import streamlit.components.v1 as components
+    from cfp.app.poster import bracket_poster
+    components.html(bracket_poster(seed_map, bowls, subtitle=subtitle, footer=footer), height=950, scrolling=False)
+
+
 def logo(team: str) -> str:
     return f"https://a.espncdn.com/i/teamlogos/ncaa/500/{int(S.team_ids[IDX[team]])}.png" if team in IDX else ""
 
@@ -287,6 +293,9 @@ with tabs[1]:
                     f'<div class="round"><h4>Quarterfinals</h4>{qf}</div><div class="round"><h4>Semifinals</h4>{sf}</div>'
                     f'<div class="round"><h4>Final</h4>{fin}</div></div>', unsafe_allow_html=True)
         st.write("")
+        with st.expander("Poster version", expanded=True):
+            poster({k + 1: {"name": S.names[t_], "team_id": int(S.team_ids[t_])} for k, t_ in enumerate(seeds)}, bowls,
+                   subtitle=f"If the season ended today · ranking #{pred.release_no} prediction", footer="Predicted committee ranking and 2026 seeding rules")
         a, b = st.columns(2)
         with a:
             section("Automatic bids")
@@ -480,6 +489,24 @@ with tabs[4]:
                                     "First-round bye": st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100),
                                     "Change": st.column_config.NumberColumn(format="%+.0f pts")})
         st.caption("A title-game pick only applies in the seasons where that team reaches its title game.")
+
+        # ---- the most likely bracket in this scenario, as a poster
+        from scipy.optimize import linear_sum_assignment
+        cand = w.seeds[w.seeds.sum(1) > 0.01]
+        if len(cand) >= 12:
+            ri, ci = linear_sum_assignment(-cand.to_numpy())          # one team per seed, most likely overall
+            seed_team = {int(cand.columns[j]): cand.index[i] for i, j in zip(ri, ci)}
+            st.write("")
+            section("The playoff in this scenario", "Each seed shows the team most likely to hold it once your results are applied.")
+            poster({k: {"name": v, "team_id": int(S.team_ids[IDX[v]])} for k, v in seed_team.items()},
+                   bowl_paths([IDX[seed_team[k]] for k in range(1, 13)], S),
+                   subtitle="What-if scenario · " + " · ".join(f"{f_.winner} over {f_.loser}" if f_.loser else
+                                                              f"{f_.winner} {'wins' if f_.wins else 'loses'} title game" for f_ in forced[:3])
+                   + (" · ..." if len(forced) > 3 else ""),
+                   footer=f"Most likely field and seeding from {w.n_sims:,} simulated seasons")
+            wt = w.teams.set_index("team")
+            st.caption("First-round games are at the higher seed's stadium on Dec 18–19. Which bowl each of the top three seeds picks is our assumption. "
+                       "Most likely champion in this scenario: " + ", ".join(f"{t_} {pct(float(v_))}" for t_, v_ in wt.p_champion.nlargest(3).items()) + ".")
     elif not forced:
         st.info("Choose at least one game or title-game result above to run a scenario.")
 

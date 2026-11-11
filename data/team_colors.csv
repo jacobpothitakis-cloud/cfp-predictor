@@ -1,0 +1,139 @@
+team_id,school,abbreviation,color,alt_color
+2005,Air Force,AF,#003594,#ffffff
+2006,Akron,AKR,#041e42,#a89968
+333,Alabama,ALA,#9e1b32,#ffffff
+2026,App State,APP,#000000,#ffcd00
+12,Arizona,ARIZ,#cc0033,#003366
+9,Arizona State,ASU,#ffc627,#8c1d40
+8,Arkansas,ARK,#a32136,#ffffff
+2032,Arkansas State,ARST,#cc092f,#000000
+349,Army,ARMY,#000000,#d3bc8d
+2,Auburn,AUB,#0c2340,#f26522
+2050,Ball State,BALL,#ba0c2f,#ffffff
+239,Baylor,BAY,#154734,#ffb81c
+68,Boise State,BOIS,#0033a0,#d64309
+103,Boston College,BC,#8c2232,#dbcca6
+189,Bowling Green,BGSU,#fd5000,#4f2c1d
+2084,Buffalo,BUF,#005bbb,#ffffff
+252,BYU,BYU,#003da5,#002e5d
+25,California,CAL,#041e42,#ffc72c
+2117,Central Michigan,CMU,#6a0032,#ffc82e
+2429,Charlotte,CLT,#005035,#a49665
+2132,Cincinnati,CIN,#000000,#e00122
+228,Clemson,CLEM,#f56600,#522d80
+324,Coastal Carolina,CCU,#006f71,#a27752
+38,Colorado,COLO,#cfb87c,#000000
+36,Colorado State,CSU,#1e4d2b,#c8c372
+48,Delaware,DEL,#00539f,#ffd200
+150,Duke,DUKE,#00539b,#ffffff
+151,East Carolina,ECU,#592a8a,#fdc82f
+2199,Eastern Michigan,EMU,#046a38,#ffffff
+57,Florida,FLA,#0021a5,#fa4616
+2226,Florida Atlantic,FAU,#003366,#cc0000
+2229,Florida International,FIU,#091f3f,#c3993f
+52,Florida State,FSU,#782f40,#ceb888
+278,Fresno State,FRES,#c41230,#13284c
+61,Georgia,UGA,#ba0c2f,#2c2a29
+290,Georgia Southern,GASO,#041e42,#ffffff
+2247,Georgia State,GAST,#0039a6,#ffffff
+59,Georgia Tech,GT,#b3a369,#ffffff
+62,Hawai'i,HAW,#024731,#000000
+248,Houston,HOU,#c8102e,#ffffff
+356,Illinois,ILL,#ff5f05,#13294b
+84,Indiana,IU,#990000,#ffffff
+2294,Iowa,IOWA,#000000,#ffcd00
+66,Iowa State,ISU,#c8102e,#f1be48
+55,Jacksonville State,JXST,#cc0000,#000000
+256,James Madison,JMU,#450084,#cbb677
+2305,Kansas,KU,#0051ba,#e8000d
+2306,Kansas State,KSU,#512888,#ffffff
+338,Kennesaw State,KENN,#fdbb30,#0b1315
+2309,Kent State,KENT,#002664,#eaab00
+96,Kentucky,UK,#0033a0,#ffffff
+2335,Liberty,LIB,#0a254e,#b72025
+309,Louisiana,UL,#ce181e,#000000
+2348,Louisiana Tech,LT,#003087,#cb333b
+97,Louisville,LOU,#c9001f,#000000
+99,LSU,LSU,#461d7c,#fdd023
+276,Marshall,MRSH,#00b140,#000000
+120,Maryland,MD,#ce1126,#ffffff
+113,Massachusetts,MASS,#881c1c,#ffffff
+235,Memphis,MEM,#00498f,#9c9ea1
+2390,Miami,MIA,#f47321,#005030
+193,Miami (OH),M-OH,#c41230,#ffffff
+130,Michigan,MICH,#00274c,#ffcb05
+127,Michigan State,MSU,#173f35,#ffffff
+2393,Middle Tennessee,MTSU,#036eb7,#ffffff
+135,Minnesota,MINN,#7a0019,#ffcc33
+344,Mississippi State,MSST,#5d1725,#c1c6c8
+142,Missouri,MIZ,#f1b82d,#000000
+2623,Missouri State,MOST,#5e0009,#ffffff
+2426,Navy,NAVY,#00225b,#b5a67c
+152,NC State,NCSU,#cc0000,#ffffff
+158,Nebraska,NEB,#d00000,#ffffff
+2440,Nevada,NEV,#041e42,#8a8d8f
+167,New Mexico,UNM,#ba0c2f,#a7a8aa
+166,New Mexico State,NMSU,#8c0b42,#ffffff
+153,North Carolina,UNC,#7bafd4,#13294b
+2449,North Dakota State,NDSU,#00583d,#ffc425
+2459,Northern Illinois,NIU,#c8102e,#000000
+249,North Texas,UNT,#00853e,#ffffff
+77,Northwestern,NU,#582c83,#ffffff
+87,Notre Dame,ND,#0c2340,#c99700
+195,Ohio,OHIO,#024230,#ffffff
+194,Ohio State,OSU,#ba0c2f,#a7b1b7
+201,Oklahoma,OU,#841617,#ffffff
+197,Oklahoma State,OKST,#fe5c00,#000000
+295,Old Dominion,ODU,#043657,#98c5ea
+145,Ole Miss,MISS,#13294b,#cf142b
+2483,Oregon,ORE,#007030,#fee11a
+204,Oregon State,ORST,#dc4405,#000000
+213,Penn State,PSU,#001e44,#ffffff
+221,Pittsburgh,PITT,#003594,#ffb81c
+2509,Purdue,PUR,#ceb888,#000000
+242,Rice,RICE,#00205b,#c1c6c8
+164,Rutgers,RUTG,#ce0e2d,#ffffff
+16,Sacramento State,SAC,#00573c,#cdb97d
+2534,Sam Houston,SHSU,#f56423,#ffffff
+21,San Diego State,SDSU,#a6192e,#000000
+23,San José State,SJSU,#0055a2,#e5a823
+2567,SMU,SMU,#d70000,#0033a1
+6,South Alabama,USA,#00205b,#bf0d3e
+2579,South Carolina,SC,#73000a,#000000
+2572,Southern Miss,USM,#ffc72c,#231f20
+58,South Florida,USF,#006747,#cfc493
+24,Stanford,STAN,#8c1515,#ffffff
+183,Syracuse,SYR,#f76900,#000e54
+2628,TCU,TCU,#4d1979,#ffffff
+218,Temple,TEM,#a41e35,#ffffff
+2633,Tennessee,TENN,#ff8200,#ffffff
+251,Texas,TEX,#bf5700,#ffffff
+245,Texas A&M,TA&M,#500000,#ffffff
+326,Texas State,TXST,#501214,#6a5638
+2641,Texas Tech,TTU,#c30020,#000000
+2649,Toledo,TOL,#0b2240,#ffcd00
+2653,Troy,TROY,#862633,#b1b1b1
+2655,Tulane,TULN,#006747,#418fde
+202,Tulsa,TLSA,#003595,#d0b787
+5,UAB,UAB,#1a5632,#fdb913
+2116,UCF,UCF,#000000,#b4a169
+26,UCLA,UCLA,#2774ae,#f2a900
+41,UConn,CONN,#000e2f,#ffffff
+2433,UL Monroe,ULM,#840029,#fdb913
+2439,UNLV,UNLV,#cf0a2c,#cac8c8
+30,USC,USC,#990000,#ffcc00
+254,Utah,UTAH,#be0000,#ffffff
+328,Utah State,USU,#0f2439,#ffffff
+2638,UTEP,UTEP,#ff8200,#041e42
+2636,UTSA,UTSA,#0c2340,#f15a22
+238,Vanderbilt,VAN,#000000,#cfae70
+258,Virginia,UVA,#232d4b,#f84c1e
+259,Virginia Tech,VT,#861f41,#e87722
+154,Wake Forest,WAKE,#ceb888,#2c2a29
+264,Washington,WASH,#33006f,#e8d3a2
+265,Washington State,WSU,#a60f2d,#4d4d4d
+98,Western Kentucky,WKU,#c60c30,#ffffff
+2711,Western Michigan,WMU,#532e1f,#f1c500
+277,West Virginia,WVU,#eaaa00,#002855
+275,Wisconsin,WIS,#a00000,#ffffff
+2751,Wyoming,WYO,#492f24,#ffc425
