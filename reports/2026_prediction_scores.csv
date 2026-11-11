@@ -1,2 +1,2 @@
-release,date,mae,within1,within2,top4,top12
-2,2026-11-10,1.84,0.48,0.76,2,11
+release,date,mae,within1,within2,top4,top12,ap_mae,ap_within1,ap_within2,ap_top4,ap_top12,prev_mae,closer_model,closer_ap,in_range
+2,2026-11-10,1.84,0.48,0.76,2,11,2.32,0.36,0.68,3,11,3.96,8,4,0.76

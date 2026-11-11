@@ -77,6 +77,12 @@ Simulated playoff odds, checked against 2014–2025 from each season's first and
 0.58 over the base rate (`reports/simulation_calibration.md`). Team strength: 74.9% of winners walk-forward,
 well calibrated (`reports/ratings_validation.md`).
 
+Live 2026 results are scored automatically by each `cfp update` (`reports/2026_prediction_log.md`, and the
+dashboard's Report card tab). First scored ranking, Nov 10, 2026: mean miss 1.84 places, 4 of 25 exact, 48% within
+one spot, top four 2 of 4, top twelve 11 of 12; the stated 80% range held the actual rank for 76% of teams.
+That is weaker than the 1.30 backtest average. Biggest misses: Indiana (predicted 4, actual 9 after an idle week),
+Oklahoma State (outside the model's top 30, actual 25), Ole Miss (15 v 19), Alabama (6 v 3).
+
 ## Known limitations
 
 - The committee is thirteen people. The model's typical miss is one to two places, and about two places

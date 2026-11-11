@@ -113,6 +113,12 @@ def _last_ranking(season: int, stamp: float) -> tuple[pd.DataFrame, str]:
                          "record": last["record"].to_numpy()}), str(rel.cutoff.iloc[-1])[:10]
 
 
+@st.cache_data(show_spinner=False)
+def _scored(season: int, stamp: float) -> list[dict]:
+    from cfp.scoring import scored_releases
+    return [e for e in scored_releases(season) if e["status"] == "scored"]
+
+
 _f = OUT / "latest.pkl"
 out = _outputs(_f.stat().st_mtime) if _f.exists() else None
 if out is None:
@@ -191,7 +197,7 @@ kpi(k[4], "Simulated seasons", f"{sim.n_sims:,}", "rest of season played out")
 st.write("")
 
 FAN = next(iter(out.get("fan") or {}), None)
-tabs = st.tabs(["Rankings", "Bracket", "Playoff odds", "Teams", "What-if", "Track record"] + ([FAN] if FAN else []))
+tabs = st.tabs(["Rankings", "Bracket", "Playoff odds", "Teams", "What-if", "Report card", "Track record"] + ([FAN] if FAN else []))
 
 # ----------------------------------------------------------------------------- rankings
 with tabs[0]:
@@ -469,8 +475,131 @@ with tabs[4]:
     elif not forced:
         st.info("Choose at least one game or title-game result above to run a scenario.")
 
-# ----------------------------------------------------------------------------- track record
+
+# ----------------------------------------------------------------------------- report card
 with tabs[5]:
+    scored = _scored(S.season, _f.stat().st_mtime)
+    if not scored:
+        st.info("No prediction has been scored yet. The first one is checked after the committee's next ranking.")
+    else:
+        pick = scored[-1]
+        if len(scored) > 1:
+            lab_ = {f"Ranking #{e['release']} ({pd.Timestamp(e['date']).strftime('%b %-d')})": e for e in scored}
+            pick = lab_[st.selectbox("Which ranking", list(lab_)[::-1])]
+        d, m = pick["table"].copy(), pick["model"]
+        nT = len(d)
+        rdate = pd.Timestamp(pick["date"]).strftime("%b %-d")
+        section(f"The committee's ranking of {rdate} against our prediction",
+                f"The prediction was stored before the ranking came out (using games through {pd.Timestamp(pick['made'], tz='UTC').tz_convert('America/New_York').strftime('%b %-d, %-I:%M %p ET')}).")
+        long_run = None
+        bk = REPORTS / "backtest_metrics.csv"
+        if bk.exists():
+            mdf_ = pd.read_csv(bk)
+            long_run = mdf_[mdf_.model == "Ensemble (+polls, last week)"]
+        c = st.columns(6)
+        kpi(c[0], "Average miss", f"{m['mae']:.2f} places", f"2014–2025 test average: {long_run.mae.mean():.2f}" if long_run is not None else "per team")
+        kpi(c[1], "Exactly right", f"{m['exact']} of {nT}", "teams in the exact spot")
+        kpi(c[2], "Within one spot", f"{m['within1']:.0%}", f"test average: {long_run.within1.mean():.0%}" if long_run is not None else "")
+        kpi(c[3], "Top 4", f"{m['top4']} of 4", "right teams, any order")
+        kpi(c[4], "Top 12", f"{m['top12']} of 12", "right teams, any order")
+        kpi(c[5], "Top 25", f"{m['top25']} of {nT}", "teams the model also had ranked")
+        st.write("")
+        worse = long_run is not None and m["mae"] > long_run.mae.mean() + 0.15
+        better = long_run is not None and m["mae"] < long_run.mae.mean() - 0.15
+        verdict = ("A weaker week than usual" if worse else "A better week than usual" if better else "About a normal week")
+        st.markdown(f"**{verdict}.** The model was off by {m['mae']:.2f} places per team, with {m['exact']} teams in the exact spot and "
+                    f"{int(round(m['within2'] * nT))} of {nT} within two. The committee's rank fell inside the model's stated 80% range for "
+                    f"{pick['in_range']:.0%} of teams."
+                    + (f" Simply repeating the committee's previous ranking would have missed by {pick['prev']['mae']:.2f}." if pick["prev"] else ""))
+
+        a, b = st.columns([5, 6])
+        with a:
+            section("Predicted against actual", "Each row is a team, in the committee's order. The line shows how far the model was from the committee.")
+            d["model_plot"] = d.model.clip(upper=28)
+            d["Model had"] = ["Not ranked" if v > 30 else f"No. {v}" for v in d.model]
+            d["dir"] = np.where(d.err_model == 0, "Exact", np.where(d.err_model > 0, "We had them too low", "We had them too high"))
+            order = list(d.team)
+            base = alt.Chart(d).encode(y=alt.Y("team:N", sort=order, title=None, axis=alt.Axis(labelLimit=150)))
+            rule = base.mark_rule(strokeWidth=3, opacity=.55).encode(
+                x=alt.X("actual:Q", title="Rank", scale=alt.Scale(domain=[0.5, 28.5]), axis=alt.Axis(values=[1, 4, 8, 12, 16, 20, 25])), x2="model_plot:Q",
+                color=alt.Color("dir:N", scale=alt.Scale(domain=["We had them too low", "We had them too high", "Exact"], range=[GREEN, RED, GREY]),
+                                legend=alt.Legend(orient="top", title=None)))
+            tip = ["team:N", alt.Tooltip("actual:Q", title="Committee"), "Model had:N", alt.Tooltip("week:N", title="That week")]
+            pa = base.mark_point(filled=True, size=90, color=NAVY, opacity=1).encode(x="actual:Q", tooltip=tip)
+            pm = base.mark_point(filled=False, size=90, color=GOLD, strokeWidth=2.5, opacity=1).encode(x="model_plot:Q", tooltip=tip)
+            st.altair_chart((rule + pm + pa).properties(height=26 * nT + 40), use_container_width=True)
+            st.caption("Filled dot: the committee. Open gold ring: our prediction. A ring at the far right means the model did not have the team in its top 30.")
+        with b:
+            section("Team by team")
+            miss = lambda e: "Exact" if e == 0 else f"{abs(e)} too {'low' if e > 0 else 'high'}"   # noqa: E731
+            st.dataframe(pd.DataFrame({" ": [logo(t_) for t_ in d.team], "Committee": d.actual, "Team": d.team, "Record": d.record,
+                                       "We predicted": ["NR" if v > 30 else str(v) for v in d.model], "Miss": [miss(e) for e in d.err_model],
+                                       "Their week": d.week}).style.map(
+                             lambda v: f"color: {GREEN}; font-weight: 700" if v == "Exact" else f"color: {RED}; font-weight: 700" if isinstance(v, str) and v[:1].isdigit() and int(v.split()[0]) >= 3 else "",
+                             subset=["Miss"]),
+                         hide_index=True, use_container_width=True, height=38 * nT + 40,
+                         column_config={" ": st.column_config.ImageColumn(width="small"), "Committee": st.column_config.NumberColumn(width="small"),
+                                        "We predicted": st.column_config.TextColumn(width="small")})
+
+        a, b = st.columns(2)
+        how = lambda x: ("left them where they were" if x.prev == x.actual else   # noqa: E731
+                         f"moved them {'up' if x.prev > x.actual else 'down'} {abs(x.prev - x.actual)} from No. {x.prev}" if x.prev <= 30 else "brought them in from outside the top 25")
+        with a:
+            section("Biggest misses", "Three or more places off.")
+            big = d[d.err_model.abs() >= 3].sort_values("err_model", key=abs, ascending=False)
+            if big.empty:
+                st.markdown("No team was three or more places off.")
+            for x in big.itertuples():
+                st.markdown(f'<span class="chip down"><b>{x.team}</b> · committee No. {x.actual}, we said {"not ranked" if x.model > 30 else "No. " + str(x.model)}'
+                            f'<br>That week they {x.week}. The committee {how(x)}.</span>',
+                            unsafe_allow_html=True)
+        with b:
+            section("What it got right", "Exact, or one place off.")
+            good = d[d.err_model.abs() <= 1]
+            ex = good[good.err_model == 0]
+            if len(ex):
+                st.markdown('<span class="chip up"><b>Exact spot</b><br>' + ", ".join(f"{x.team} ({x.actual})" for x in ex.itertuples()) + "</span>", unsafe_allow_html=True)
+            one = good[good.err_model != 0]
+            if len(one):
+                st.markdown('<span class="chip up"><b>One place off</b><br>' + ", ".join(f"{x.team} ({x.actual}, we said {x.model})" for x in one.itertuples()) + "</span>",
+                            unsafe_allow_html=True)
+            movers = d[(d.prev <= 30) & ((d.prev - d.actual).abs() >= 4) & (d.err_model.abs() <= 2)]
+            if len(movers):
+                st.markdown('<span class="chip up"><b>Big moves it saw coming</b> (committee moved them four or more, model within two)<br>'
+                            + ", ".join(f"{x.team} ({x.prev} → {x.actual}, we said {x.model})" for x in movers.itertuples()) + "</span>", unsafe_allow_html=True)
+
+        section("Where the model leaned", "Average direction of the miss for different kinds of team. One ranking is a small sample, so read these as hints, not findings.")
+        d["res"] = np.where(d.week.str.contains("lost to"), "Lost that week", np.where(d.week == "did not play", "Did not play", "Won that week"))
+        d["conf"] = [CONF.get(S.conf[IDX[t_]], S.conf[IDX[t_]]) if t_ in IDX else "" for t_ in d.team]
+        d["losses"] = d.record.str.split("-").str[1].astype(int).map(lambda v: f"{v} loss{'es' if v != 1 else ''}")
+        lean = []
+        for title_, col in (("By result that week", "res"), ("By conference", "conf"), ("By record", "losses")):
+            for key, grp in d.groupby(col):
+                if len(grp) >= 3:
+                    e = float(grp.err_model.clip(-8, 8).mean())
+                    lean.append({"Group": title_, "Teams like": key, "How many": len(grp),
+                                 "Model's lean": "about right" if abs(e) < 0.5 else f"{abs(e):.1f} places too {'low' if e > 0 else 'high'}",
+                                 "Average miss": float(grp.err_model.abs().clip(upper=8).mean())})
+        st.dataframe(pd.DataFrame(lean), hide_index=True, use_container_width=True, height=38 * len(lean) + 40,
+                     column_config={"Average miss": st.column_config.NumberColumn(format="%.1f places")})
+
+        section("What happens with this")
+        st.markdown(f"- The committee model is retrained on every committee ranking to date before each new prediction, so this ranking is already part of what it learns from "
+                    f"({len(data.releases())} rankings since 2014).\n"
+                    f"- The committee's new ranking is also the starting point for the next prediction and for the season simulation.\n"
+                    f"- The next prediction, for {label}, is on the Rankings tab and will be scored here once that ranking is out.")
+        if len(scored) > 1:
+            section(f"{S.season} so far")
+            st.dataframe(pd.DataFrame({"Ranking": [e["release"] for e in scored], "Date": [e["date"] for e in scored],
+                                       "Average miss": [round(e["model"]["mae"], 2) for e in scored],
+                                       "Exact": [e["model"]["exact"] for e in scored],
+                                       "Within one spot": [f"{e['model']['within1']:.0%}" for e in scored],
+                                       "Top 4": [f"{e['model']['top4']} of 4" for e in scored], "Top 12": [f"{e['model']['top12']} of 12" for e in scored]}),
+                         hide_index=True, use_container_width=True)
+        st.caption("A team the model did not have in its top 30 is counted as 31st when measuring the miss.")
+
+# ----------------------------------------------------------------------------- track record
+with tabs[6]:
     section("How accurate is it?", "Tested on 2014–2025: for each season the model was trained on every other season, then asked to predict that season's 72 weekly rankings in total.")
     bk = REPORTS / "backtest_metrics.csv"
     if bk.exists():
@@ -520,7 +649,7 @@ The committee is thirteen people, so no model can be exact. Every number here co
 
 # ----------------------------------------------------------------------------- fan page
 if FAN:
-    with tabs[6]:
+    with tabs[7]:
         F = out["fan"][FAN]
         ti = IDX[FAN]
         raw = pred.rel.raw.iloc[ti]

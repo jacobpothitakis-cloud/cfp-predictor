@@ -49,53 +49,51 @@ def save_prediction(pred) -> Path:
 
 def score_predictions(season: int = CURRENT_SEASON) -> str:
     """Score every stored pre-release prediction whose actual ranking is now in the database, and write
-    reports/{season}_prediction_log.md with errors, biggest misses and a diagnosis line for each."""
-    rel = data.releases()
-    rel = rel[rel["season"] == season].sort_values("release_no")
-    names = data.team_names()
+    reports/{season}_prediction_log.md with errors against the AP poll, biggest misses and context for each."""
+    from cfp.scoring import scored_releases
     L = [f"# {season} prediction log\n",
-         "Each prediction below was stored before the committee released that ranking, then scored against it.\n"]
+         "Each prediction below was stored before the committee released that ranking, then scored against it. "
+         "The AP poll is the one that was current when the prediction was made. A team a source did not list counts as rank 31.\n"]
     rows = []
-    for r in rel.itertuples():
-        f = PRED_DIR / f"{season}_release_{r.release_no}.csv"
-        act = data.cfp_ranking(season, r.cutoff)
-        actual = {names[int(t)]: int(k) for t, k in zip(act["team_id"], act["rank"])}
-        if not f.exists():
-            L.append(f"## Release {r.release_no} ({str(r.cutoff)[:10]})\n\nNo pre-release prediction was stored "
+    show = lambda v: str(v) if v <= 30 else "NR"   # noqa: E731
+    for e in scored_releases(season):
+        if e["status"] == "no prediction":
+            L.append(f"## Release {e['release']} ({e['date']})\n\nNo pre-release prediction was stored "
                      "(the project did not exist yet, or `cfp predict` was not run that week). A retrospective "
                      "out-of-sample prediction for it is in `reports/backtest_report.md`, section 8.\n")
             continue
-        p = pd.read_csv(f)
-        if pd.Timestamp(p["games_through_utc"].iloc[0], tz="UTC") > r.cutoff + pd.Timedelta(hours=20):
-            L.append(f"## Release {r.release_no}\n\nStored prediction was made after the release; not scored.\n")
+        if e["status"] != "scored":
+            L.append(f"## Release {e['release']}\n\nStored prediction was made after the release; not scored.\n")
             continue
-        pr = dict(zip(p["team"], p["rank"]))
-        d = pd.DataFrame({"team": list(actual), "actual": list(actual.values())})
-        d["predicted"] = d["team"].map(pr).fillna(31).astype(int)
-        d["error"] = d["predicted"] - d["actual"]
-        d = d.sort_values("actual")
-        mae = d["error"].abs().mean()
-        top12 = len(set(p[p["rank"] <= 12]["team"]) & {t for t, k in actual.items() if k <= 12})
-        top4 = len(set(p[p["rank"] <= 4]["team"]) & {t for t, k in actual.items() if k <= 4})
-        rows.append({"release": r.release_no, "date": str(r.cutoff)[:10], "mae": mae, "within1": (d.error.abs() <= 1).mean(),
-                     "within2": (d.error.abs() <= 2).mean(), "top4": top4, "top12": top12})
-        L.append(f"## Release {r.release_no} ({str(r.cutoff)[:10]})\n")
-        L.append(f"Mean absolute error {mae:.2f} places; within one spot {(d.error.abs() <= 1).mean():.0%}; within two "
-                 f"{(d.error.abs() <= 2).mean():.0%}; top 4 {top4}/4; top 12 {top12}/12. Prediction made {p['made_at_utc'].iloc[0]} UTC.\n")
-        L += ["| Team | Actual | Predicted | Error |", "|---|---|---|---|"]
-        L += [f"| {x.team} | {x.actual} | {x.predicted if x.predicted <= 30 else '31+'} | {x.error:+d} |" for x in d.itertuples()]
-        big = d[d.error.abs() >= 3].reindex(d.error.abs().sort_values(ascending=False).index).dropna().head(8)
+        m, a, d = e["model"], e["ap"], e["table"]
+        rows.append({"release": e["release"], "date": e["date"], "mae": m["mae"], "within1": m["within1"], "within2": m["within2"],
+                     "top4": m["top4"], "top12": m["top12"], "ap_mae": a["mae"], "ap_within1": a["within1"], "ap_within2": a["within2"],
+                     "ap_top4": a["top4"], "ap_top12": a["top12"], "prev_mae": e["prev"]["mae"] if e["prev"] else np.nan,
+                     "closer_model": e["closer_model"], "closer_ap": e["closer_ap"], "in_range": e["in_range"]})
+        L.append(f"## Release {e['release']} ({e['date']})\n")
+        L.append(f"Prediction made {e['made']} UTC; AP poll dated {e['ap_date']}.\n")
+        L += ["| | Model | AP poll |", "|---|---|---|",
+              f"| Mean absolute error (places) | {m['mae']:.2f} | {a['mae']:.2f} |",
+              f"| Within one spot | {m['within1']:.0%} | {a['within1']:.0%} |",
+              f"| Within two spots | {m['within2']:.0%} | {a['within2']:.0%} |",
+              f"| Top 4 | {m['top4']}/4 | {a['top4']}/4 |", f"| Top 12 | {m['top12']}/12 | {a['top12']}/12 |",
+              f"| Closer on (teams) | {e['closer_model']} | {e['closer_ap']} |", ""]
+        if e["prev"]:
+            L.append(f"Last week's committee ranking left unchanged: {e['prev']['mae']:.2f}. "
+                     f"The model's stated 80% range held the actual rank for {e['in_range']:.0%} of teams.\n")
+        L += ["| Team | Actual | Model | Error | AP | AP error | That week |", "|---|---|---|---|---|---|---|"]
+        L += [f"| {x.team} | {x.actual} | {show(x.model)} | {x.err_model:+d} | {show(x.ap)} | {x.err_ap:+d} | {x.week} |" for x in d.itertuples()]
+        big = d[d.err_model.abs() >= 3].sort_values("err_model", key=abs, ascending=False).head(8)
         if len(big):
             L.append("\nBiggest misses:\n")
             for x in big.itertuples():
-                row = p[p["team"] == x.team]
-                ctx = "" if row.empty else f" (AP {row['ap'].iloc[0] if pd.notna(row['ap'].iloc[0]) else 'NR'}, previous committee rank {row['prev'].iloc[0] if pd.notna(row['prev'].iloc[0]) else 'NR'}, record {row['record'].iloc[0]})"
-                side = "too low" if x.error > 0 else "too high"
-                L.append(f"- {x.team}: actual {x.actual}, predicted {x.predicted if x.predicted <= 30 else 'outside 30'}, {abs(x.error)} {side}{ctx}.")
+                side = "too low" if x.err_model > 0 else "too high"
+                L.append(f"- {x.team} ({x.record}): actual {x.actual}, predicted {show(x.model)}, {abs(x.err_model)} {side} "
+                         f"(AP {show(x.ap)}, previous committee rank {show(x.prev)}; {x.week}).")
         L.append("")
     if rows:
         s = pd.DataFrame(rows)
-        L.insert(2, f"Season to date: {len(s)} scored release(s), mean absolute error {s.mae.mean():.2f}.\n")
+        L.insert(2, f"Season to date: {len(s)} scored release(s), mean absolute error {s.mae.mean():.2f} (AP poll {s.ap_mae.mean():.2f}).\n")
         s.to_csv(REPORTS / f"{season}_prediction_scores.csv", index=False)
     out = "\n".join(L)
     (REPORTS / f"{season}_prediction_log.md").write_text(out)
