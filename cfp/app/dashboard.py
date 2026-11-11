@@ -492,12 +492,12 @@ with tabs[4]:
 
         # ---- the most likely bracket in this scenario, as a poster
         from scipy.optimize import linear_sum_assignment
-        cand = w.seeds[w.seeds.sum(1) > 0.01]
-        if len(cand) >= 12:
-            ri, ci = linear_sum_assignment(-cand.to_numpy())          # one team per seed, most likely overall
+        cand = w.seeds.loc[w.seeds.sum(1).nlargest(12).index]         # the 12 teams most likely to make the field
+        if len(cand) == 12:
+            ri, ci = linear_sum_assignment(-cand.to_numpy())          # then each team in its most likely seed
             seed_team = {int(cand.columns[j]): cand.index[i] for i, j in zip(ri, ci)}
             st.write("")
-            section("The playoff in this scenario", "Each seed shows the team most likely to hold it once your results are applied.")
+            section("The playoff in this scenario", "The 12 teams most likely to make the field once your results are applied, each in its most likely seed.")
             poster({k: {"name": v, "team_id": int(S.team_ids[IDX[v]])} for k, v in seed_team.items()},
                    bowl_paths([IDX[seed_team[k]] for k in range(1, 13)], S),
                    subtitle="What-if scenario · " + " · ".join(f"{f_.winner} over {f_.loser}" if f_.loser else
