@@ -73,6 +73,8 @@ def fetch_all() -> list[dict]:
         if not is_committee_call(row):
             continue
         text = fetch_transcript(row["id"])
+        if "chair" not in text[:3000].lower():      # format or media-rights announcements, not a ranking call
+            continue
         out.append({**row, "url": f"{ASAP_ROOT}transcripts/{row['id']}.html", "text": text})
     (CACHE / "transcripts").mkdir(parents=True, exist_ok=True)
     Path(CACHE / "transcripts" / "committee_calls.json").write_text(json.dumps(out, indent=1))

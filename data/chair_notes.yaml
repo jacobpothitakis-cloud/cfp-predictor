@@ -1,0 +1,60 @@
+# What the committee chair said about each ranking, set against what the model saw.
+# Hand-written each week from sources that were actually read; every item carries its source.
+# `said` is a paraphrase (short quotes only). `model` states what the model had and why, from its own numbers.
+"2026-11-10":
+  speaker: Hunter Yurachek, committee chair
+  note: >-
+    From press reports of his remarks on ESPN's rankings show and to reporters that night. The full transcript
+    was not yet in the ASAP Sports archive when this was written.
+  items:
+    - team: Alabama
+      actual: 3
+      said: >-
+        First in the committee's own record-strength and schedule-strength figures, with four "quality wins".
+        The win at Mississippi State still counts as one because of how good that team was at the time.
+      model: >-
+        Had them 6th. Our rebuilt versions of those figures put Alabama 4th in schedule strength and 7th in
+        record strength (ESPN's public versions: 1st and 5th). The committee's private record-strength number
+        clearly rates a hard two-loss schedule higher than any public figure does.
+      source: https://www.espn.com/college-football/story/_/id/50448424/georgia-takes-cfp-top-spot-notre-dame-leaps-no-5
+    - team: Indiana
+      actual: 9
+      said: Called them "probably a victim of having a bye week at the wrong time".
+      model: >-
+        Had them 4th, where they were the week before. In 45 earlier cases since 2014 of a top-10 team sitting
+        idle, none dropped more than one place, so nothing in the committee's history pointed to a five-place fall.
+      source: https://www.tsn.ca/ncaa/football/article/georgia-nabs-top-spot-in-cfp-rankings-while-notre-dame-jumps-ahead-of-miami-after-beating-canes/
+    - team: Miami
+      actual: 7
+      said: >-
+        Lost as the No. 1 team while five teams behind them had signature wins. Did not look good early against
+        Notre Dame, though they came back without one of their best players.
+      model: Had them 7th, exactly right.
+      source: https://caneswarning.com/miami-unsurprisingly-drops-to-no-7-in-cfp-rankings-but-a-first-round-bye-remains-in-reach
+    - team: Notre Dame
+      actual: 5
+      said: Looked like a No. 5 team while leading Miami 24-3, and was helped by losses among teams ahead of them.
+      model: Had them 3rd, the same as the AP poll. Too high by two.
+      source: https://www.espn.com/college-football/story/_/id/50448424/georgia-takes-cfp-top-spot-notre-dame-leaps-no-5
+    - team: UCLA
+      actual: 4
+      said: The two-touchdown win at Minnesota, a team that had taken Indiana to overtime, made them look like the fourth-best team.
+      model: Had them 5th. One place off.
+      source: https://www.tsn.ca/ncaa/football/article/georgia-nabs-top-spot-in-cfp-rankings-while-notre-dame-jumps-ahead-of-miami-after-beating-canes/
+    - team: Tennessee
+      actual: 8
+      said: Behind Alabama because Alabama's schedule is stronger, by the committee's judgment and its figures alike. Credited with the win over Kentucky.
+      model: Had them 9th. One place off.
+      source: https://www.yardbarker.com/college_football/articles/cfp_committee_chair_tells_why_alabama_moved_up_remains_ahead_of_tennessee/s1_17086_44545110
+  lessons:
+    - >-
+      The chair's reasons were about who teams have beaten and how hard their schedules are. The model measures
+      both, but this committee is weighting them more heavily than past committees did. It was the same
+      direction of miss as the first ranking: two-loss SEC teams too low, one-loss teams with thin schedules too high.
+    - >-
+      Change made: rankings already released this season now count six times as much as an older ranking when the
+      model is retrained. Tested on 2014-2025, that cut the average miss from 1.11 to 1.06 places and helped in
+      10 of 12 seasons. On this ranking it would have missed by 1.72 instead of 1.88, with all 12 of the top 12.
+    - >-
+      Not fixable from data: the committee's private record-strength figure, how a team looks on film, and
+      injuries. The chair cited all three this month.

@@ -22,6 +22,15 @@ from cfp.committee.dataset import ANCHOR_FEATURES, ERA_FEATURES, LEVEL_FEATURES,
 
 ERA_SCALE = 0.5      # era-deviation columns are shrunk, i.e. penalised harder than the base weights
 RECENCY = 0.90       # per-season sample-weight decay
+SEASON_BOOST = 6.0   # extra sample weight on rankings already released in the season being predicted ("full" model only)
+# Walk-forward test, 2014-2025, predicting each ranking from the second on with the season's earlier rankings in
+# the training set: mean error 1.111 at weight 1, 1.075 at 3, 1.059 at 6, 1.060 at 10, 1.057 at 20; better than
+# weight 1 in 10 of 12 seasons at 6. Each committee has its own leanings and its first rankings reveal them.
+
+
+def _weight(target_season: int, season: int, variant: str = "") -> float:
+    boost = SEASON_BOOST if (season == target_season and variant == "full") else 1.0
+    return RECENCY ** abs(target_season - season) * boost
 
 
 def era_flags(season: int) -> tuple[float, float]:
@@ -91,7 +100,7 @@ class PairwiseCommittee:
             M, self.names_ = design(rel.X, rel.season, self.features, self.use_era)
             ii, jj, y = _pairs(rel)
             d = M[rel.cand[ii]] - M[rel.cand[jj]]
-            w = np.full(len(y), RECENCY ** abs(self.target_season - rel.season))
+            w = np.full(len(y), _weight(self.target_season, rel.season, self.variant))
             D += [d, -d]; Y += [y, 1 - y]; Wt += [w, w]
         D, Y, Wt = np.vstack(D), np.concatenate(Y), np.concatenate(Wt)
         lr = LogisticRegression(C=self.C, fit_intercept=False, max_iter=2000)
@@ -108,7 +117,7 @@ class PairwiseCommittee:
             ii, jj, y = _pairs(rel)
             ds.append(s[ii] - s[jj]); hh.append(rel.pw["h2h"][ii, jj])
             cc.append(rel.pw["common"][ii, jj] * np.minimum(rel.pw["n_common"][ii, jj], 3) / 3)
-            yy.append(y); ww.append(np.full(len(y), RECENCY ** abs(self.target_season - rel.season)))
+            yy.append(y); ww.append(np.full(len(y), _weight(self.target_season, rel.season, self.variant)))
         ds, hh, cc, yy, ww = map(np.concatenate, (ds, hh, cc, yy, ww))
         best = (np.inf, 0.0, 0.0, 2.0)
         for tau in (1.0, 2.0, 4.0):
@@ -187,7 +196,7 @@ class LambdaCommittee:
             M = self._M(rel)[rel.cand]
             r = rel.rank[rel.cand]
             Xs.append(M); ys.append(np.where(np.isnan(r), 0, 26 - r).astype(int)); groups.append(len(r))
-            ws.append(np.full(len(r), RECENCY ** abs(self.target_season - rel.season)))
+            ws.append(np.full(len(r), _weight(self.target_season, rel.season, self.variant)))
         p = {"objective": "lambdarank", "label_gain": [g ** 1.5 for g in range(26)], "lambdarank_truncation_level": 40,
              "learning_rate": 0.04, "num_leaves": 12, "min_data_in_leaf": 25, "feature_fraction": 0.7,
              "lambda_l2": 5.0, "verbose": -1, "seed": 7, "num_threads": 4}

@@ -12,6 +12,8 @@ from scipy.stats import norm
 
 warnings.filterwarnings("ignore")
 from cfp import data  # noqa: E402
+import yaml  # noqa: E402
+from cfp.config import DATA as DATA_DIR  # noqa: E402
 from cfp.config import REPORTS  # noqa: E402
 from cfp.pipeline import OUT, load_outputs  # noqa: E402
 from cfp.predict import QF_DATE, bowl_paths, game_log  # noqa: E402
@@ -589,6 +591,18 @@ with tabs[5]:
         st.dataframe(pd.DataFrame(lean), hide_index=True, use_container_width=True, height=38 * len(lean) + 40,
                      column_config={"Average miss": st.column_config.NumberColumn(format="%.1f places")})
 
+        _cn = DATA_DIR / "chair_notes.yaml"
+        notes_ = (yaml.safe_load(_cn.read_text()) or {}).get(pick["date"]) if _cn.exists() else None
+        if notes_:
+            section("What the chair said, and what the model saw", f"{notes_['speaker']}. {notes_.get('note', '')}")
+            cc = st.columns(2)
+            for i, it in enumerate(notes_["items"]):
+                cc[i % 2].markdown(f'<div class="step"><b>{it["team"]} · committee No. {it["actual"]}</b><br>'
+                                   f'<b>Chair:</b> {it["said"]}<br><b>Model:</b> {it["model"]}<br>'
+                                   f'<a href="{it["source"]}" target="_blank" style="font-size:.8rem">source</a></div>', unsafe_allow_html=True)
+            if notes_.get("lessons"):
+                section("What we took from it")
+                st.markdown("\n".join(f"- {x}" for x in notes_["lessons"]))
         section("What happens with this")
         st.markdown(f"- The committee model is retrained on every committee ranking to date before each new prediction, so this ranking is already part of what it learns from "
                     f"({len(data.releases())} rankings since 2014).\n"
