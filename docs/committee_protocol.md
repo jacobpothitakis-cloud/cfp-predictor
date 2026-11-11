@@ -88,9 +88,9 @@ Recusals (AUG26; full unless marked partial):
 
 A fully recused member cannot vote on the team and leaves the room; a partially recused member may stay but
 does not vote. A recused member cannot list the team in a listing step or rank a pool that contains it.
-(PROTOCOL, SC101) The model stores these in `cfp/committee/roster.py` and exposes a `recused_votes` feature
-(number of members not voting on a team). With 13 voters and a points-sum ballot this is a small effect and
-there is no public ballot data to estimate it from; it is reported, not assumed to matter.
+(PROTOCOL, SC101) **The model does not use the roster or the recusals.** They are recorded here for reference
+only. With 13 voters and a points-sum ballot a recusal is a small effect, and there is no public ballot data to
+estimate it from. An earlier version of this note said a `recused_votes` feature existed; it was never built.
 
 ## 5. Stated criteria
 
