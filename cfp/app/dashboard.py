@@ -1,6 +1,7 @@
 """Local or hosted dashboard:  streamlit run cfp/app/dashboard.py   (or: cfp-dashboard)"""
 from __future__ import annotations
 
+import re
 import warnings
 from types import SimpleNamespace
 
@@ -56,7 +57,9 @@ st.markdown(f"""
   .kpi img {{ height: 28px; }}
   .sec {{ color: {NAVY}; font-size: 1.15rem; font-weight: 700; margin: 18px 0 6px 0; border-left: 4px solid {GOLD}; padding-left: 10px; }}
   .note {{ color: {GREY}; font-size: .85rem; margin-bottom: 8px; }}
-  .chip {{ display: inline-block; border-radius: 8px; padding: 6px 10px; margin: 3px 4px 3px 0; font-size: .86rem; line-height: 1.3; }}
+  .hint {{ background: #fbf6ea; border: 1px solid #ecdcb8; border-left: 4px solid {GOLD}; border-radius: 10px; color: {NAVY};
+           padding: 11px 16px; margin: 6px 0 10px 0; font-size: .92rem; }}
+  .chip {{ display: inline-block; border-radius: 8px; padding: 6px 10px; margin: 3px 4px 3px 0; font-size: .86rem; line-height: 1.3; vertical-align: top; }}
   .up {{ background: #e9f6ee; color: #14613a; border: 1px solid #cfe9d9; }}
   .down {{ background: #fbebe9; color: #8f2a20; border: 1px solid #f3cfca; }}
   .bracket {{ display: flex; gap: 14px; align-items: stretch; overflow-x: auto; padding-bottom: 6px; }}
@@ -159,6 +162,11 @@ def section(title: str, note: str = "") -> None:
     st.markdown(f'<div class="sec">{title}</div>' + (f'<div class="note">{note}</div>' if note else ""), unsafe_allow_html=True)
 
 
+def hint(text: str) -> None:
+    """A neutral note in the site's own colours (st.info is Streamlit's default blue)."""
+    st.markdown(f'<div class="hint">{text}</div>', unsafe_allow_html=True)
+
+
 def kpi(col, label: str, value: str, sub: str = "", team: str | None = None) -> None:
     img = f'<img src="{logo(team)}">' if team else ""
     col.markdown(f'<div class="kpi"><div class="l">{label}</div><div class="v">{img}{value}</div><div class="s">{sub}</div></div>',
@@ -176,6 +184,7 @@ def reasons(e: dict) -> str:
         for g, v, fact in items:
             if g.startswith("recent form") and ((v < 0 and "won this week" in fact) or (v > 0 and "lost this week" in fact)):
                 fact = ""
+            fact = re.sub(r"\bv\b", "vs.", fact.removeprefix("losses: "))
             arrow = "▲" if kind == "up" else "▼"
             html += f'<span class="chip {kind}"><b>{arrow} {FACTOR.get(g, g)}</b> · {strength(v)}{"<br>" + fact if fact else ""}</span>'
     return html or '<span class="note">Nothing stands out either way.</span>'
@@ -206,7 +215,7 @@ k = st.columns(5)
 kpi(k[0], "Projected No. 1", tbl.team.iloc[0], f"{tbl.record.iloc[0]} · {pct(tbl.p_exact.iloc[0])} to be No. 1", tbl.team.iloc[0])
 kpi(k[1], "Last team in", at_large[-1] if at_large else "n/a", "lowest at-large seed today", at_large[-1] if at_large else None)
 kpi(k[2], "First team out", first_out or "n/a", "next in the predicted ranking", first_out or None)
-kpi(k[3], "Title favourite", fav.team, f"{fav.p_champion:.0%} to win it all", fav.team)
+kpi(k[3], "Title favorite", fav.team, f"{fav.p_champion:.0%} to win it all", fav.team)
 kpi(k[4], "Simulated seasons", f"{sim.n_sims:,}", "rest of season played out")
 st.write("")
 
@@ -221,17 +230,17 @@ with tabs[0]:
         t = tbl.head(25)
         show = pd.DataFrame({
             "#": t["rank"], " ": [logo(x) for x in t.team], "Team": t.team, "Record": t.record,
-            "Conf": [CONF.get(c, c) for c in t.conf], "Move": [move(a, b) for a, b in zip(t.team, t["rank"])],
+            "Conf": [CONF.get(c, c) for c in t.conf], "Since last ranking": [move(a, b) for a, b in zip(t.team, t["rank"])],
             "AP": t["ap"].map(lambda x: "NR" if pd.isna(x) else str(int(x))),
-            "This exact spot": t.p_exact * 100, "Range": t.low.astype(str) + "–" + t.high.astype(str),
+            "Chance of this spot": t.p_exact * 100, "Range": t.low.astype(str) + "–" + t.high.astype(str),
             "Top 4": t.p_top4 * 100, "Top 12": t.p_top12 * 100})
         prog = lambda: st.column_config.ProgressColumn(format="%.0f%%", min_value=0, max_value=100)   # noqa: E731
         st.dataframe(show, hide_index=True, use_container_width=True, height=915,
                      column_config={"#": st.column_config.NumberColumn(width=38), " ": st.column_config.ImageColumn(width=44),
                                     "Team": st.column_config.TextColumn(width=150), "Record": st.column_config.TextColumn(width=62),
-                                    "Conf": st.column_config.TextColumn(width=104), "Move": st.column_config.TextColumn(width=58),
+                                    "Conf": st.column_config.TextColumn(width=104), "Since last ranking": st.column_config.TextColumn(width=128),
                                     "AP": st.column_config.TextColumn(width=44), "Range": st.column_config.TextColumn(width=66),
-                                    "This exact spot": prog(), "Top 4": prog(), "Top 12": prog()})
+                                    "Chance of this spot": prog(), "Top 4": prog(), "Top 12": prog()})
         nxt = tbl.iloc[25:30]
         st.markdown('<div class="note">Just outside: ' + ", ".join(f"{r.team} ({pct(r.p_top25)} to be ranked)" for r in nxt.itertuples()) + "</div>",
                     unsafe_allow_html=True)
@@ -284,7 +293,7 @@ with tabs[1]:
             return f'<div class="game"><div class="meta">{meta}</div>{a}{b}</div>'
 
         r1 = "".join(game("Dec 18–19 · on campus", slot(h), slot(v)) for h, v in ((8, 9), (5, 12), (7, 10), (6, 11)))
-        qf = "".join(game(f"{bowls[top]} Bowl · {QF_DATE[bowls[top]]}", slot(top), tbd(f"Winner of {h} v {v}"))
+        qf = "".join(game(f"{bowls[top]} Bowl · {QF_DATE[bowls[top]]}", slot(top), tbd(f"Winner of {h} vs. {v}"))
                      for top, h, v in ((1, 8, 9), (4, 5, 12), (2, 7, 10), (3, 6, 11)))
         sf = game("Semifinal · Jan 14 or 15", tbd("1 / 8 / 9 side"), tbd("4 / 5 / 12 side")) + \
             game("Semifinal · Jan 14 or 15", tbd("2 / 7 / 10 side"), tbd("3 / 6 / 11 side"))
@@ -508,14 +517,14 @@ with tabs[4]:
             st.caption("First-round games are at the higher seed's stadium on Dec 18–19. Which bowl each of the top three seeds picks is our assumption. "
                        "Most likely champion in this scenario: " + ", ".join(f"{t_} {pct(float(v_))}" for t_, v_ in wt.p_champion.nlargest(3).items()) + ".")
     elif not forced:
-        st.info("Choose at least one game or title-game result above to run a scenario.")
+        hint("Choose at least one game or title-game result above to run a scenario.")
 
 
 # ----------------------------------------------------------------------------- report card
 with tabs[5]:
     scored = _scored(S.season, STAMP)
     if not scored:
-        st.info("No prediction has been scored yet. The first one is checked after the committee's next ranking.")
+        hint("No prediction has been scored yet. The first one is checked after the committee's next ranking.")
     else:
         pick = scored[-1]
         if len(scored) > 1:
@@ -676,7 +685,7 @@ with tabs[6]:
                                    "Top 4 right": s.top4.astype(str) + " of 4", "Top 12 right": s.top12.astype(str) + " of 12"}),
                      hide_index=True, use_container_width=True)
     else:
-        st.info("The first live prediction will be scored after the committee's next release.")
+        hint("The first live prediction will be scored after the committee's next release.")
     with st.expander("How it works"):
         st.markdown("""
 - **Team strength.** A rating built from every game's score, adjusted for opponent and venue.
@@ -857,7 +866,7 @@ predicted {"No. " + str(prk) if prk else "unranked"} on {label}</p></div></div>"
         # ---- rooting guide
         def guide(rows: list[dict], what: str) -> None:
             if not rows:
-                st.info("Nothing clears the noise threshold.")
+                hint("Nothing clears the noise threshold.")
                 return
             st.dataframe(pd.DataFrame({"Date": [when(r["date"]) for r in rows], "Game": [r["game"] for r in rows],
                                        "Root for": [r["root_for"] for r in rows], "Chance it happens": [r["p_root"] * 100 for r in rows],
