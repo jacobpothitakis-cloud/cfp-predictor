@@ -119,6 +119,9 @@ stats (about 14 calls a week against a 1,000-a-month allowance; every response i
 
 Without the key everything still runs on ESPN data alone, minus the two uses above.
 
+Each `cfp update` also archives ESPN's FPI / strength-of-record table to `data/snapshots/espn_fpi_weekly.csv`,
+because ESPN serves only current values. Commit that file with the weekly update. It is not a model input yet.
+
 ## Model review, November 2026
 
 After the first live week every idea for improving the model was tested on a production-style walk-forward

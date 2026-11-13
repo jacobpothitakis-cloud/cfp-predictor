@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 from cfp.config import CURRENT_SEASON, DB_PATH, FIRST_SEASON
-from cfp.ingest import cfbd, espn, http
+from cfp.ingest import cfbd, espn, http, snapshots
 
 POWER_BY_ERA = {
     # conference abbreviations (ESPN) treated as "power" by season
@@ -182,6 +182,10 @@ def build(use_cfbd: bool | None = None, seasons: list[int] | None = None) -> dic
     rk = build_rankings(seasons, eg)
     fpi = pd.concat([espn.season_fpi(s) for s in seasons], ignore_index=True)
     tables: dict[str, pd.DataFrame] = {"espn_games": eg, "membership": mem, "espn_rankings": rk, "espn_fpi": fpi}
+    snapshots.append(fpi[fpi["season"] == CURRENT_SEASON])     # ESPN keeps no history of this table
+    weekly = snapshots.load()
+    if len(weekly):
+        tables["espn_fpi_weekly"] = weekly
     cg = lines = None
     if use_cfbd:
         cgs, lns, extra = [], [], {k: [] for k in ("sp", "srs", "elo", "cfbd_fpi", "adv", "ppa", "wp", "cfbd_rank")}
