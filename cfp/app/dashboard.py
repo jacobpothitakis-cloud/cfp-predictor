@@ -191,7 +191,6 @@ def move(team: str, rank: int) -> str:
 # ----------------------------------------------------------------------------- header
 made = pd.Timestamp(out["made"], tz="UTC").tz_convert("America/New_York").strftime("%b %-d, %-I:%M %p ET")
 label = "Selection Day" if pred.is_final else pd.Timestamp(pred.release_date).strftime("%A, %b %-d")
-st.markdown("### Site update test: Nov 13, 2026")   # temporary: confirms a pushed change reaches the hosted site
 st.markdown(f"""<div class="hero"><span class="tag">{S.season} season · ranking #{pred.release_no}</span>
 <h1>College Football Playoff Committee Predictor</h1>
 <p>What the selection committee is expected to do: its next Top 25 ({label}), the 12-team field and every team's playoff odds.
