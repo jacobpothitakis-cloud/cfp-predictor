@@ -21,7 +21,9 @@ def sample_orders(model, rel: Release, sigma: float, n: int = 2000, seed: int = 
     pair = model.pair if hasattr(model, "pair") else model
     draws = s[None, :] + sigma * rng.standard_normal((n, len(s)))
     if hasattr(pair, "borda"):
-        b = pair.borda(draws, rel.pw["h2h"][None], rel.pw["common"][None], rel.pw["n_common"][None])
+        po = rel.pw.get("prev_order")
+        b = pair.borda(draws, rel.pw["h2h"][None], rel.pw["common"][None], rel.pw["n_common"][None],
+                       None if po is None else po[None])
     else:
         b = draws
     return np.argsort(-b, axis=1, kind="stable")

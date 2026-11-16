@@ -2,8 +2,8 @@
 
 Stage A  linear score per team from a regularised pairwise logistic regression on feature differences
          (interpretable; weights are log-odds that team i is ranked ahead of team j).
-Stage B  head-to-head and common-opponent terms that only matter when two teams are close, mirroring
-         the six-team pools the committee votes in.
+Stage B  head-to-head, common-opponent and "last week's order" terms that only matter when two teams are
+         close, mirroring the six-team pools the committee votes in.
 Ranking  Borda count over the pairwise probabilities (expected number of candidates a team beats).
 Alt      LightGBM LambdaRank on the same team features; the two can be averaged.
 """
@@ -89,6 +89,7 @@ class PairwiseCommittee:
     names_: list[str] = field(default_factory=list)
     b_h2h_: float = 0.0
     b_common_: float = 0.0
+    b_prev_: float = 0.0             # bonus for the team that was ahead last week, when neither team has lost since
     tau_: float = 2.0
 
     @property
@@ -114,27 +115,32 @@ class PairwiseCommittee:
         return self
 
     def _fit_pairwise(self, releases: list[Release]) -> None:
-        ds, hh, cc, yy, ww = [], [], [], [], []
+        # The "last week's order" term is fitted only for the weekly model ("full"). Walk-forward 2014-2025:
+        # mean error 1.098 -> 1.051, better in 9 of 12 seasons, worse in 3 (reports/model_review_2026-11.md).
+        # The simulation's carry-over model does not have it: it was not tested there.
+        use_prev = self.variant == "full"
+        ds, hh, cc, pp, yy, ww = [], [], [], [], [], []
         for rel in releases:
             s = self.score(rel)[rel.cand]
             ii, jj, y = _pairs(rel)
             ds.append(s[ii] - s[jj]); hh.append(rel.pw["h2h"][ii, jj])
             cc.append(rel.pw["common"][ii, jj] * np.minimum(rel.pw["n_common"][ii, jj], 3) / 3)
+            pp.append(rel.pw["prev_order"][ii, jj] if use_prev and "prev_order" in rel.pw else np.zeros(len(y)))
             yy.append(y); ww.append(np.full(len(y), _weight(self.target_season, rel.season, self.variant)))
-        ds, hh, cc, yy, ww = map(np.concatenate, (ds, hh, cc, yy, ww))
-        best = (np.inf, 0.0, 0.0, 2.0)
+        ds, hh, cc, pp, yy, ww = map(np.concatenate, (ds, hh, cc, pp, yy, ww))
+        best = (np.inf, 0.0, 0.0, 0.0, 2.0)
         for tau in (1.0, 2.0, 4.0):
             k = np.exp(-(ds / tau) ** 2)
 
             def nll(b: np.ndarray) -> float:
-                z = ds + k * (b[0] * hh + b[1] * cc)
+                z = ds + k * (b[0] * hh + b[1] * cc + b[2] * pp)
                 p = np.clip(expit(z), 1e-9, 1 - 1e-9)
                 return float(-(ww * (yy * np.log(p) + (1 - yy) * np.log(1 - p))).sum() + 0.5 * (b ** 2).sum())
 
-            res = minimize(nll, np.zeros(2), method="L-BFGS-B")
+            res = minimize(nll, np.zeros(3), method="L-BFGS-B")
             if res.fun < best[0]:
-                best = (res.fun, float(res.x[0]), float(res.x[1]), tau)
-        _, self.b_h2h_, self.b_common_, self.tau_ = best
+                best = (res.fun, float(res.x[0]), float(res.x[1]), float(res.x[2]), tau)
+        _, self.b_h2h_, self.b_common_, self.b_prev_, self.tau_ = best
 
     # ------------------------------------------------------------------ predict
     def score(self, rel: Release) -> np.ndarray:
@@ -144,22 +150,28 @@ class PairwiseCommittee:
     def score_tensor(self, T: dict[str, np.ndarray], season: int, idx: np.ndarray | None = None) -> np.ndarray:
         return design_tensor(T, season, self.features, self.use_era, idx) @ self.coef_
 
-    def pair_logit(self, s: np.ndarray, h2h: np.ndarray, common: np.ndarray, n_common: np.ndarray) -> np.ndarray:
-        """Log-odds that row team is ahead of column team. s: (..., m); pairwise arrays (..., m, m)."""
+    def pair_logit(self, s: np.ndarray, h2h: np.ndarray, common: np.ndarray, n_common: np.ndarray,
+                   prev_order: np.ndarray | None = None) -> np.ndarray:
+        """Log-odds that row team is ahead of column team. s: (..., m); pairwise arrays (..., m, m).
+        prev_order: +1 where the row team was ahead last week and neither team has lost since (see dataset)."""
         d = s[..., :, None] - s[..., None, :]
         k = np.exp(-(d / self.tau_) ** 2)
-        return d + k * (self.b_h2h_ * h2h + self.b_common_ * common * np.minimum(n_common, 3) / 3)
+        extra = self.b_h2h_ * h2h + self.b_common_ * common * np.minimum(n_common, 3) / 3
+        if prev_order is not None and self.b_prev_:
+            extra = extra + self.b_prev_ * prev_order
+        return d + k * extra
 
-    def borda(self, s: np.ndarray, h2h: np.ndarray, common: np.ndarray, n_common: np.ndarray) -> np.ndarray:
+    def borda(self, s: np.ndarray, h2h: np.ndarray, common: np.ndarray, n_common: np.ndarray,
+              prev_order: np.ndarray | None = None) -> np.ndarray:
         """Expected number of other candidates each team is ranked ahead of."""
-        p = expit(self.pair_logit(s, h2h, common, n_common))
+        p = expit(self.pair_logit(s, h2h, common, n_common, prev_order))
         m = s.shape[-1]
         return p.sum(-1) - p[..., np.arange(m), np.arange(m)]
 
     def order(self, rel: Release, extra_score: np.ndarray | None = None) -> np.ndarray:
         """Team indices, best first, over all FBS teams (candidates by Borda, the rest by raw score)."""
         s = self.score(rel) if extra_score is None else extra_score
-        b = self.borda(s[rel.cand], rel.pw["h2h"], rel.pw["common"], rel.pw["n_common"])
+        b = self.borda(s[rel.cand], rel.pw["h2h"], rel.pw["common"], rel.pw["n_common"], rel.pw.get("prev_order"))
         top = rel.cand[np.argsort(-b, kind="stable")]
         rest = np.setdiff1d(np.arange(len(s)), rel.cand)
         return np.concatenate([top, rest[np.argsort(-s[rest], kind="stable")]])

@@ -8,8 +8,8 @@ Rank error is measured on the 25 teams the committee actually ranked; a team the
 
 | Model | MAE (all 25) | MAE (top 12) | Spearman | Within 1 | Within 2 | Top-4 exact | Top-12 exact | Top-12 overlap |
 |---|---|---|---|---|---|---|---|---|
-| Ensemble (+polls, last week) | 1.21 | 0.73 | 0.97 | 0.72 | 0.85 | 0.69 | 0.51 | 0.95 |
-| Pairwise logistic (+polls, last week) | 1.26 | 0.79 | 0.97 | 0.70 | 0.85 | 0.71 | 0.54 | 0.95 |
+| Ensemble (+polls, last week) | 1.12 | 0.62 | 0.98 | 0.73 | 0.86 | 0.76 | 0.60 | 0.96 |
+| Pairwise logistic (+polls, last week) | 1.17 | 0.68 | 0.98 | 0.72 | 0.86 | 0.75 | 0.61 | 0.96 |
 | LambdaRank (+polls, last week) | 1.51 | 0.89 | 0.97 | 0.67 | 0.81 | 0.65 | 0.42 | 0.95 |
 | Ensemble (carry-over from last week, no polls) | 1.65 | 1.01 | 0.96 | 0.60 | 0.78 | 0.62 | 0.40 | 0.94 |
 | AP poll | 1.78 | 0.92 | 0.96 | 0.60 | 0.77 | 0.64 | 0.46 | 0.95 |
@@ -27,19 +27,19 @@ Rank error is measured on the 25 teams the committee actually ranked; a team the
 
 | season | Ensemble (+polls, last week) | AP poll | Prev rank + results | Strength of record | Ensemble (résumé only) | Ensemble (carry-over from first ranking) |
 |---|---|---|---|---|---|---|
-| 2014 | 1.35 | 1.66 | 1.95 | 3.49 | 2.33 | 1.88 |
-| 2015 | 1.56 | 1.91 | 2.35 | 3.89 | 2.19 | 1.85 |
-| 2016 | 1.59 | 2.26 | 2.05 | 4.38 | 2.47 | 2.22 |
-| 2017 | 1.08 | 1.73 | 1.89 | 3.65 | 1.77 | 1.77 |
-| 2018 | 1.17 | 1.73 | 1.89 | 4.99 | 2.25 | 1.40 |
-| 2019 | 0.95 | 1.53 | 1.71 | 4.51 | 1.76 | 1.65 |
-| 2020 | 1.37 | 2.74 | 2.06 | 9.92 | 2.91 | 2.27 |
-| 2021 | 1.38 | 2.42 | 1.83 | 4.41 | 2.33 | 1.73 |
-| 2022 | 0.83 | 1.28 | 1.71 | 3.29 | 1.59 | 1.55 |
-| 2023 | 1.01 | 1.69 | 1.53 | 4.94 | 2.30 | 2.11 |
-| 2024 | 1.24 | 1.03 | 1.53 | 3.12 | 2.60 | 2.25 |
-| 2025 | 0.95 | 1.58 | 1.67 | 3.16 | 1.84 | 1.53 |
-| All | 1.21 | 1.78 | 1.85 | 4.39 | 2.19 | 1.84 |
+| 2014 | 1.37 | 1.66 | 1.95 | 3.49 | 2.33 | 1.88 |
+| 2015 | 1.47 | 1.91 | 2.35 | 3.89 | 2.19 | 1.85 |
+| 2016 | 1.44 | 2.26 | 2.05 | 4.38 | 2.47 | 2.22 |
+| 2017 | 1.02 | 1.73 | 1.89 | 3.65 | 1.77 | 1.77 |
+| 2018 | 1.05 | 1.73 | 1.89 | 4.99 | 2.25 | 1.40 |
+| 2019 | 0.91 | 1.53 | 1.71 | 4.51 | 1.76 | 1.65 |
+| 2020 | 1.32 | 2.74 | 2.06 | 9.92 | 2.91 | 2.27 |
+| 2021 | 1.18 | 2.42 | 1.83 | 4.41 | 2.33 | 1.73 |
+| 2022 | 0.82 | 1.28 | 1.71 | 3.29 | 1.59 | 1.55 |
+| 2023 | 0.91 | 1.69 | 1.53 | 4.94 | 2.30 | 2.11 |
+| 2024 | 1.07 | 1.03 | 1.53 | 3.12 | 2.60 | 2.25 |
+| 2025 | 0.89 | 1.58 | 1.67 | 3.16 | 1.84 | 1.53 |
+| All | 1.12 | 1.78 | 1.85 | 4.39 | 2.19 | 1.84 |
 
 **The model loses to the AP poll in 2024.** See section 9.
 
@@ -49,19 +49,19 @@ By release number within the season (1 = first ranking, when there is no previou
 | release | AP poll | Ensemble (+polls, last week) | Prev rank + results |
 |---|---|---|---|
 | 1 | 2.01 | 1.62 | 2.41 |
-| 2 | 1.84 | 1.36 | 1.89 |
-| 3 | 1.89 | 1.16 | 2.02 |
-| 4 | 1.53 | 0.95 | 1.52 |
-| 5 | 1.45 | 1.01 | 1.58 |
-| 6 | 1.96 | 1.11 | 1.62 |
-| 7 | 2.12 | 1.40 | 2.08 |
+| 2 | 1.84 | 1.21 | 1.89 |
+| 3 | 1.89 | 1.07 | 2.02 |
+| 4 | 1.53 | 0.83 | 1.52 |
+| 5 | 1.45 | 0.94 | 1.58 |
+| 6 | 1.96 | 1.02 | 1.62 |
+| 7 | 2.12 | 1.44 | 2.08 |
 
 ## 3. Selection Day rankings only (12 seasons)
 
 | Model | MAE (all 25) | Within 1 | Top-4 exact | Top-12 exact | Field correct | Field overlap | Seeds correct |
 |---|---|---|---|---|---|---|---|
-| Ensemble (+polls, last week) | 1.16 | 0.70 | 0.58 | 0.75 | 0.58 | 0.89 | 0.67 |
-| Pairwise logistic (+polls, last week) | 1.19 | 0.73 | 0.58 | 0.75 | 0.58 | 0.91 | 0.72 |
+| Ensemble (+polls, last week) | 1.07 | 0.74 | 0.67 | 0.83 | 0.67 | 0.91 | 0.69 |
+| Pairwise logistic (+polls, last week) | 1.14 | 0.75 | 0.58 | 1.00 | 0.58 | 0.91 | 0.65 |
 | Ensemble (carry-over from last week, no polls) | 1.46 | 0.67 | 0.67 | 0.42 | 0.75 | 0.95 | 0.51 |
 | LambdaRank (+polls, last week) | 1.47 | 0.67 | 0.50 | 0.58 | 0.58 | 0.89 | 0.56 |
 | Prev rank + results | 1.68 | 0.58 | 0.33 | 0.33 | 0.33 | 0.84 | 0.53 |
@@ -81,18 +81,18 @@ By release number within the season (1 = first ranking, when there is no previou
 | 2015 | 0.00 | 1.00 | 1.00 | 0.50 | 0.50 | 0.50 |
 | 2016 | 1.00 | 1.00 | 1.00 | 0.50 | 0.50 | 0.50 |
 | 2017 | 0.00 | 0.00 | 0.00 | 0.50 | 0.75 | 0.00 |
-| 2018 | 0.00 | 0.00 | 1.00 | 0.75 | 0.75 | 1.00 |
-| 2019 | 0.00 | 1.00 | 1.00 | 0.75 | 1.00 | 0.00 |
+| 2018 | 0.00 | 1.00 | 1.00 | 0.75 | 1.00 | 1.00 |
+| 2019 | 0.00 | 1.00 | 1.00 | 0.75 | 0.50 | 0.00 |
 | 2020 | 1.00 | 1.00 | 1.00 | 0.50 | 1.00 | 0.50 |
 | 2021 | 1.00 | 1.00 | 1.00 | 0.25 | 0.50 | 1.00 |
 | 2022 | 0.00 | 1.00 | 1.00 | 0.75 | 1.00 | 1.00 |
 | 2023 | 0.00 | 0.00 | 0.00 | 0.00 | 0.50 | 0.50 |
-| 2024 | 1.00 | 1.00 | 1.00 | 0.67 | 0.25 | 0.17 |
-| 2025 | 0.00 | 0.00 | 0.00 | 0.33 | 0.50 | 0.42 |
+| 2024 | 1.00 | 1.00 | 1.00 | 0.67 | 0.67 | 0.17 |
+| 2025 | 0.00 | 0.00 | 0.00 | 0.33 | 0.67 | 0.42 |
 
 ## 4. Is the ranking a clean sheet each week? No.
 
-Adding last week's rank and the current polls cuts the error from 2.19 to 1.21 places. In the pairwise model the weight on last week's committee position is 7.83 log-odds per 25 places (i.e. per full length of the ranking), on the AP poll 6.77 and on the Coaches poll 3.38; a loss this week by a previously ranked team is worth -2.31 on top of what the loss does to the résumé features. At a season's first release, with no previous committee ranking, the AP poll's weight rises by 1.63 and the Coaches poll's by 1.30. The committee says each ranking starts from scratch; the data say a team's previous position carries real weight after controlling for the résumé.
+Adding last week's rank and the current polls cuts the error from 2.19 to 1.12 places. In the pairwise model the weight on last week's committee position is 7.83 log-odds per 25 places (i.e. per full length of the ranking), on the AP poll 6.77 and on the Coaches poll 3.38; a loss this week by a previously ranked team is worth -2.31 on top of what the loss does to the résumé features. At a season's first release, with no previous committee ranking, the AP poll's weight rises by 1.63 and the Coaches poll's by 1.30. The committee says each ranking starts from scratch; the data say a team's previous position carries real weight after controlling for the résumé.
 
 Carry-over decays with time. Weight on an earlier committee ranking, by how many releases ago it was: 1 release 8.87, 2 releases 8.09, 3+ releases 8.02; each loss since then -0.92 (plus -2.06 × earlier position).
 
@@ -176,7 +176,7 @@ A group whose removal costs nothing is either unused by the committee or already
 
 ### Head-to-head and common opponents (pod effect)
 
-Head-to-head winner bonus: 1.81 log-odds (résumé-only model), 2.32 (model with polls), applied with a closeness kernel of width 4 / 4 log-odds, so it fades once two teams are far apart. Common-opponent edge: 0.27 / 0.41 per net game.
+Head-to-head winner bonus: 1.81 log-odds (résumé-only model), 2.31 (model with polls), applied with a closeness kernel of width 4 / 4 log-odds, so it fades once two teams are far apart. Common-opponent edge: 0.27 / 0.44 per net game.
 
 ## 6. Selection Day behaviour, 2014–2025
 
@@ -210,7 +210,7 @@ Each prediction ships with a rank distribution: Gaussian noise on team scores, r
 
 | Model | Noise σ (log-odds) | Observed MAE | 50% interval covers | 80% interval covers | 95% interval covers |
 |---|---|---|---|---|---|
-| Ensemble (+polls, last week) | 1.32 | 1.21 | 0.71 | 0.88 | 0.96 |
+| Ensemble (+polls, last week) | 1.38 | 1.12 | 0.72 | 0.88 | 0.95 |
 | Ensemble (carry-over from first ranking) | 1.73 | 1.84 | 0.64 | 0.86 | 0.96 |
 
 Intervals are on integer ranks, so coverage above the nominal level is expected for teams whose rank is nearly certain. Calibration of simulated *playoff odds* is reported with the simulation.
@@ -246,30 +246,30 @@ Intervals are on integer ranks, so coverage above the nominal level is expected 
 | Oregon | 23 | 24 | NR | 5-3 | +1 |
 | Florida | 24 | 23 | 25 | 5-3 | -1 |
 | Boise State | 25 | 22 | 20 | 7-1 | -3 |
-**Release 2 (2026-11-10),** predicted with a model trained only on 2014–2025: MAE 1.84 (AP poll 2.76), within one spot 40%, within two 76%, top-4 overlap 2/4, top-12 overlap 11/12, top-25 overlap 24/25.
+**Release 2 (2026-11-10),** predicted with a model trained only on 2014–2025: MAE 1.76 (AP poll 2.76), within one spot 48%, within two 80%, top-4 overlap 2/4, top-12 overlap 11/12, top-25 overlap 24/25.
 
 | Team | Actual | Predicted | AP | Record | Error |
 |---|---|---|---|---|---|
 | Georgia | 1 | 1 | 1 | 8-1 | +0 |
 | Utah | 2 | 2 | 2 | 9-0 | +0 |
-| Alabama | 3 | 6 | 7 | 7-2 | +3 |
-| UCLA | 4 | 5 | 4 | 9-0 | +1 |
-| Notre Dame | 5 | 3 | 3 | 8-1 | -2 |
+| Alabama | 3 | 5 | 7 | 7-2 | +2 |
+| UCLA | 4 | 6 | 4 | 9-0 | +2 |
+| Notre Dame | 5 | 4 | 3 | 8-1 | -1 |
 | Texas | 6 | 8 | 8 | 7-2 | +2 |
 | Miami | 7 | 7 | 5 | 8-1 | +0 |
 | Tennessee | 8 | 9 | 9 | 7-2 | +1 |
-| Indiana | 9 | 4 | 6 | 8-1 | -5 |
-| BYU | 10 | 12 | 12 | 7-2 | +2 |
+| Indiana | 9 | 3 | 6 | 8-1 | -6 |
+| BYU | 10 | 11 | 12 | 7-2 | +1 |
 | Kentucky | 11 | 13 | 13 | 7-2 | +2 |
 | Texas Tech | 12 | 10 | 10 | 8-1 | -2 |
-| Wake Forest | 13 | 11 | 11 | 8-1 | -2 |
-| Houston | 14 | 17 | 14 | 7-2 | +3 |
+| Wake Forest | 13 | 12 | 11 | 8-1 | -1 |
+| Houston | 14 | 16 | 14 | 7-2 | +2 |
 | Iowa | 15 | 14 | 16 | 7-2 | -1 |
-| Oregon | 16 | 18 | 18 | 6-3 | +2 |
+| Oregon | 16 | 19 | 18 | 6-3 | +3 |
 | South Carolina | 17 | 20 | 20 | 6-3 | +3 |
-| USC | 18 | 16 | 15 | 7-2 | -2 |
+| USC | 18 | 17 | 15 | 7-2 | -1 |
 | Ole Miss | 19 | 15 | 19 | 6-3 | -4 |
-| Ohio State | 20 | 19 | 21 | 6-3 | -1 |
+| Ohio State | 20 | 18 | 21 | 6-3 | -2 |
 | LSU | 21 | 21 | 24 | 6-3 | +0 |
 | Missouri | 22 | 24 | NR | 6-3 | +2 |
 | Arizona | 23 | 22 | 22 | 7-2 | -1 |
@@ -285,29 +285,29 @@ Intervals are on integer ranks, so coverage above the nominal level is expected 
 | 2021 | 1 | San Diego State | 24 | 36 | 12 |
 | 2025 | 3 | Tulane | 24 | 34 | 10 |
 | 2014 | 4 | Minnesota | 25 | 35 | 10 |
-| 2016 | 5 | Utah | 20 | 29 | 9 |
-| 2021 | 1 | Mississippi State | 17 | 26 | 9 |
 | 2016 | 6 | Tennessee | 21 | 30 | 9 |
+| 2016 | 5 | Utah | 20 | 29 | 9 |
 | 2018 | 1 | Texas A&M | 20 | 29 | 9 |
 | 2019 | 3 | Iowa State | 22 | 31 | 9 |
+| 2021 | 1 | Mississippi State | 17 | 26 | 9 |
 | 2025 | 5 | Houston | 21 | 29 | 8 |
-| 2021 | 2 | Utah | 24 | 32 | 8 |
 | 2016 | 3 | Tennessee | 19 | 27 | 8 |
-| 2016 | 1 | Penn State | 12 | 19 | 7 |
-| 2016 | 1 | West Virginia | 20 | 13 | -7 |
-| 2024 | 1 | Colorado | 20 | 27 | 7 |
+| 2021 | 2 | Utah | 24 | 32 | 8 |
+| 2017 | 3 | Boise State | 25 | 32 | 7 |
+| 2016 | 3 | Texas A&M | 25 | 18 | -7 |
+| 2014 | 1 | LSU | 19 | 12 | -7 |
 
 Error by position (the voting pools):
 
 | Actual rank band | MAE |
 |---|---|
-| 1–4 | 0.35 |
-| 5–8 | 0.82 |
-| 9–12 | 1.02 |
-| 13–16 | 1.25 |
-| 17–25 | 1.82 |
+| 1–4 | 0.32 |
+| 5–8 | 0.66 |
+| 9–12 | 0.89 |
+| 13–16 | 1.16 |
+| 17–25 | 1.77 |
 
-Group of Five/Six teams: mean signed error +0.44 places, MAE 1.81 (202 team-weeks). Power-conference teams: MAE 1.13.
+Group of Five/Six teams: mean signed error +0.44 places, MAE 1.74 (202 team-weeks). Power-conference teams: MAE 1.04.
 
 ## 10. What the chair says versus what the data support
 

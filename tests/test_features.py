@@ -148,3 +148,16 @@ def test_same_season_rankings_are_weighted_up():
     assert model._weight(2026, 2026, "anchor") == model.SEASON_BOOST
     assert model._weight(2026, 2026, "level") == 1.0
     assert model._weight(2026, 2025, "full") == model.RECENCY
+
+
+def test_prev_order_only_between_ranked_teams_that_did_not_lose():
+    from cfp.committee.dataset import prev_order
+    prev = np.array([3.0, 5.0, np.nan, 4.0, 9.0])      # last week's committee ranks; team 2 was unranked
+    lost = np.array([0.0, 0.0, 0.0, 1.0, 0.0])         # team 3 lost this week
+    m = prev_order(prev, lost, np.array([0, 1, 2, 3, 4]))
+    assert m[0, 1] == 1 and m[1, 0] == -1              # team 0 was ahead of team 1
+    assert m[1, 4] == 1 and m[4, 0] == -1
+    assert not m[2].any() and not m[:, 2].any()        # unranked last week: no term
+    assert not m[3].any() and not m[:, 3].any()        # lost this week: no term
+    assert not np.diag(m).any()
+    assert not prev_order(None, lost, np.array([0, 1])).any()   # first ranking of a season

@@ -130,6 +130,9 @@ After the first live week every idea for improving the model was tested on a pro
 on the current season's earlier rankings, a 70/30 ensemble mix, the polls' "others receiving votes", and betting
 lines in the simulation. Rejected, with numbers: committee-membership effects (chair's conference, members'
 conferences, a team's own AD), all the CFBD strength and efficiency inputs, and several tuning changes.
+Added Nov 16: when two ranked teams have not lost since the last ranking, the close-call step now favours the one
+the committee had ahead (walk-forward 1.10 to 1.05 places, better in 9 of 12 seasons; leave-one-season-out 1.21 to
+1.12, so the first row of the table above now reads 1.12, 73%, 96%).
 Full write-up: `reports/model_review_2026-11.md`. The committee roster by season is `data/committee_roster.csv`.
 
 ## Every assumption and proxy
