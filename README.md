@@ -88,7 +88,12 @@ one spot, top four 2 of 4, top twelve 11 of 12; the stated 80% range held the ac
 That is weaker than the backtest average. Biggest misses: Indiana (predicted 4, actual 9 after an idle week),
 Oklahoma State (outside the model's top 30, actual 25), Ole Miss (15 v 19), Alabama (6 v 3).
 
-After that ranking the weekly model was changed to weight the current season's earlier rankings six times as
+Second scored ranking, Nov 17, 2026: mean miss 1.32 places (AP poll 1.92), 72% within one spot, top four 4 of 4,
+top twelve 12 of 12 with 8 exact; the 80% range held for 84% of teams. Every miss of three or more was in ranks
+17–25 (Ole Miss 19 v 25, South Carolina 25 v 21, Oklahoma 26 v 22, Arizona 22 v 19). No model change followed;
+write-up in `reports/diagnosis_2026-11-17.md`.
+
+After the Nov 10 ranking the weekly model was changed to weight the current season's earlier rankings six times as
 heavily when retraining (walk-forward 2014–2025: 1.11 to 1.06 places, better in 10 of 12 seasons). The full
 write-up, with the chair's stated reasons and what was tried and rejected, is `reports/diagnosis_2026-11-10.md`.
 

@@ -632,7 +632,7 @@ with tabs[5]:
         if notes_:
             section("What the chair said, and what the model saw", f"{notes_['speaker']}. {notes_.get('note', '')}")
             cc = st.columns(2)
-            for i, it in enumerate(notes_["items"]):
+            for i, it in enumerate(notes_.get("items") or []):
                 cc[i % 2].markdown(f'<div class="step"><b>{it["team"]} · committee No. {it["actual"]}</b><br>'
                                    f'<b>Chair:</b> {it["said"]}<br><b>Model:</b> {it["model"]}<br>'
                                    f'<a href="{it["source"]}" target="_blank" style="font-size:.8rem">source</a></div>', unsafe_allow_html=True)

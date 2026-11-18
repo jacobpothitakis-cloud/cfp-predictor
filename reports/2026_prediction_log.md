@@ -2,7 +2,7 @@
 
 Each prediction below was stored before the committee released that ranking, then scored against it. The AP poll is the one that was current when the prediction was made. A team a source did not list counts as rank 31.
 
-Season to date: 1 scored release(s), mean absolute error 1.84 (AP poll 2.32).
+Season to date: 2 scored release(s), mean absolute error 1.58 (AP poll 2.12).
 
 ## Release 1 (2026-11-03)
 
@@ -59,3 +59,53 @@ Biggest misses:
 - Alabama (7-2): actual 3, predicted 6, 3 too low (AP 7, previous committee rank 5; beat LSU 31-13 (away)).
 - Houston (7-2): actual 14, predicted 17, 3 too low (AP 14, previous committee rank 17; beat Cincinnati 31-24).
 - South Carolina (6-3): actual 17, predicted 20, 3 too low (AP 20, previous committee rank 21; beat Texas A&M 17-9).
+
+## Release 3 (2026-11-17)
+
+Prediction made 2026-11-16 23:16 UTC; AP poll dated 2026-11-16.
+
+| | Model | AP poll |
+|---|---|---|
+| Mean absolute error (places) | 1.32 | 1.92 |
+| Within one spot | 72% | 52% |
+| Within two spots | 84% | 80% |
+| Top 4 | 4/4 | 3/4 |
+| Top 12 | 12/12 | 12/12 |
+| Closer on (teams) | 12 | 4 |
+
+Last week's committee ranking left unchanged: 2.84. The model's stated 80% range held the actual rank for 84% of teams.
+
+| Team | Actual | Model | Error | AP | AP error | That week |
+|---|---|---|---|---|---|---|
+| Georgia | 1 | 1 | +0 | 1 | +0 | beat Missouri 48-21 |
+| Utah | 2 | 2 | +0 | 2 | +0 | beat Arizona 40-39 (away) |
+| Alabama | 3 | 4 | +1 | 7 | +4 | beat Vanderbilt 21-6 (away) |
+| UCLA | 4 | 3 | -1 | 4 | +0 | beat Illinois 22-14 |
+| Texas | 5 | 7 | +2 | 8 | +3 | beat LSU 22-21 (away) |
+| Notre Dame | 6 | 5 | -1 | 3 | -3 | beat Boston College 41-7 |
+| Miami | 7 | 6 | -1 | 5 | -2 | beat Duke 36-25 |
+| Indiana | 8 | 8 | +0 | 6 | -2 | beat USC 27-13 |
+| Tennessee | 9 | 9 | +0 | 9 | +0 | beat Texas A&M 22-7 (away) |
+| BYU | 10 | 10 | +0 | 12 | +2 | beat Baylor 28-7 |
+| Wake Forest | 11 | 12 | +1 | 10 | -1 | beat SMU 49-7 (away) |
+| Texas Tech | 12 | 11 | -1 | 11 | -1 | beat Oklahoma State 52-27 (away) |
+| Oregon | 13 | 14 | +1 | 14 | +1 | beat Michigan 31-7 |
+| Ohio State | 14 | 15 | +1 | 16 | +2 | beat Northwestern 28-19 |
+| Iowa | 15 | 13 | -2 | 13 | -2 | beat Purdue 28-7 |
+| Kentucky | 16 | 16 | +0 | 17 | +1 | lost to Florida 14-21 |
+| Boise State | 17 | 18 | +1 | 15 | -2 | beat Oregon State 46-41 |
+| USC | 18 | 17 | -1 | 18 | +0 | lost to Indiana 13-27 (away) |
+| Arizona | 19 | 22 | +3 | 19 | +0 | lost to Utah 39-40 |
+| Houston | 20 | 20 | +0 | 20 | +0 | lost to Colorado 32-42 (away) |
+| South Carolina | 21 | 25 | +4 | NR | +10 | lost to Arkansas 6-34 (away) |
+| Oklahoma | 22 | 26 | +4 | NR | +9 | beat Ole Miss 24-17 |
+| Louisville | 23 | 21 | -2 | 21 | -2 | beat North Carolina 16-14 (away) |
+| Florida | 24 | 24 | +0 | 23 | -1 | beat Kentucky 21-14 (away) |
+| Ole Miss | 25 | 19 | -6 | 25 | +0 | lost to Oklahoma 17-24 (away) |
+
+Biggest misses:
+
+- Ole Miss (6-4): actual 25, predicted 19, 6 too high (AP 25, previous committee rank 19; lost to Oklahoma 17-24 (away)).
+- South Carolina (6-4): actual 21, predicted 25, 4 too low (AP NR, previous committee rank 17; lost to Arkansas 6-34 (away)).
+- Oklahoma (6-4): actual 22, predicted 26, 4 too low (AP NR, previous committee rank NR; beat Ole Miss 24-17).
+- Arizona (7-3): actual 19, predicted 22, 3 too low (AP 19, previous committee rank 23; lost to Utah 39-40).
