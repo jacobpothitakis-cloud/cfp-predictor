@@ -57,8 +57,8 @@ Biggest misses:
 - Indiana (8-1): actual 9, predicted 4, 5 too high (AP 6, previous committee rank 4; did not play).
 - Ole Miss (6-3): actual 19, predicted 15, 4 too high (AP 19, previous committee rank 10; lost to Georgia 7-42).
 - Alabama (7-2): actual 3, predicted 6, 3 too low (AP 7, previous committee rank 5; beat LSU 31-13 (away)).
-- Houston (7-2): actual 14, predicted 17, 3 too low (AP 14, previous committee rank 17; beat Cincinnati 31-24).
 - South Carolina (6-3): actual 17, predicted 20, 3 too low (AP 20, previous committee rank 21; beat Texas A&M 17-9).
+- Houston (7-2): actual 14, predicted 17, 3 too low (AP 14, previous committee rank 17; beat Cincinnati 31-24).
 
 ## Release 3 (2026-11-17)
 
