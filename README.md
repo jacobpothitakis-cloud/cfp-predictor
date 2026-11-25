@@ -93,6 +93,11 @@ top twelve 12 of 12 with 8 exact; the 80% range held for 84% of teams. Every mis
 17–25 (Ole Miss 19 v 25, South Carolina 25 v 21, Oklahoma 26 v 22, Arizona 22 v 19). No model change followed;
 write-up in `reports/diagnosis_2026-11-17.md`.
 
+Third scored ranking, Nov 24, 2026: mean miss 0.92 places (AP poll 1.56), 80% within one spot, top four 4 of 4,
+top twelve 12 of 12 with 6 exact; the 80% range held for 92% of teams. The two misses of three or more were
+unranked 7-4 teams the committee brought in after upsets of ranked teams: Nebraska (30 v 25, beat Ohio State) and
+Washington (28 v 24, beat Indiana). Boise State (predicted 23) and Kentucky (24) dropped out.
+
 After the Nov 10 ranking the weekly model was changed to weight the current season's earlier rankings six times as
 heavily when retraining (walk-forward 2014–2025: 1.11 to 1.06 places, better in 10 of 12 seasons). The full
 write-up, with the chair's stated reasons and what was tried and rejected, is `reports/diagnosis_2026-11-10.md`.
